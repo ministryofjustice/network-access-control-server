@@ -1,0 +1,51 @@
+
+server radsec {
+  listen {
+    type = auth+acct
+    ipaddr = *
+    port = 2083
+    proto = tcp
+
+  tls {
+    private_key_password = whatever
+    private_key_file = ${certdir}/server.pem
+    certificate_file = ${certdir}/server.pem
+    fragment_size = 8192
+    ca_path = ${radsec_certdir}
+    dh_file = ${raddbdir}/dh
+    random_file = /dev/random
+    check_crl = no
+    cipher_list = "DEFAULT"
+    include_length = yes
+    require_client_cert = yes
+    tls_min_version = "1.0"
+    auto_chain = yes
+
+    cache {
+          enable = no
+          lifetime = 24
+          max_entries = 255
+    }
+  }
+  }
+  authorize {
+    rewrite_calling_station_id
+    eap
+  }
+  authenticate {
+    eap
+  }
+  
+post-auth {
+  update control {
+    Tmp-String-0 := "%{sql:SELECT vlan from lookup where (common_name = '%{request:TLS-Client-Cert-Common-Name}' AND mac = '%{request:Calling-Station-Id}' AND remote_ip = '%{request:Packet-Src-IP-Address}')}"
+  }
+
+  update reply {
+    &Tunnel-Type := VLAN
+    &Tunnel-Medium-Type := IEEE-802
+    &Tunnel-Private-Group-Id := &control:Tmp-String-0
+  }
+}
+
+}

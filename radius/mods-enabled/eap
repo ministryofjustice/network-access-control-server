@@ -1,0 +1,56 @@
+	eap eap {
+		default_eap_type = tls
+		timer_expire     = 60
+		ignore_unknown_eap_types = no
+		cisco_accounting_username_bug = no
+		max_sessions = 4096
+		tls {
+			certificate_file = ${certdir}/letsencrypt.pem
+			private_key_password = whatever
+			private_key_file = ${certdir}/letsencrypt.key
+			dh_file = ${raddbdir}/dh
+			random_file = /dev/random
+			check_crl = no
+			ca_path = ${certdir}
+			cipher_list = "HIGH"
+			ecdh_curve = "secp384r1"
+			tls_min_version = "1.0"
+			require_client_cert = yes
+			auto_chain = no
+
+			cache {
+			      enable = no
+			      lifetime = 24
+			      max_entries = 255
+			}
+
+			verify {
+				tmpdir = /tmp/radiusd
+				client = "/usr/bin/openssl verify -verbose -CAfile ${certdir}/ca.pem %{TLS-Client-Cert-Filename}"
+			}
+
+			ocsp {
+				enable = no
+				override_cert_url = yes
+				url = "http://127.0.0.1:9999"
+			}
+
+			staple {
+			}
+		}
+
+
+		ttls {
+			default_eap_type = tls
+			copy_request_to_tunnel = yes
+			use_tunneled_reply = yes
+			virtual_server = "inner-tunnel"
+		}
+
+		peap {
+			default_eap_type = tls
+			copy_request_to_tunnel = yes
+			use_tunneled_reply = yes
+			virtual_server = "inner-tunnel"
+		}
+	}
