@@ -27,6 +27,7 @@ shell-client:
 start-db: 
 	$(DOCKER_COMPOSE) up -d db
 	./scripts/wait_for_db.sh
+	$(DOCKER_COMPOSE) exec -T db sh -c 'exec mysql -uradius -pradius' < test/whitelist_test_client.sql
 
 serve: stop build-dev start-db run
 
