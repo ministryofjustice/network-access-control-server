@@ -45,6 +45,9 @@ push:
 	docker tag radius:latest ${REGISTRY_URL}/mojo-${ENV}-nac:latest
 	docker push ${REGISTRY_URL}/mojo-${ENV}-nac:latest
 
+deploy: 
+	./scripts/deploy.sh
+
 publish: build push build-nginx push-nginx
 
-.PHONY: build run build-dev push-nginx -push serve
+.PHONY: build run build-dev push-nginx -push serve deploy
