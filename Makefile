@@ -38,12 +38,12 @@ authenticate-docker:
 	./scripts/authenticate_docker.sh
 
 push-nginx:
-	docker tag nginx:latest ${REGISTRY_URL}/moj-auth-nginx:latest
-	docker push ${REGISTRY_URL}/moj-auth-nginx:latest
+	docker tag nginx:latest ${REGISTRY_URL}/mojo-${ENV}-nac-nginx:latest
+	docker push ${REGISTRY_URL}/mojo-${ENV}-nac-nginx:latest
 
 push:
-	docker tag radius:latest ${REGISTRY_URL}/moj-auth:latest
-	docker push ${REGISTRY_URL}/moj-auth:latest
+	docker tag radius:latest ${REGISTRY_URL}/mojo-${ENV}-nac:latest
+	docker push ${REGISTRY_URL}/mojo-${ENV}-nac:latest
 
 publish: build push build-nginx push-nginx
 
