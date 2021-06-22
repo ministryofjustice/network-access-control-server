@@ -10,4 +10,4 @@ env:
 phases:
   install:
     commands:
-      - echo nope
+      - make test
