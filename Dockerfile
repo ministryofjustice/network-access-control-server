@@ -25,12 +25,14 @@ RUN chown root /usr/bin/dumpcap
 COPY ./radius/clients.conf /etc/raddb/clients.conf
 
 RUN mkdir -p /etc/raddb/certs
-COPY ./certs/ ./certs
+COPY ./test_certs/ ./certs
 
 RUN rm -fr /etc/raddb/sites-enabled/*
 COPY ./radius/sites-enabled/ /etc/raddb/sites-enabled
 COPY ./scripts /scripts
 
-EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp 1814/udp
+COPY ./test /test
+
+EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
 CMD /scripts/bootstrap.sh 

@@ -11,11 +11,11 @@ build-nginx:
 
 run:
 	${DOCKER_COMPOSE} up -d server
-	# ${DOCKER_COMPOSE} up -d client
+	${DOCKER_COMPOSE} up -d client
 
 stop: 
 	${DOCKER_COMPOSE} stop server
-	# ${DOCKER_COMPOSE} stop client
+	${DOCKER_COMPOSE} stop client
 	# ${DOCKER_COMPOSE} stop db
 
 shell-server: 
@@ -28,11 +28,7 @@ start-db:
 	$(DOCKER_COMPOSE) up -d db
 	./scripts/wait_for_db.sh
 
-serve: stop fetch-certificates build-dev start-db run
-
-fetch-certificates: 
-	mkdir -p ./certs
-	aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} ./certs/
+serve: stop build-dev start-db run
 
 authenticate-docker:
 	./scripts/authenticate_docker.sh

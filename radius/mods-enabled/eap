@@ -39,18 +39,18 @@
 			}
 		}
 
-
 		ttls {
 			default_eap_type = tls
 			copy_request_to_tunnel = yes
 			use_tunneled_reply = yes
-			virtual_server = "inner-tunnel"
+			virtual_server = "default"
 		}
 
 		peap {
 			default_eap_type = tls
 			copy_request_to_tunnel = yes
 			use_tunneled_reply = yes
-			virtual_server = "inner-tunnel"
+			virtual_server = "default"
 		}
 	}
+	
