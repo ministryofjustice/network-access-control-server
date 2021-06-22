@@ -6,7 +6,7 @@ env:
   parameter-store:
     REGISTRY_URL: "/moj-network-access-control/$ENV/ecr/endpoint"
     TARGET_AWS_ACCOUNT_ID: "/codebuild/$ENV/account_id"
-    DHCP_DNS_TERRAFORM_OUTPUTS: "/terraform_dns_dhcp/$ENV/outputs"
+    TERRAFORM_OUTPUTS: "/moj-network-access-control/terraform/$ENV/outputs"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
 
 phases:
