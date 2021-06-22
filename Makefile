@@ -46,4 +46,7 @@ deploy:
 
 publish: build push build-nginx push-nginx
 
-.PHONY: build run build-dev push-nginx -push serve deploy
+test: serve
+	docker-compose exec client sh -c ./test/test_eap.sh
+
+.PHONY: build run build-dev push-nginx -push serve deploy test
