@@ -19,7 +19,6 @@ RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     && rm -r ./awscli-bundle
 
 RUN mkdir -p /tmp/radiusd /etc/raddb && openssl dhparam -out /etc/raddb/dh 1024
-
 COPY radius /etc/raddb
 RUN chown root /usr/bin/dumpcap
 
