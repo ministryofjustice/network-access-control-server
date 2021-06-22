@@ -47,6 +47,6 @@ deploy:
 publish: build push build-nginx push-nginx
 
 test: serve
-	$(DOCKER_COMPOSE) exec client sh -c ./test/test_eap.sh
+	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
 .PHONY: build run build-dev push-nginx -push serve deploy test
