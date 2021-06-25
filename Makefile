@@ -34,20 +34,13 @@ serve: stop build-dev start-db run
 authenticate-docker:
 	./scripts/authenticate_docker.sh
 
-push-nginx:
-	docker tag nginx:latest ${REGISTRY_URL}/mojo-${ENV}-nac-nginx:latest
-	docker push ${REGISTRY_URL}/mojo-${ENV}-nac-nginx:latest
-
-push:
-	docker tag radius:latest ${REGISTRY_URL}/mojo-${ENV}-nac:latest
-	docker push ${REGISTRY_URL}/mojo-${ENV}-nac:latest
-
 deploy: 
 	./scripts/deploy.sh
 
-publish: build push build-nginx push-nginx
+publish: build build-nginx
+	./scripts/publish.sh
 
 test: serve
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
-.PHONY: build run build-dev push-nginx -push serve deploy test
+.PHONY: build run build-dev publish serve deploy test
