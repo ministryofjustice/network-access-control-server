@@ -9,7 +9,7 @@ build-dev:
 build-nginx:
 	docker build -t nginx ./nginx 
 
-run:
+run: start-db
 	${DOCKER_COMPOSE} up -d server
 	${DOCKER_COMPOSE} up -d client
 
@@ -40,7 +40,7 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-test: serve
+test: run build-dev
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
 .PHONY: build run build-dev publish serve deploy test
