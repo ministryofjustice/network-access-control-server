@@ -1,4 +1,5 @@
-FROM alpine:3.12
+ARG SHARED_SERVICES_ACCOUNT_ID
+FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/admin:ruby-2-7-1-alpine3-12
 
 ENV TZ UTC
 ENV PYTHONUNBUFFERED=1

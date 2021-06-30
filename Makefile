@@ -1,9 +1,15 @@
 DOCKER_COMPOSE = docker-compose -f docker-compose.yml
 
-build: 
+authenticate-docker: check-container-registry-account-id
+	./scripts/authenticate_docker.sh
+
+check-container-registry-account-id:
+	./scripts/check_container_registry_account_id.sh
+
+build: check-container-registry-account-id
 	docker build -t radius ./ 
 
-build-dev:
+build-dev: 
 	${DOCKER_COMPOSE} build
 
 build-nginx:
@@ -31,9 +37,6 @@ start-db:
 
 serve: stop build-dev start-db run
 
-authenticate-docker:
-	./scripts/authenticate_docker.sh
-
 deploy: 
 	./scripts/deploy.sh
 
@@ -43,4 +46,4 @@ publish: build build-nginx
 test: run build-dev
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
-.PHONY: build run build-dev publish serve deploy test
+.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id
