@@ -8,6 +8,7 @@ env:
     TARGET_AWS_ACCOUNT_ID: "/codebuild/$ENV/account_id"
     TERRAFORM_OUTPUTS: "/moj-network-access-control/terraform/$ENV/outputs"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
+    SHARED_SERVICES_ACCOUNT_ID: /codebuild/staff_device_shared_services_account_id
 
 phases:
   build:
