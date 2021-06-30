@@ -13,7 +13,7 @@ build-dev:
 	${DOCKER_COMPOSE} build
 
 build-nginx:
-	docker build -t nginx ./nginx 
+	docker build -t nginx ./nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 run: start-db
 	${DOCKER_COMPOSE} up -d server
