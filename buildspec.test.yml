@@ -10,4 +10,5 @@ env:
 phases:
   install:
     commands:
+      - make authenticate-docker
       - make test
