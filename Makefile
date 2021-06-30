@@ -7,7 +7,7 @@ check-container-registry-account-id:
 	./scripts/check_container_registry_account_id.sh
 
 build: check-container-registry-account-id
-	docker build -t radius ./ 
+	docker build -t radius ./ --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 build-dev: 
 	${DOCKER_COMPOSE} build
