@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eou pipefail
+set -eo pipefail
 
 inject_db_credentials() {
   sed -i "s/{{DB_HOST}}/${DB_HOST}/g" /etc/raddb/mods-enabled/sql
