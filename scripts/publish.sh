@@ -4,9 +4,6 @@ set -e
 
 push_image() {
     aws ecr get-login-password | docker login --username AWS --password-stdin ${REGISTRY_URL}
-    echo ${TERRAFORM_OUTPUTS}
-    echo $1
-    echo $2
     docker tag $2:latest $1
     docker push $1:latest
 }
@@ -14,5 +11,5 @@ push_image() {
 radius_repository_url=$( jq -r '.radius.ecr.repository_url' <<< "${TERRAFORM_OUTPUTS}" )
 nginx_repository_url=$( jq -r '.radius.ecr.nginx_repository_url' <<< "${TERRAFORM_OUTPUTS}" )
 
-push_image $radius_repository_name "radius"
-push_image $nginx_repository_name "nginx"
+push_image $radius_repository_url "radius"
+push_image $nginx_repository_url "nginx"
