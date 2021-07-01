@@ -4,7 +4,7 @@ set -e
 
 push_image() {
     aws ecr get-login-password | docker login --username AWS --password-stdin ${REGISTRY_URL}
-    docker tag admin:latest $1
+    docker tag radius:latest $1
     docker push $1:latest
 }
 
