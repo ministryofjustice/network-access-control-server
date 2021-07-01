@@ -9,10 +9,10 @@ inject_db_credentials() {
 }
 
 fetch_certificates() {
-    if [[ -z "$LOCAL_DEVELOPMENT" ]]; then
-      aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} /etc/raddb/certs/
-    else
+    if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
       cp -pr ./certs/* /etc/raddb/certs/
+    else
+      aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} /etc/raddb/certs/
     fi
 }
 
