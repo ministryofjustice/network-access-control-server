@@ -30,9 +30,9 @@
 			}
 
 			ocsp {
-				enable = no
+				enable = yes
 				override_cert_url = yes
-				url = "http://127.0.0.1:9999"
+				url = "http://{{OCSP_URL}}"
 			}
 
 			staple {

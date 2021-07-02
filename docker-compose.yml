@@ -14,6 +14,7 @@ services:
       DB_USER: radius
       DB_PASS: radius
       DB_NAME: radius
+      OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
     depends_on: 
       - db
@@ -34,6 +35,7 @@ services:
       DB_USER: radius
       DB_PASS: radius
       DB_NAME: radius
+      OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
     depends_on: 
       - db

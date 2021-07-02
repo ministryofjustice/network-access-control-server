@@ -16,9 +16,16 @@ fetch_certificates() {
     fi
 }
 
-begin_ocsp() {
-  echo "starting OCSP responder"
-  /scripts/ocsp_responder.sh
+inject_ocsp_endpoint() {
+  echo "${OCSP_URL}"
+  sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
+}
+
+begin_local_ocsp_endpoint() {
+  if ! [ "$ENV" == "production" ]; then
+    echo "starting OCSP responder"
+    /scripts/ocsp_responder.sh
+  fi
 }
 
 rehash_certificates() {
@@ -35,7 +42,6 @@ begin_crl() {
   chown -R nginx:nginx /etc/raddb/certs/
 }
 
-
 # create the crl into pem, and them pem to crl binary
 # openssl ca -config ../certs_conf/ca.cnf -gencrl -keyfile ca.key -cert ca.pem -out crl.pem
 # openssl crl -inform PEM -in crl.pem -outform DER -out crl/example_ca.crl
@@ -45,8 +51,10 @@ echo "Starting FreeRadius"
 
 main() {
   inject_db_credentials
+  inject_ocsp_endpoint
   fetch_certificates
   rehash_certificates
+  begin_local_ocsp_endpoint
 }
 
 main
