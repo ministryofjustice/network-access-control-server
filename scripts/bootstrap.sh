@@ -23,6 +23,7 @@ inject_ocsp_endpoint() {
 
 begin_local_ocsp_endpoint() {
   if ! [ "$ENV" == "production" ]; then
+    cp -pr ./certs/ocsp.cnf /etc/raddb/certs
     echo "starting OCSP responder"
     /scripts/ocsp_responder.sh
   fi
