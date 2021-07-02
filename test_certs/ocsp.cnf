@@ -49,10 +49,10 @@ output_password		= whatever
 string_mask		    = utf8only
 
 [ server ]
-countryName		    = GB
-stateOrProvinceName	= London
+countryName		    = FR
+stateOrProvinceName	= Radius
 localityName		= London
-organizationName	= MoJ
+organizationName	= Example Inc.
 emailAddress		= ocsp@moj.gov.uk
 commonName		    = "MoJ OCSP"
 
