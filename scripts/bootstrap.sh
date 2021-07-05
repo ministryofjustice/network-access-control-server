@@ -19,8 +19,6 @@ fetch_certificates() {
 inject_ocsp_endpoint() {
   echo "${OCSP_URL}"
   sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
-
-  ping -c5 ${OCSP_URL}
 }
 
 begin_local_ocsp_endpoint() {

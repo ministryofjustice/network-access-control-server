@@ -43,7 +43,7 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-test: run build-dev
+test: stop build-dev run
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
 .PHONY: build run build-dev publish serve deploy test check-container-registry-account-id
