@@ -19,6 +19,10 @@ fetch_certificates() {
 inject_ocsp_endpoint() {
   echo "${OCSP_URL}"
   sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
+
+  if [ "$ENV" == "production" ]; then
+    ping -c5 ${OCSP_URL}
+  fi
 }
 
 begin_local_ocsp_endpoint() {
