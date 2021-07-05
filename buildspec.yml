@@ -9,7 +9,6 @@ env:
     TERRAFORM_OUTPUTS: "/moj-network-access-control/terraform/$ENV/outputs"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     SHARED_SERVICES_ACCOUNT_ID: /codebuild/staff_device_shared_services_account_id
-    OCSP_URL: "/moj-network-access-control/$ENV/ocsp/endpoint"
 
 phases:
   build:
