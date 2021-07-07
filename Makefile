@@ -43,10 +43,7 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-setup-tests:
-	${DOCKER_COMPOSE} exec -T server sh /test/whitelist_test_mac.sh
-
-test: stop build-dev run setup-tests
+test: stop build-dev run
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
-.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id setup-tests
+.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id 
