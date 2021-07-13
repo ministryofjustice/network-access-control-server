@@ -9,6 +9,8 @@ services:
     expose:
       - "1812/udp"
       - "1813/udp"
+    volumes:
+      - './volumecerts:/sharedcerts'
     environment:
       DB_HOST: db
       DB_USER: radius
@@ -16,6 +18,7 @@ services:
       DB_NAME: radius
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
+      CONTAINER_NAME: "server"
     depends_on: 
       - db
     networks:
@@ -27,6 +30,8 @@ services:
       context: .
       args:
         SHARED_SERVICES_ACCOUNT_ID: "${SHARED_SERVICES_ACCOUNT_ID}"
+    volumes:
+      - './volumecerts:/sharedcerts'
     expose:
       - "1812/udp"
       - "1813/udp"
@@ -37,6 +42,7 @@ services:
       DB_NAME: radius
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
+      CONTAINER_NAME: "client"
     depends_on: 
       - db
     networks:

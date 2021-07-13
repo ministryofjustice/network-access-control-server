@@ -10,7 +10,7 @@
 			private_key_file = ${certdir}/letsencrypt.key
 			dh_file = ${raddbdir}/dh
 			random_file = /dev/random
-			check_crl = no
+			check_crl = yes
 			ca_path = ${certdir}
 			cipher_list = "HIGH"
 			ecdh_curve = "secp384r1"

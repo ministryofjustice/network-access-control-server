@@ -33,6 +33,13 @@ begin_local_ocsp_endpoint() {
   fi
 }
 
+create_local_crl_certificates() {
+  if [ "$CONTAINER_NAME" == "server" ]; then
+    echo "starting CRL"
+    /scripts/setup_crl.sh
+  fi
+}
+
 rehash_certificates() {
   echo "Rehashing certs"
   openssl rehash /etc/raddb/certs/ 
@@ -40,17 +47,18 @@ rehash_certificates() {
 
 }
 
-begin_crl() {
+begin_crl_endpoint() {
   echo "starting crl distribution point"
   mkdir -p /run/nginx
   nginx 
   chown -R nginx:nginx /etc/raddb/certs/
 }
 
-# create the crl into pem, and them pem to crl binary
-# openssl ca -config ../certs_conf/ca.cnf -gencrl -keyfile ca.key -cert ca.pem -out crl.pem
-# openssl crl -inform PEM -in crl.pem -outform DER -out crl/example_ca.crl
-# openssl ca -config ../certs_conf/ca.cnf -revoke client.pem -keyfile ca.key -cert ca.pem
+setup_test_certificates() {
+  if [ "$CONTAINER_NAME" == "server" ] && ! [ "$ENV" == "production" ]; then
+    /test/setup_tests.sh
+  fi
+}
 
 echo "Starting FreeRadius"
 
@@ -58,7 +66,10 @@ main() {
   inject_db_credentials
   inject_ocsp_endpoint
   fetch_certificates
+  setup_test_certificates
+  create_local_crl_certificates
   rehash_certificates
+  begin_crl_endpoint
   begin_local_ocsp_endpoint
 }
 
