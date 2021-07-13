@@ -14,7 +14,7 @@
 			ca_path = ${certdir}
 			cipher_list = "HIGH"
 			ecdh_curve = "secp384r1"
-			tls_min_version = "1.0"
+			tls_min_version = "1.2"
 			require_client_cert = yes
 			auto_chain = no
 

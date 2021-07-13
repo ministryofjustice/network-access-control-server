@@ -18,7 +18,7 @@ server radsec {
     cipher_list = "DEFAULT"
     include_length = yes
     require_client_cert = yes
-    tls_min_version = "1.0"
+    tls_min_version = "1.2"
     auto_chain = yes
 
     cache {
