@@ -16,13 +16,15 @@ fetch_certificates() {
     fi
 }
 
+setup_tests() {
+  if ! [ "$ENV" == "production" ]; then
+    ./test/setup_tests.sh
+  fi
+}
+
 inject_ocsp_endpoint() {
   echo "${OCSP_URL}"
   sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
-
-  if [ "$ENV" == "production" ]; then
-    ping -c5 ${OCSP_URL}
-  fi
 }
 
 begin_local_ocsp_endpoint() {
@@ -33,18 +35,10 @@ begin_local_ocsp_endpoint() {
   fi
 }
 
-create_local_crl_certificates() {
-  if [ "$CONTAINER_NAME" == "server" ]; then
-    echo "starting CRL"
-    /scripts/setup_crl.sh
-  fi
-}
-
 rehash_certificates() {
   echo "Rehashing certs"
   openssl rehash /etc/raddb/certs/ 
   openssl rehash /etc/raddb/certs/radsec/ 
-
 }
 
 begin_crl_endpoint() {
@@ -54,11 +48,6 @@ begin_crl_endpoint() {
   chown -R nginx:nginx /etc/raddb/certs/
 }
 
-setup_test_certificates() {
-  if [ "$CONTAINER_NAME" == "server" ] && ! [ "$ENV" == "production" ]; then
-    /test/setup_tests.sh
-  fi
-}
 
 echo "Starting FreeRadius"
 
@@ -66,8 +55,7 @@ main() {
   inject_db_credentials
   inject_ocsp_endpoint
   fetch_certificates
-  setup_test_certificates
-  create_local_crl_certificates
+  setup_tests
   rehash_certificates
   begin_crl_endpoint
   begin_local_ocsp_endpoint

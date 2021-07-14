@@ -34,9 +34,6 @@ COPY ./scripts /scripts
 
 COPY ./test /test
 
-RUN chmod u+x /test/whitelist_test_mac.sh
-RUN ./test/whitelist_test_mac.sh
-
 EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
 CMD /scripts/bootstrap.sh 
