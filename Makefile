@@ -44,6 +44,7 @@ publish: build build-nginx
 	./scripts/publish.sh
 
 test: stop build-dev run
+	docker volume create --name volumecerts
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 
 .PHONY: build run build-dev publish serve deploy test check-container-registry-account-id 
