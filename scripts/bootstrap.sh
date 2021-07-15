@@ -17,7 +17,7 @@ fetch_certificates() {
 }
 
 setup_tests() {
-  if ! [ "$ENV" == "production" ]; then
+  if [ "$ENV" == "test" ]; then
     ./test/setup_tests.sh
   fi
 }
