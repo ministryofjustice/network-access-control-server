@@ -5,9 +5,9 @@
 		cisco_accounting_username_bug = no
 		max_sessions = 4096
 		tls {
-			certificate_file = ${certdir}/letsencrypt.pem
+			certificate_file = ${certdir}/server.pem
 			private_key_password = whatever
-			private_key_file = ${certdir}/letsencrypt.key
+			private_key_file = ${certdir}/server.key
 			dh_file = ${raddbdir}/dh
 			random_file = /dev/random
 			check_crl = yes
