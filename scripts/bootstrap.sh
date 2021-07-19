@@ -23,7 +23,7 @@ fetch_authorised_macs() {
 }
 
 setup_tests() {
-  if [ "$ENV" == "test" ]; then
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
     ./test/setup_tests.sh
   fi
 }
