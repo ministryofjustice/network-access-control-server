@@ -10,7 +10,7 @@
 			private_key_file = ${certdir}/server.key
 			dh_file = ${raddbdir}/dh
 			random_file = /dev/random
-			check_crl = yes
+			check_crl = {{ENABLE_CRL}}
 			ca_path = ${certdir}
 			cipher_list = "HIGH"
 			ecdh_curve = "secp384r1"

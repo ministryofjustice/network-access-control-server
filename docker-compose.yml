@@ -19,6 +19,7 @@ services:
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "server"
+      ENABLE_CRL: "yes"
     depends_on: 
       - db
     networks:
@@ -43,6 +44,7 @@ services:
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "client"
+      ENABLE_CRL: "yes"
     depends_on: 
       - db
     networks:
