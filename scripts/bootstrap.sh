@@ -8,6 +8,10 @@ inject_db_credentials() {
   sed -i "s/{{DB_NAME}}/${DB_NAME}/g" /etc/raddb/mods-enabled/sql
 }
 
+configure_crl() {
+  sed -i "s/{{ENABLE_CRL}}/${ENABLE_CRL}/g" /etc/raddb/mods-enabled/eap
+}
+
 fetch_certificates() {
     if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
       cp -pr ./certs/* /etc/raddb/certs/
@@ -60,6 +64,7 @@ echo "Starting FreeRadius"
 main() {
   inject_db_credentials
   inject_ocsp_endpoint
+  configure_crl
   fetch_certificates
   fetch_authorised_macs
   setup_tests
