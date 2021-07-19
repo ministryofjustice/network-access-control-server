@@ -9,19 +9,21 @@ assume_deploy_role() {
 }
 
 deploy() {
-  cluster_name=$( jq -r '.radius.ecs.cluster_name' <<< "${TERRAFORM_OUTPUTS}" )
-  service_name=$( jq -r '.radius.ecs.service_name' <<< "${TERRAFORM_OUTPUTS}" )
-
   echo "deploying RADIUS server"
   aws ecs update-service \
-    --cluster $cluster_name \
-    --service $service_name \
+    --cluster $1 \
+    --service $2 \
     --force-new-deployment
 }
 
 main() {
+  cluster_name=$( jq -r '.radius.ecs.cluster_name' <<< "${TERRAFORM_OUTPUTS}" )
+  service_name=$( jq -r '.radius.ecs.service_name' <<< "${TERRAFORM_OUTPUTS}" )
+  internal_service_name=$( jq -r '.radius.ecs.internal_service_name' <<< "${TERRAFORM_OUTPUTS}" )
+
   assume_deploy_role
-  deploy
+  deploy $cluster_name $service_name
+  deploy $cluster_name $internal_service_name
 }
 
 main
