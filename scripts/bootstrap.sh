@@ -16,6 +16,12 @@ fetch_certificates() {
     fi
 }
 
+fetch_authorised_macs() {
+  if ! [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs /etc/raddb
+  fi
+}
+
 setup_tests() {
   if [ "$ENV" == "test" ]; then
     ./test/setup_tests.sh
@@ -55,6 +61,7 @@ main() {
   inject_db_credentials
   inject_ocsp_endpoint
   fetch_certificates
+  fetch_authorised_macs
   setup_tests
   rehash_certificates
   begin_crl_endpoint
