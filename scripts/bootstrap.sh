@@ -27,7 +27,7 @@ fetch_authorised_macs() {
 }
 
 setup_tests() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+  if [ "$CONTAINER_NAME" == "test-client" ]; then
     ./test/setup_tests.sh
   fi
 }
