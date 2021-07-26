@@ -8,8 +8,8 @@ server radsec {
 
   tls {
     private_key_password = whatever
-    private_key_file = ${certdir}/server.key
-    certificate_file = ${certdir}/server.pem
+    private_key_file = ${radsec_certdir}/server.pem
+    certificate_file = ${radsec_certdir}/server.pem
     fragment_size = 8192
     ca_path = ${radsec_certdir}
     dh_file = ${raddbdir}/dh
