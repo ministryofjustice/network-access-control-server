@@ -14,7 +14,7 @@ configure_crl() {
 
 fetch_certificates() {
     if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-      cp -pr ./certs/* /etc/raddb/certs/
+      cp -pr ./test_certs/* /etc/raddb/certs/
     else
       aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} /etc/raddb/certs/
     fi
@@ -67,10 +67,10 @@ main() {
   configure_crl
   fetch_certificates
   fetch_authorised_macs
-  setup_tests
+  # setup_tests
   rehash_certificates
-  begin_crl_endpoint
-  begin_local_ocsp_endpoint
+  # begin_crl_endpoint
+  # begin_local_ocsp_endpoint
 }
 
 main
