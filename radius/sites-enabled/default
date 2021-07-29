@@ -22,8 +22,6 @@ authorize {
   preprocess
   rewrite_calling_station_id
 
-  python3
-
   if (!EAP-Message) {
     authorized_macs
 
@@ -45,6 +43,7 @@ authenticate {
 }
 
 post-auth {
+  python3
 }
 
 preacct {

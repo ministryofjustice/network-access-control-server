@@ -27,6 +27,7 @@ COPY ./radius/clients.conf /etc/raddb/clients.conf
 COPY ./test_certs/ ./test_certs
 COPY ./radius/sites-enabled/ /etc/raddb/sites-enabled
 COPY ./scripts /scripts
+COPY ./test /test
 
 EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
