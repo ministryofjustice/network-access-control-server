@@ -42,10 +42,24 @@ def post_auth(p):
             cursor.execute(reponses_sql, (policy_name,))
             responses_results = cursor.fetchall()
             print(responses_results)
-            return radiusd.RLM_MODULE_OK, responses_results
+
+            # convert it to a dict (probs can be done miles easier)
+            reply_list = []
+            
+            for response in responses_results:
+                reply_list.append((response['response_key'], response['response_value']))
+            
+            print(reply_list)
+            update_dict = {
+                "reply" : (
+                    tuple(reply_list)
+                )
+            }
+
+            return radiusd.RLM_MODULE_OK, update_dict
 
         print("No policy matches!")
-        
+
         # Return just OK for the time being, need to figure out what happens when no rules/policy matches
         return radiusd.RLM_MODULE_OK
         
