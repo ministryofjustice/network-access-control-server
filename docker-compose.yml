@@ -11,6 +11,7 @@ services:
       - "1813/udp"
     volumes:
       - './volumecerts:/sharedcerts'
+      - './test:/test'
     environment:
       DB_HOST: db
       DB_USER: radius
