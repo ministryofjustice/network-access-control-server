@@ -28,31 +28,29 @@ def post_auth(p):
 
         policy_name = ""
         rules_value_match = 0
+        payload_dict = dict(p)
+
         for result in rules_results:
-            for p_key, p_value in p:
-                if p_key == result['request_key'] and p_value == result['request_value']:
+            payload_value = payload_dict[result['request_key']]
+            
+            if result['request_operator'] == "==" and result['request_value'] == payload_value:
                     rules_value_match += 1
-                    print(f"{p_key} equals the key {result['request_key']}")
-                    print(f"{p_value} equals the value {result['request_value']}")
-                    if rules_value_match == len(rules_results):
-                        policy_name = result['policy']
+            elif result['request_operator'] == "CONTAINS" and result['request_value'] in payload_value:
+                    rules_value_match += 1 
+
+            if rules_value_match == len(rules_results):
+                policy_name = result['policy']
 
         if policy_name != "":
             reponses_sql = "SELECT `response_key`, `response_value` FROM `responses` WHERE `policy`=%s"
             cursor.execute(reponses_sql, (policy_name,))
             responses_results = cursor.fetchall()
-            print(responses_results)
 
-            # convert it to a dict (probs can be done miles easier)
-            reply_list = []
-            
-            for response in responses_results:
-                reply_list.append((response['response_key'], response['response_value']))
-            
-            print(reply_list)
+            reply_list = ((response['response_key'], response['response_value']) for response in responses_results)
+            print(reply_list)            
             update_dict = {
                 "reply" : (
-                    tuple(reply_list)
+                    reply_list
                 )
             }
 
