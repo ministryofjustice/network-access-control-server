@@ -31,11 +31,9 @@ def post_auth(p):
         payload_dict = dict(p)
 
         for result in rules_results:
-            payload_value = payload_dict[result['request_key']]
-            
-            if result['request_operator'] == "==" and result['request_value'] == payload_value:
+            if result['request_operator'] == "==" and result['request_value'] == payload_dict[result['request_key']]:
                     rules_value_match += 1
-            elif result['request_operator'] == "CONTAINS" and result['request_value'] in payload_value:
+            elif result['request_operator'] == "CONTAINS" and result['request_value'] in payload_dict[result['request_key']]:
                     rules_value_match += 1 
 
             if rules_value_match == len(rules_results):
@@ -46,11 +44,12 @@ def post_auth(p):
             cursor.execute(reponses_sql, (policy_name,))
             responses_results = cursor.fetchall()
 
-            reply_list = ((response['response_key'], response['response_value']) for response in responses_results)
-            print(reply_list)            
+            reply_list = [(response['response_key'], response['response_value']) for response in responses_results]
+            print(tuple(reply_list))
+
             update_dict = {
                 "reply" : (
-                    reply_list
+                    tuple(reply_list)
                 )
             }
 
