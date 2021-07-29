@@ -42,7 +42,10 @@ def post_auth(p):
             cursor.execute(reponses_sql, (policy_name,))
             responses_results = cursor.fetchall()
             print(responses_results)
+            return radiusd.RLM_MODULE_OK, responses_results
 
-        print("-------")
+        print("No policy matches!")
         
-    return radiusd.RLM_MODULE_OK
+        # Return just OK for the time being, need to figure out what happens when no rules/policy matches
+        return radiusd.RLM_MODULE_OK
+        
