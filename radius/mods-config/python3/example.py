@@ -24,10 +24,10 @@ def post_auth(p):
         rules_sql = "SELECT `policy`.`policy_id`, `request_key`, `request_operator`, `request_value` FROM `rules` INNER JOIN `policy` ON `policy`.`policy_id` = `rules`.`policy_id` WHERE `policy`.`shortname`=%s ORDER BY `policy`.`policy_id`;"
         
         policy_id = 0
-        rules_value_match = 0
         cursor.execute(rules_sql, (_site,))
 
         for _policy_id, rules in groupby(cursor, lambda row: row['policy_id']):
+            rules_value_match = 0
             for rule in rules:
                 if rule['request_operator'] == "==" and rule['request_value'] == payload_dict[rule['request_key']]:
                         rules_value_match += 1
