@@ -13,11 +13,11 @@ RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     && python3 && ln -sf python3 /usr/bin/python \
     && python3 -m ensurepip \
     && pip3 install --no-cache --upgrade pip setuptools py-radius PyMySQL \
-    # && wget "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" \
-    # && unzip awscli-bundle.zip \
-    # && rm awscli-bundle.zip \
-    # && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws \
-    # && rm -r ./awscli-bundle \
+    && wget "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" \
+    && unzip awscli-bundle.zip \
+    && rm awscli-bundle.zip \
+    && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws \
+    && rm -r ./awscli-bundle \
     && mkdir -p /tmp/radiusd /etc/raddb && openssl dhparam -out /etc/raddb/dh 1024 \
     && mkdir -p /etc/raddb/certs \
     && rm -fr /etc/raddb/sites-enabled/* 
