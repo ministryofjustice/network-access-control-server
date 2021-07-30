@@ -129,10 +129,4 @@ python3 {
 	#  radiusd.config['sub-config']['name']
 	#  ----
 	#
-#	config {
-#		name = "value"
-#		sub-config {
-#			name = "value of name from config.sub-config"
-#		}
-#	}
 }
