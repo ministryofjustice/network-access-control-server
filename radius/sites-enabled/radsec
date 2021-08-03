@@ -37,15 +37,7 @@ server radsec {
   }
   
 post-auth {
-  update control {
-    Tmp-String-0 := "%{sql:SELECT vlan from lookup where (common_name = '%{request:TLS-Client-Cert-Common-Name}' AND mac = '%{request:Calling-Station-Id}' AND remote_ip = '%{request:Packet-Src-IP-Address}')}"
-  }
-
-  update reply {
-    &Tunnel-Type := VLAN
-    &Tunnel-Medium-Type := IEEE-802
-    &Tunnel-Private-Group-Id := &control:Tmp-String-0
-  }
+  
 }
 
 }

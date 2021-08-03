@@ -99,22 +99,34 @@ insert into radusergroup (username, groupname, priority) values ('MAC', 'VLAN#',
 CREATE TABLE `responses` (
   `response_key` varchar(100) DEFAULT NULL,
   `response_value` varchar(100) DEFAULT NULL,
-  `policy_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `policy_id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `policy_id` (`policy_id`),
+  KEY `responses_policy_id_IDX` (`policy_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `rules` (
   `request_key` varchar(100) DEFAULT NULL,
   `request_operator` varchar(100) DEFAULT NULL,
   `request_value` varchar(100) DEFAULT NULL,
-  `policy_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `policy_id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
+  KEY `policy_id` (`policy_id`),
+  KEY `rules_policy_id_IDX` (`policy_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `policy` (
   `policy` varchar(100) DEFAULT NULL,
   `shortname` varchar(100) DEFAULT NULL,
-  `policy_id` int(11) DEFAULT NULL,
-  `fallback` bit DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `policy_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fallback` bit(1) DEFAULT b'0',
+  PRIMARY KEY (`policy_id`),
+  KEY `policy_id` (`policy_id`),
+  KEY `policy_policy_id_IDX` (`policy_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `policy` (policy, shortname, policy_id, fallback) 
 VALUES('test-policy-name', 'test_client', 1, 0);
