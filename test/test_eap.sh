@@ -33,9 +33,11 @@ test_mab() {
 test_crl() {
   cp ./sharedcerts/client_crl.pem /etc/raddb/certs
 
-  eapol_test -r0 -t3 -c /test/eapol_test_crl.conf -a 10.5.0.5 -s testing
+  test_revoked_certificate=$(eapol_test -r0 -t3 -c /test/eapol_test_crl.conf -a 10.5.0.5 -s testing)
 
-  if [ $? -ne 252 ]; then #expect a failure code
+  if [[ $test_revoked_certificate && $? == 252 ]]; then
+    echo "${test_revoked_certificate//FAILURE/SUCCESS: One mismatch due to revoked certificate [252]}"
+  else
     exit $?
   fi
 }
