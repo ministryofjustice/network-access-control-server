@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED=1
 RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     build-dependencies gnupg && \
     apk --no-cache add tzdata nettle-dev openssl-dev curl \
-    bash wpa_supplicant make freeradius freeradius-mysql freeradius-eap \
+    bash wpa_supplicant make freeradius freeradius-eap \
     openssl build-base gcc libc-dev \
     mysql mysql-client mysql-dev nginx python3 py3-pip \ 
     && python3 && ln -sf python3 /usr/bin/python \
