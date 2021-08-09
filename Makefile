@@ -18,10 +18,12 @@ build-nginx:
 run: start-db
 	${DOCKER_COMPOSE} up -d server
 	${DOCKER_COMPOSE} up -d client
+	${DOCKER_COMPOSE} up -d radsecproxy
 
 stop: 
 	${DOCKER_COMPOSE} stop server
 	${DOCKER_COMPOSE} stop client
+	${DOCKER_COMPOSE} stop radsecproxy
 	# ${DOCKER_COMPOSE} stop db
 
 shell-server: 
