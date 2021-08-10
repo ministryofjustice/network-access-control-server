@@ -9,6 +9,7 @@ services:
     expose:
       - "1812/udp"
       - "1813/udp"
+      - "2083/tcp"
     volumes:
       - './volumecerts:/sharedcerts'
       - './test:/test'
@@ -38,6 +39,7 @@ services:
     expose:
       - "1812/udp"
       - "1813/udp"
+      - "2083/tcp"
     environment:
       DB_HOST: db
       DB_USER: radius
@@ -53,31 +55,32 @@ services:
       vpcbr:
         ipv4_address: 10.5.0.6
 
-  radsecproxy:
-    build:
-      context: .
-      args:
-        SHARED_SERVICES_ACCOUNT_ID: "${SHARED_SERVICES_ACCOUNT_ID}"
-    volumes:
-      - './volumecerts:/sharedcerts'
-      - './test:/test'
-    expose:
-      - "1812/udp"
-      - "1813/udp"
-    environment:
-      DB_HOST: db
-      DB_USER: radius
-      DB_PASS: radius
-      DB_NAME: radius
-      OCSP_URL: "127.0.0.1:9999"
-      LOCAL_DEVELOPMENT: "true"
-      CONTAINER_NAME: "test-radsecproxy"
-      ENABLE_CRL: "yes"
-    depends_on: 
-      - db
-    networks:
-      vpcbr:
-        ipv4_address: 10.5.0.8
+  # radsecproxy:
+  #   build:
+  #     context: .
+  #     args:
+  #       SHARED_SERVICES_ACCOUNT_ID: "${SHARED_SERVICES_ACCOUNT_ID}"
+  #   volumes:
+  #     - './volumecerts:/sharedcerts'
+  #     - './test:/test'
+  #   expose:
+  #     - "1812/udp"
+  #     - "1813/udp"
+  #     - "2083/tcp"
+  #   environment:
+  #     DB_HOST: db
+  #     DB_USER: radius
+  #     DB_PASS: radius
+  #     DB_NAME: radius
+  #     OCSP_URL: "127.0.0.1:9999"
+  #     LOCAL_DEVELOPMENT: "true"
+  #     CONTAINER_NAME: "test-radsecproxy"
+  #     ENABLE_CRL: "yes"
+  #   depends_on: 
+  #     - db
+  #   networks:
+  #     vpcbr:
+  #       ipv4_address: 10.5.0.8
 
   db:
     image: "${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/admin-mysql:mysql-5-7"

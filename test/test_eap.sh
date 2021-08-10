@@ -70,7 +70,7 @@ test_crl() {
 test_radsecproxy() {
   cp ./sharedcerts/radsecproxy.pem /etc/raddb/certs
 
-  eapol_test -r0 -t3 -c /test/eapol_test_radsecproxy.conf -a 10.5.0.6 -A 10.5.0.8 -p2083 -s radsec
+  eapol_test -r0 -t3 -c /test/eapol_test_radsecproxy.conf -a 10.5.0.5 -A 10.5.0.6 -p18120 -s testing
 
   if [ $? -ne 0 ]; then
     exit $?

@@ -9,10 +9,4 @@ client test_client {
     secret = testing
 }
 
-client radsec_client {
-    ipaddr = 10.5.0.8
-    shortname = radsec_client
-    secret = radsec
-    virtual_server = radsec
-}
 EOF
