@@ -68,3 +68,7 @@ main() {
 main
 
 /usr/sbin/radiusd -fxx -l stdout
+
+# if ! [ "$ENV" == "production" ]; then
+#   /sbin/radsecproxy -f -c /etc/radsecproxy.conf -i /var/run/radsecproxy.pid
+# fi
