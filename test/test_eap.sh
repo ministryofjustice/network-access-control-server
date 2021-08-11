@@ -88,13 +88,13 @@ expect_unauthenticated_response() {
 }
 
 main() {
-  # test_eap_tls
-  # test_eap_tls_with_unauthorised_client
-  # test_eap_tls_ttls
-  # test_eap_tls_ttls_with_unauthorised_client
-  # test_mab
-  # test_mab_with_unauthorised_mac_address
-  # test_crl
+  test_eap_tls
+  test_eap_tls_with_unauthorised_client
+  test_eap_tls_ttls
+  test_eap_tls_ttls_with_unauthorised_client
+  test_mab
+  test_mab_with_unauthorised_mac_address
+  test_crl
   test_radsecproxy
 }
 

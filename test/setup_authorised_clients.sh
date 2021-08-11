@@ -9,8 +9,8 @@ client test_client {
     secret = testing
 }
 
-client radsecproxy_client {
-    ipaddr = 10.5.0.5
+client radsecproxy {
+    ipaddr = 10.5.0.8
     shortname = radsec_server
     secret = radsec
     proto = tcp
