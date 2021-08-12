@@ -51,6 +51,9 @@ begin_crl_endpoint() {
   chown -R nginx:nginx /etc/raddb/certs/
 }
 
+start_radsecproxy() {
+  ./test/radsecproxy.sh
+}
 
 echo "Starting FreeRadius"
 
@@ -63,6 +66,7 @@ main() {
   rehash_certificates
   begin_crl_endpoint
   begin_local_ocsp_endpoint
+  start_radsecproxy
 }
 
 main

@@ -67,6 +67,16 @@ test_crl() {
   expect_unauthenticated_response "$request" "One mismatch due to revoked certificate [252]"
 }
 
+test_radsecproxy() {
+  cp ./sharedcerts/radsecproxy.pem /etc/raddb/certs
+
+  eapol_test -r0 -t3 -c /test/eapol_test_radsecproxy.conf -a 10.5.0.8 -p18120 -s radsec
+
+  if [ $? -ne 0 ]; then
+    exit $?
+  fi
+}
+
 expect_unauthenticated_response() {
   if [[ $1 && $? == 252 ]]; then
     IFS= # IFS is set explicitly to blank; allowing new line characters to be escaped
@@ -85,6 +95,7 @@ main() {
   test_mab
   test_mab_with_unauthorised_mac_address
   test_crl
+  test_radsecproxy
 }
 
 main

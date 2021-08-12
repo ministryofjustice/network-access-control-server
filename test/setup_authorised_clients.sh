@@ -8,4 +8,12 @@ client test_client {
     shortname = test_client
     secret = testing
 }
+
+client radsecproxy {
+    ipaddr = 10.5.0.8
+    shortname = radsec_server
+    secret = radsec
+    proto = tcp
+}
+
 EOF
