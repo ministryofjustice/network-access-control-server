@@ -16,7 +16,7 @@ generate-certs:
 	./test/scripts/generate_certs.sh
 
 build-nginx:
-	docker build -t nginx ./nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
+	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 run: start-db
 	${DOCKER_COMPOSE} up -d server
