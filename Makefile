@@ -52,7 +52,6 @@ publish: build build-nginx
 
 test: stop build-dev generate-certs run
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_mac_address.sh
-	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_crl.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 	# $(DOCKER_COMPOSE) exec -T client /test/test_crl.sh
