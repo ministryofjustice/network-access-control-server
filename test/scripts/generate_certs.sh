@@ -5,6 +5,7 @@ set -ex
 docker-compose stop certgenerator
 docker-compose up --build -d certgenerator
 sleep 10
+docker ps
 docker-compose exec certgenerator make
 docker compose cp certgenerator:/etc/raddb/certs/ ./test
 cat ./test/certs/server.key >> ./test/certs/server.pem
