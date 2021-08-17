@@ -4,8 +4,8 @@ set -ex
 
 docker-compose stop certgenerator
 docker-compose up --build -d certgenerator
-docker-compose ps
 certgenerator_id=$(docker ps -aqf "name=certgenerator")
+docker exec ${certgenerator_id} make
 docker cp ${certgenerator_id}:/etc/raddb/certs/ ./test
 cat ./test/certs/server.key >> ./test/certs/server.pem
 cat ./test/certs/ca.key >> ./test/certs/ca.pem
