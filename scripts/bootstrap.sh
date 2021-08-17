@@ -13,6 +13,12 @@ fetch_certificates() {
     fi
 }
 
+setup_test_clients() {
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    /test/scripts/setup_test_mac_address.sh
+  fi
+}
+
 fetch_authorised_macs() {
   if ! [ "$LOCAL_DEVELOPMENT" == "true" ]; then
     aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs /etc/raddb
@@ -46,6 +52,7 @@ main() {
   fetch_authorised_macs
   rehash_certificates
   begin_crl_endpoint
+  setup_test_clients
 }
 
 main

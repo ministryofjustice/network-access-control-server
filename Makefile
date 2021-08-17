@@ -51,7 +51,6 @@ publish: build build-nginx
 	./scripts/publish.sh
 
 test: stop build-dev run
-	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_authorised_clients.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_mac_address.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_crl.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
