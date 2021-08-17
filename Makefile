@@ -56,6 +56,7 @@ test: stop build-dev run
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_crl.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
-	$(DOCKER_COMPOSE) exec -T client /test/test_crl.sh
+	# $(DOCKER_COMPOSE) exec -T client /test/test_crl.sh
+	$(DOCKER_COMPOSE) logs server
 
 .PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs
