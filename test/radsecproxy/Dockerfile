@@ -1,5 +1,5 @@
 ARG SHARED_SERVICES_ACCOUNT_ID
-FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/alpine:alpine-3-14-0
+FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/network-access-control-test-certs:alpine-3-13-0
 
 ENV RADSECPROXY_VERSION 1.9.0
 
