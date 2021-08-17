@@ -2,9 +2,9 @@
 
 set -x
 
-wait_for_container_to_be_ready() {
-    printf "Waiting for container to be ready"
-    until docker exec ${certgenerator_id} ls -al /etc/raddb/certs/server.pem
+wait_for_certs() {
+    printf "Waiting for cert $1 to be generated"
+    until docker exec ${certgenerator_id} ls -al /etc/raddb/certs/$1
     do
         printf "."
         sleep 1
@@ -16,7 +16,9 @@ docker-compose stop certgenerator
 docker-compose up --build -d certgenerator
 certgenerator_id=$(docker ps -aqf "name=certgenerator")
 docker-compose logs certgenerator
-wait_for_container_to_be_ready
+wait_for_certs server.pem
+wait_for_certs client.pem
+wait_for_certs ca.pem
 docker cp ${certgenerator_id}:/etc/raddb/certs/ ./test
 cat ./test/certs/server.key >> ./test/certs/server.pem
 cat ./test/certs/ca.key >> ./test/certs/ca.pem
