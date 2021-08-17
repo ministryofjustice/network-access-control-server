@@ -58,7 +58,7 @@ services:
       context: ./test/generate_certs
       args:
         SHARED_SERVICES_ACCOUNT_ID: "${SHARED_SERVICES_ACCOUNT_ID}"
-    command: sh -c "bootstrap && sleep infinity"
+    command: sh -c "cd /etc/raddb/certs && ./bootstrap && sleep infinity"
 
   radsecproxy:
     build:
