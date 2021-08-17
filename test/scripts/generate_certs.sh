@@ -2,7 +2,6 @@
 
 set -e
 
-rm -fr ./test/certs/*
 docker-compose stop certgenerator
 docker-compose up --build -d certgenerator
 docker-compose exec certgenerator make
