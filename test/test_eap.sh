@@ -43,11 +43,11 @@ test_radsecproxy() {
 }
 
 main() {
-  test_eap_tls 
-  # test_eap_tls_ttls |grep '^SUCCESS$\|^FAILURE$'
-  # test_mab 
-  # test_mab_with_unauthorised_mac_address
-  # test_radsecproxy |grep '^SUCCESS$\|^FAILURE$'
+  test_eap_tls |grep '^SUCCESS$\|^FAILURE$'
+  test_eap_tls_ttls |grep '^SUCCESS$\|^FAILURE$'
+  test_mab 
+  test_mab_with_unauthorised_mac_address
+  test_radsecproxy |grep '^SUCCESS$\|^FAILURE$'
 }
 
 main

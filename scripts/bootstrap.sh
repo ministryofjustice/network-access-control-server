@@ -15,7 +15,7 @@ fetch_certificates() {
 
 setup_test_clients() {
   if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    /test/scripts/setup_test_mac_address.sh
+    /test/scripts/setup_authorised_clients.sh
   fi
 }
 
