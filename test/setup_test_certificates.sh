@@ -23,3 +23,10 @@ openssl ca  -batch -passin pass:"whatever" -config ca.cnf -in client_crl.csr -ou
 
 cat client_crl.key >> client_crl.pem
 cp client_crl.pem /sharedcerts
+
+# gen radsec proxy
+openssl req -batch -passin pass:"whatever" -config radsecproxy.cnf -new -nodes -keyout radsecproxy.key -out radsecproxy.csr
+openssl ca  -batch -passin pass:"whatever" -config ca.cnf -in radsecproxy.csr -out radsecproxy.pem -keyfile ca.key -cert ca.pem
+
+cat radsecproxy.key >> radsecproxy.pem
+cp radsecproxy.pem /sharedcerts

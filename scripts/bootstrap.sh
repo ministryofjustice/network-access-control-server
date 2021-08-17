@@ -1,13 +1,6 @@
 #!/bin/bash
 set -eo pipefail
 
-inject_db_credentials() {
-  sed -i "s/{{DB_HOST}}/${DB_HOST}/g" /etc/raddb/mods-enabled/sql
-  sed -i "s/{{DB_USER}}/${DB_USER}/g" /etc/raddb/mods-enabled/sql
-  sed -i "s/{{DB_PASS}}/${DB_PASS}/g" /etc/raddb/mods-enabled/sql
-  sed -i "s/{{DB_NAME}}/${DB_NAME}/g" /etc/raddb/mods-enabled/sql
-}
-
 configure_crl() {
   sed -i "s/{{ENABLE_CRL}}/${ENABLE_CRL}/g" /etc/raddb/mods-enabled/eap
 }
@@ -58,19 +51,22 @@ begin_crl_endpoint() {
   chown -R nginx:nginx /etc/raddb/certs/
 }
 
+start_radsecproxy() {
+  ./test/radsecproxy.sh
+}
 
 echo "Starting FreeRadius"
 
 main() {
-  inject_db_credentials
   inject_ocsp_endpoint
   configure_crl
   fetch_certificates
   fetch_authorised_macs
   setup_tests
   rehash_certificates
-  # begin_crl_endpoint
-  # begin_local_ocsp_endpoint
+  begin_crl_endpoint
+  begin_local_ocsp_endpoint
+  start_radsecproxy
 }
 
 main

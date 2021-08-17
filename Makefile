@@ -18,10 +18,12 @@ build-nginx:
 run: start-db
 	${DOCKER_COMPOSE} up -d server
 	${DOCKER_COMPOSE} up -d client
+	${DOCKER_COMPOSE} up -d radsecproxy
 
 stop: 
 	${DOCKER_COMPOSE} stop server
 	${DOCKER_COMPOSE} stop client
+	${DOCKER_COMPOSE} stop radsecproxy
 	# ${DOCKER_COMPOSE} stop db
 
 shell-server: 
@@ -30,10 +32,12 @@ shell-server:
 shell-client: 
 	${DOCKER_COMPOSE} exec client bash
 
+shell-radsecproxy: 
+	${DOCKER_COMPOSE} exec radsecproxy bash
+
 start-db: 
 	$(DOCKER_COMPOSE) up -d db
 	./scripts/wait_for_db.sh
-	$(DOCKER_COMPOSE) exec -T db sh -c 'exec mysql -uradius -pradius' < test/whitelist_test_client.sql
 
 serve: stop build-dev start-db run
 

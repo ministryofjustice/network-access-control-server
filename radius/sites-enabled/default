@@ -1,22 +1,14 @@
 server default {
-listen {
-        type = auth
-        ipaddr = *
-        port = 1812
-        limit {
-              max_connections = 64
-              lifetime = 10
-              idle_timeout = 30
-        }
-}
-
-listen {
-        ipaddr = *
-        port = 0
-        type = acct
-        limit {
-        }
-}
+  listen {
+    type = auth
+    ipaddr = *
+    port = 1812
+    limit {
+      max_connections = 64
+      lifetime = 10
+      idle_timeout = 30
+    }
+  }
 
 authorize {
   preprocess
