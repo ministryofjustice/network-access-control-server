@@ -57,9 +57,9 @@ main() {
   fetch_certificates
   fetch_authorised_macs
   rehash_certificates
+  setup_test_crl
   begin_crl_endpoint
   setup_test_clients
-  setup_test_crl
 }
 
 main
