@@ -2,11 +2,9 @@
 
 set -ex
 
-docker-compose stop certgenerator
-docker-compose up --build -d certgenerator
-sleep 10
-docker ps
-docker-compose exec certgenerator make
+docker-compose -f docker-compose.yml stop certgenerator
+docker-compose -f docker-compose.yml up --build -d certgenerator
+docker-compose -f docker-compose.yml exec certgenerator make
 docker compose cp certgenerator:/etc/raddb/certs/ ./test
 cat ./test/certs/server.key >> ./test/certs/server.pem
 cat ./test/certs/ca.key >> ./test/certs/ca.pem
