@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 docker-compose stop certgenerator
 docker-compose up --build -d certgenerator
