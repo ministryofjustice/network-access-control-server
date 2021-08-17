@@ -30,7 +30,7 @@ python3 {
 	#
 	#  Module to load functions from.
 	#
-	module = example
+	module = policyengine
 
 	#
 	#  cext_compat::

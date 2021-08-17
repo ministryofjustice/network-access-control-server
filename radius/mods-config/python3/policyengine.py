@@ -1,14 +1,8 @@
 #! /usr/bin/env python3
-#
-# Python module example file
-# Miguel A.L. Paraz <mparaz@mparaz.com>
-#
-# $Id$
 
 import radiusd
 from pymysql import connect, cursors
 from itertools import groupby
-from operator import itemgetter
 
 def post_auth(p):
     connection = connect(host='db',
@@ -38,30 +32,33 @@ def post_auth(p):
                     policy_id = rule['policy_id']
 
         update_dict = {}
+        reply_list = ()
         if policy_id != 0:
-            reponses_sql = "SELECT `response_key`, `response_value` FROM `responses` WHERE `policy_id`=%s"
-            cursor.execute(reponses_sql, (policy_id,))
-            responses_results = cursor.fetchall()
-
-            reply_list = [(response['response_key'], response['response_value']) for response in responses_results]
-
-            update_dict = {
-                "reply" : (
-                    tuple(reply_list)
-                )
-            }
+            reply_list = main_policy(cursor, policy_id)
         else:
-            fallback_sql = "SELECT `response_key`, `response_value` FROM `responses` INNER JOIN `policy` ON `policy`.`policy_id` = `responses`.`policy_id` WHERE `policy`.`shortname`=%s AND `policy`.`fallback`=1"
-            cursor.execute(fallback_sql, (policy_id,))
-            responses_results = cursor.fetchall()
-                
-            reply_list = [(response['response_key'], response['response_value']) for response in responses_results]
+            reply_list = fallback_policy(cursor, policy_id)
 
-            update_dict = {
-                "reply" : (
-                    tuple(reply_list)
-                )
-            }
+        update_dict = {
+            "reply" : (
+                tuple(reply_list)
+            )
+        }
             
         connection.close()
         return radiusd.RLM_MODULE_OK, update_dict
+
+def main_policy(cursor, policy_id):
+    reponses_sql = "SELECT `response_key`, `response_value` FROM `responses` WHERE `policy_id`=%s"
+    cursor.execute(reponses_sql, (policy_id,))
+    responses_results = cursor.fetchall()
+    return group_replies(responses_results)
+
+def fallback_policy(cursor, policy_id):
+    fallback_sql = "SELECT `response_key`, `response_value` FROM `responses` INNER JOIN `policy` ON `policy`.`policy_id` = `responses`.`policy_id` WHERE `policy`.`shortname`=%s AND `policy`.`fallback`=1"
+    cursor.execute(fallback_sql, (policy_id,))
+    responses_results = cursor.fetchall()              
+    return group_replies(responses_results)
+
+def group_replies(responses_results):
+    reply_list = [(response['response_key'], response['response_value']) for response in responses_results]
+    return reply_list
