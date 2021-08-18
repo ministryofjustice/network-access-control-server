@@ -34,7 +34,6 @@ test_mab_with_unauthorised_mac_address() {
     echo "SUCCESS"
   else
     echo "FAILURE"
-    exit 1
   fi
 }
 
@@ -65,7 +64,7 @@ main() {
   test_eap_tls |grep '^SUCCESS$\|^FAILURE$' > /results
   test_eap_tls_ttls |grep '^SUCCESS$\|^FAILURE$' >> /results
   test_mab |grep '^SUCCESS$\|^FAILURE$' >> /results
-  test_mab_with_unauthorised_mac_address >> /results
+  test_mab_with_unauthorised_mac_address |grep '^SUCCESS$\|^FAILURE$' >> /results
   test_radsecproxy |grep '^SUCCESS$\|^FAILURE$' >> /results
   test_crl |grep '^SUCCESS$\|^FAILURE$' >> /results
 
