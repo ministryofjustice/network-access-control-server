@@ -10,4 +10,7 @@ RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     bash wpa_supplicant make freeradius freeradius-eap \
     openssl build-base gcc libc-dev 
 
+COPY client_crl.cnf /etc/raddb/certs
+COPY bootstrap.sh /
+
 WORKDIR /etc/raddb/certs

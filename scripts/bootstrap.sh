@@ -25,6 +25,12 @@ setup_test_crl() {
   fi
 }
 
+setup_test_mab() {
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    /test/scripts/setup_test_mac_address.sh
+  fi
+}
+
 fetch_authorised_macs() {
   if ! [ "$LOCAL_DEVELOPMENT" == "true" ]; then
     aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs /etc/raddb
@@ -42,20 +48,6 @@ rehash_certificates() {
   openssl rehash /etc/raddb/certs/radsec/ 
 }
 
-begin_crl_endpoint() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    echo "starting crl distribution point"
-
-    cp -pr /test/nginx/crl_distribution_point.conf /etc/nginx/http.d/default.conf
-    echo "127.0.0.1 example.com" >> /etc/hosts
-    cp -pr /etc/raddb/certs/ca.crl /etc/raddb/certs/example_ca.crl
-
-    mkdir -p /run/nginx
-    nginx
-    chown -R nginx:nginx /etc/raddb/certs/
-  fi
-}
-
 echo "Starting FreeRadius"
 
 main() {
@@ -64,8 +56,8 @@ main() {
   fetch_certificates
   fetch_authorised_macs
   rehash_certificates
+  setup_test_mab
   setup_test_crl
-  begin_crl_endpoint
   setup_test_clients
 }
 
