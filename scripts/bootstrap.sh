@@ -13,24 +13,6 @@ fetch_certificates() {
     fi
 }
 
-setup_test_clients() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    /test/scripts/setup_authorised_clients.sh
-  fi
-}
-
-setup_test_crl() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    /test/scripts/setup_test_crl.sh
-  fi
-}
-
-setup_test_mab() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    /test/scripts/setup_test_mac_address.sh
-  fi
-}
-
 fetch_authorised_macs() {
   if ! [ "$LOCAL_DEVELOPMENT" == "true" ]; then
     aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs /etc/raddb
@@ -48,6 +30,12 @@ rehash_certificates() {
   openssl rehash /etc/raddb/certs/radsec/ 
 }
 
+setup_tests() {
+  /test/scripts/setup_test_mac_address.sh
+  /test/scripts/setup_test_crl.sh
+  /test/scripts/setup_authorised_clients.sh
+}
+
 echo "Starting FreeRadius"
 
 main() {
@@ -55,9 +43,9 @@ main() {
   configure_crl
   fetch_certificates
   fetch_authorised_macs
-  setup_test_mab
-  setup_test_crl
-  setup_test_clients
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    setup_tests
+  fi
   rehash_certificates
 }
 
