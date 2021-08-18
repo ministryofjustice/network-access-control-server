@@ -12,8 +12,11 @@ build: check-container-registry-account-id
 build-dev: 
 	${DOCKER_COMPOSE} build
 
+generate-certs:
+	./test/scripts/generate_certs.sh
+
 build-nginx:
-	docker build -t nginx ./nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
+	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 run: start-db
 	${DOCKER_COMPOSE} up -d server
@@ -47,8 +50,13 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-test: stop build-dev run
-	docker volume create --name volumecerts
+test: stop build-dev generate-certs run
+	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_mac_address.sh
+	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
+	# $(DOCKER_COMPOSE) exec -T client /test/test_crl.sh
+	$(DOCKER_COMPOSE) logs server
+	$(DOCKER_COMPOSE) exec -T server ls -al /etc/raddb/certs
+	
 
-.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id 
+.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs

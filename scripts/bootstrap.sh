@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+set -xeo pipefail
 
 configure_crl() {
   sed -i "s/{{ENABLE_CRL}}/${ENABLE_CRL}/g" /etc/raddb/mods-enabled/eap
@@ -7,10 +7,22 @@ configure_crl() {
 
 fetch_certificates() {
     if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-      cp -pr ./test_certs/* /etc/raddb/certs/
+      cp -pr ./test/certs/* /etc/raddb/certs/
     else
       aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} /etc/raddb/certs/
     fi
+}
+
+setup_test_clients() {
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    /test/scripts/setup_authorised_clients.sh
+  fi
+}
+
+setup_test_crl() {
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    /test/scripts/setup_test_crl.sh
+  fi
 }
 
 fetch_authorised_macs() {
@@ -19,23 +31,9 @@ fetch_authorised_macs() {
   fi
 }
 
-setup_tests() {
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    ./test/setup_tests.sh
-  fi
-}
-
 inject_ocsp_endpoint() {
   echo "${OCSP_URL}"
   sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
-}
-
-begin_local_ocsp_endpoint() {
-  if ! [ "$ENV" == "production" ]; then
-    cp -pr ./certs/ocsp.cnf /etc/raddb/certs
-    echo "starting OCSP responder"
-    /scripts/ocsp_responder.sh
-  fi
 }
 
 rehash_certificates() {
@@ -45,14 +43,17 @@ rehash_certificates() {
 }
 
 begin_crl_endpoint() {
-  echo "starting crl distribution point"
-  mkdir -p /run/nginx
-  nginx 
-  chown -R nginx:nginx /etc/raddb/certs/
-}
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    echo "starting crl distribution point"
 
-start_radsecproxy() {
-  ./test/radsecproxy.sh
+    cp -pr /test/nginx/crl_distribution_point.conf /etc/nginx/http.d/default.conf
+    echo "127.0.0.1 example.com" >> /etc/hosts
+    cp -pr /etc/raddb/certs/ca.crl /etc/raddb/certs/example_ca.crl
+
+    mkdir -p /run/nginx
+    nginx
+    chown -R nginx:nginx /etc/raddb/certs/
+  fi
 }
 
 echo "Starting FreeRadius"
@@ -62,11 +63,10 @@ main() {
   configure_crl
   fetch_certificates
   fetch_authorised_macs
-  setup_tests
   rehash_certificates
+  setup_test_crl
   begin_crl_endpoint
-  begin_local_ocsp_endpoint
-  start_radsecproxy
+  setup_test_clients
 }
 
 main
