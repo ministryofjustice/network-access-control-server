@@ -55,10 +55,10 @@ main() {
   configure_crl
   fetch_certificates
   fetch_authorised_macs
-  rehash_certificates
   setup_test_mab
   setup_test_crl
   setup_test_clients
+  rehash_certificates
 }
 
 main
