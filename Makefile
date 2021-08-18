@@ -51,12 +51,8 @@ publish: build build-nginx
 	./scripts/publish.sh
 
 test: stop build-dev generate-certs run
-	$(DOCKER_COMPOSE) exec -T server /test/scripts/setup_test_mac_address.sh
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
-	# $(DOCKER_COMPOSE) exec -T client /test/test_crl.sh
-	$(DOCKER_COMPOSE) logs server
-	$(DOCKER_COMPOSE) exec -T server ls -al /etc/raddb/certs
-	
+	$(DOCKER_COMPOSE) exec -T client cat results
 
 .PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs

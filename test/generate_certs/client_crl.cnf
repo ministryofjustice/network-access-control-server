@@ -45,9 +45,9 @@ input_password		= whatever
 output_password		= whatever
 
 [client]
-countryName		    = GB
-stateOrProvinceName	= London
-localityName		= London
-organizationName	= MoJ
-emailAddress		= crl@moj.org
-commonName		    = crl@moj.org
+countryName             = FR
+stateOrProvinceName     = Radius
+localityName            = Somewhere
+organizationName        = Example Inc.
+emailAddress            = userrevoked@example.org
+commonName              = userrevoked@example.org
