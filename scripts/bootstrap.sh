@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eo pipefail
+set -xeo pipefail
 
 configure_crl() {
   sed -i "s/{{ENABLE_CRL}}/${ENABLE_CRL}/g" /etc/raddb/mods-enabled/eap
@@ -43,10 +43,17 @@ rehash_certificates() {
 }
 
 begin_crl_endpoint() {
-  echo "starting crl distribution point"
-  mkdir -p /run/nginx
-  nginx 
-  chown -R nginx:nginx /etc/raddb/certs/
+  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+    echo "starting crl distribution point"
+
+    cp -pr /test/nginx/crl_distribution_point.conf /etc/nginx/http.d/default.conf
+    echo "127.0.0.1 example.com" >> /etc/hosts
+    cp -pr /etc/raddb/certs/ca.crl /etc/raddb/certs/example_ca.crl
+
+    mkdir -p /run/nginx
+    nginx
+    chown -R nginx:nginx /etc/raddb/certs/
+  fi
 }
 
 echo "Starting FreeRadius"
