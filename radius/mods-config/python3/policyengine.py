@@ -14,24 +14,20 @@ def post_auth(p):
     with connection.cursor() as cursor:
         payload_dict = dict(p)
         policy_id = 0
-
-        rules_sql = "SELECT `policy`.`policy_id`, `request_key`, `request_operator`, `request_value` " \
-            "FROM `rules` " \
-            "INNER JOIN `policy` ON `policy`.`policy_id` = `rules`.`policy_id` " \
-            "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policy`.`policy_id`" \
-            "WHERE `policy`.`shortname`=%s " \
-            "ORDER BY `rules_count`.`amount_of_rules` DESC, `policy`.`policy_id`;"
-        cursor.execute(rules_sql, (payload_dict['Client-Shortname'],))
+        grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
 
         for _policy_id, rules in groupby(cursor, lambda row: row['policy_id']):
             rules_value_match = 0
-            for rule in rules:
+            if policy_id != 0:
+                break
+
+            for index, rule in enumerate(rules):
                 if rule['request_operator'] == "==" and rule['request_value'] == payload_dict[rule['request_key']]:
                     rules_value_match += 1
                 elif rule['request_operator'] == "CONTAINS" and rule['request_value'] in payload_dict[rule['request_key']]:
                     rules_value_match += 1 
-
-                if rules_value_match == len(list(rules)):
+                
+                if rules_value_match == rule['amount_of_rules']:
                     policy_id = rule['policy_id']
 
         reply_list = ()
@@ -48,6 +44,15 @@ def post_auth(p):
             
         connection.close()
         return radiusd.RLM_MODULE_OK, update_dict
+
+def grouped_rules_by_policy(cursor, _site):
+    rules_sql = "SELECT `policy`.`policy_id`, `request_key`, `request_operator`, `request_value`, `rules_count`.`amount_of_rules` " \
+            "FROM `rules` " \
+            "INNER JOIN `policy` ON `policy`.`policy_id` = `rules`.`policy_id` " \
+            "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policy`.`policy_id`" \
+            "WHERE `policy`.`shortname`=%s " \
+            "ORDER BY `rules_count`.`amount_of_rules` DESC, `policy`.`policy_id`;"
+    cursor.execute(rules_sql, (_site,))
 
 def main_policy_responses(cursor, policy_id):
     reponses_sql = "SELECT `response_key`, `response_value` FROM `responses` WHERE `policy_id`=%s"
