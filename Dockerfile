@@ -23,7 +23,6 @@ RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     && rm -fr /etc/raddb/sites-enabled/*
 
 COPY radius /etc/raddb
-COPY ./radius/clients.conf /etc/raddb/clients.conf
 COPY ./radius/sites-enabled/ /etc/raddb/sites-enabled
 COPY ./scripts /scripts
 
