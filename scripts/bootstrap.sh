@@ -17,10 +17,9 @@ fetch_authorised_clients() {
   if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
     mv /etc/raddb/test_clients.conf /etc/raddb/clients.conf
   else
-    aws s3 sync s3://${RADIUS_CONFIG_BUCKET_NAME}/clients.conf /etc/raddb/
+    aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/clients.conf /etc/raddb/
   fi
 
-  cat /etc/raddb/clients.conf
 }
 
 fetch_authorised_macs() {
