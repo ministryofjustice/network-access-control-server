@@ -39,8 +39,6 @@ post-auth {
   update request {
     Client-Shortname := "%{Client-Shortname}"
   }
-
-  python3
 }
 
 }
