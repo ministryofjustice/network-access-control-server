@@ -35,7 +35,12 @@ server radsec {
   authenticate {
     eap
   }
-  
-  post-auth {}
+post-auth {
+  update request {
+    Client-Shortname := "%{Client-Shortname}"
+  }
+
+  python3
+}
 
 }
