@@ -19,9 +19,6 @@ fetch_authorised_clients() {
   else
     aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/clients.conf /etc/raddb/
   fi
-
-  cat /etc/raddb/clients.conf
-
 }
 
 fetch_authorised_macs() {
