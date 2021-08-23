@@ -36,9 +36,6 @@ server radsec {
     eap
   }
 post-auth {
-  update request {
-    Client-Shortname := "%{Client-Shortname}"
-  }
 }
 
 }

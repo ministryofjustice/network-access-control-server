@@ -35,9 +35,6 @@ authenticate {
 }
 
 post-auth {
-  update request {
-    Client-Shortname := "%{Client-Shortname}"
-  }
 }
 
 preacct {
