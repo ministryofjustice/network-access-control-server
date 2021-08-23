@@ -5,10 +5,10 @@ from pymysql import connect, cursors
 from itertools import groupby
 
 def post_auth(p):
-    connection = connect(host='db',
-                             user='radius',
-                             password='radius',
-                             database='radius',
+    connection = connect(host='{{DB_HOST}}',
+                             user='{{DB_USER}}',
+                             password='{{DB_PASS}}',
+                             database='{{DB_NAME}}',
                              cursorclass=cursors.DictCursor)
 
     with connection.cursor() as cursor:
