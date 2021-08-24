@@ -17,6 +17,8 @@ services:
       DB_USER: radius
       DB_PASS: radius
       DB_NAME: radius
+      ENABLE_OCSP: "yes"
+      OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "server"
@@ -43,6 +45,8 @@ services:
       DB_USER: radius
       DB_PASS: radius
       DB_NAME: radius
+      ENABLE_OCSP: "yes"
+      OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "test-client"
@@ -77,6 +81,8 @@ services:
       DB_USER: radius
       DB_PASS: radius
       DB_NAME: radius
+      ENABLE_OCSP: "no"
+      OCSP_OVERRIDE_CERT_URL: "no"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "radsecproxy"

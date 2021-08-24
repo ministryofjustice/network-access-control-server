@@ -30,8 +30,8 @@
 			}
 
 			ocsp {
-				enable = no
-				override_cert_url = yes
+				enable = {{ENABLE_OCSP}}
+				override_cert_url = {{OCSP_OVERRIDE_CERT_URL}}
 				url = "http://{{OCSP_URL}}"
 			}
 
