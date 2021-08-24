@@ -36,9 +36,10 @@ fetch_authorised_macs() {
   fi
 }
 
-inject_ocsp_endpoint() {
-  echo "${OCSP_URL}"
+configure_ocsp() {
   sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" /etc/raddb/mods-enabled/eap
+  sed -i "s/{{OCSP_OVERRIDE_CERT_URL}}/${OCSP_OVERRIDE_CERT_URL}/g" /etc/raddb/mods-enabled/eap
+  sed -i "s/{{ENABLE_OCSP}}/${ENABLE_OCSP}/g" /etc/raddb/mods-enabled/eap
 }
 
 rehash_certificates() {
@@ -55,7 +56,7 @@ setup_tests() {
 echo "Starting FreeRadius"
 
 main() {
-  inject_ocsp_endpoint
+  configure_ocsp
   inject_db_credentials
   configure_crl
   fetch_certificates
