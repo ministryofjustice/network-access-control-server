@@ -14,20 +14,19 @@ services:
       - './test:/test'
     environment:
       DB_HOST: db
-      DB_USER: radius
-      DB_PASS: radius
-      DB_NAME: radius
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: network_access_control_development_admin
       ENABLE_OCSP: "yes"
       OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "server"
       ENABLE_CRL: "yes"
-    depends_on: 
-      - db
     networks:
       vpcbr:
         ipv4_address: 10.5.0.5
+      adminnet:
 
   client:
     build:
@@ -42,20 +41,19 @@ services:
       - "2083/tcp"
     environment:
       DB_HOST: db
-      DB_USER: radius
-      DB_PASS: radius
-      DB_NAME: radius
+      DB_USER: root
+      DB_PASS: root
+      DB_NAME: network_access_control_development_admin
       ENABLE_OCSP: "yes"
       OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "test-client"
       ENABLE_CRL: "yes"
-    depends_on: 
-      - db
     networks:
       vpcbr:
         ipv4_address: 10.5.0.6
+      adminnet:
 
   certgenerator:
     build:
@@ -86,27 +84,10 @@ services:
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "radsecproxy"
-    depends_on: 
-      - db
     networks:
       vpcbr:
         ipv4_address: 10.5.0.8
-
-  db:
-    image: "${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/admin-mysql:mysql-5-7"
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: radius
-      MYSQL_PASSWORD: radius
-      MYSQL_DATABASE: radius
-    ports:
-    - 3306:3306
-    volumes: 
-      - ./db/:/docker-entrypoint-initdb.d
-    networks:
-      vpcbr:
-        ipv4_address: 10.5.0.7
+      adminnet:
 
 networks:
   vpcbr:
@@ -114,3 +95,6 @@ networks:
     ipam:
      config:
        - subnet: 10.5.0.0/16
+  adminnet:
+    external:
+      name: adminnet
