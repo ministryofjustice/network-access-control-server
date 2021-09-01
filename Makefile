@@ -18,7 +18,7 @@ generate-certs:
 build-nginx:
 	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
-run: start-db
+run: 
 	${DOCKER_COMPOSE} up -d server
 	${DOCKER_COMPOSE} up -d client
 	${DOCKER_COMPOSE} up -d radsecproxy
@@ -38,11 +38,7 @@ shell-client:
 shell-radsecproxy: 
 	${DOCKER_COMPOSE} exec radsecproxy bash
 
-start-db: 
-	$(DOCKER_COMPOSE) up -d db
-	./scripts/wait_for_db.sh
-
-serve: stop build-dev start-db run
+serve: stop build-dev run
 
 deploy: 
 	./scripts/deploy.sh
