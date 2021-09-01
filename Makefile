@@ -18,16 +18,13 @@ generate-certs:
 build-nginx:
 	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
-run: 
+run:
 	${DOCKER_COMPOSE} up -d server
 	${DOCKER_COMPOSE} up -d client
 	${DOCKER_COMPOSE} up -d radsecproxy
 
 stop: 
-	${DOCKER_COMPOSE} stop server
-	${DOCKER_COMPOSE} stop client
-	${DOCKER_COMPOSE} stop radsecproxy
-	# ${DOCKER_COMPOSE} stop db
+	${DOCKER_COMPOSE} down
 
 shell-server: 
 	${DOCKER_COMPOSE} exec server bash
@@ -46,7 +43,7 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-test: stop build-dev generate-certs run
+test:
 	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 	$(DOCKER_COMPOSE) exec -T client cat /results
