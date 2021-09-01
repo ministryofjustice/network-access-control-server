@@ -11,4 +11,5 @@ phases:
   install:
     commands:
       - make authenticate-docker
+      - make stop build-dev generate-certs run
       - make test
