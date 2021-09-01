@@ -46,22 +46,28 @@ def post_auth(p):
         return radiusd.RLM_MODULE_OK, update_dict
 
 def grouped_rules_by_policy(cursor, _site):
-    rules_sql = "SELECT `policy`.`policy_id`, `request_key`, `request_operator`, `request_value`, `rules_count`.`amount_of_rules` " \
+    rules_sql = "SELECT `policies`.`id` policy_id, `request_attribute`, `operator`, `value`, `rules_count`.`amount_of_rules` " \
             "FROM `rules` " \
-            "INNER JOIN `policy` ON `policy`.`policy_id` = `rules`.`policy_id` " \
-            "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policy`.`policy_id`" \
-            "WHERE `policy`.`shortname`=%s " \
-            "ORDER BY `rules_count`.`amount_of_rules` DESC, `policy`.`policy_id`;"
+            "INNER JOIN `policies` ON `policies`.`id` = `rules`.`policy_id` " \
+            "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policies`.`id`" \
+            "INNER JOIN policies_sites ON policies_sites.policy_id = policies.id" \
+            "INNER JOIN sites ON sites.id = policies_sites.site_id" \
+            "WHERE `sites`.`shortname`=%s " \
+            "ORDER BY `rules_count`.`amount_of_rules` DESC, `policies`.`id`;"
     cursor.execute(rules_sql, (_site,))
 
 def main_policy_responses(cursor, policy_id):
-    reponses_sql = "SELECT `response_key`, `response_value` FROM `responses` WHERE `policy_id`=%s"
+    reponses_sql = "SELECT `response_attribute`, `value` FROM `responses` WHERE `policy_id`=%s"
     cursor.execute(reponses_sql, (policy_id,))
     responses_results = cursor.fetchall()
     return group_responses(responses_results)
 
 def fallback_policy_responses(cursor, policy_id):
-    fallback_sql = "SELECT `response_key`, `response_value` FROM `responses` INNER JOIN `policy` ON `policy`.`policy_id` = `responses`.`policy_id` WHERE `policy`.`shortname`=%s AND `policy`.`fallback`=1"
+    fallback_sql = "SELECT `response_attribute`, `value` FROM `responses` " \
+    "INNER JOIN `policies` ON `policies`.`id` = `responses`.`policy_id` "  \ 
+    "INNER JOIN policies_sites on policies_sites.policy_id = policies.id " \
+    "INNER JOIN sites on sites.id = policies_sites.site_id" \
+    "WHERE `sites`.`shortname`=%s AND `policies`.`fallback`=1"
     cursor.execute(fallback_sql, (policy_id,))
     responses_results = cursor.fetchall()              
     return group_responses(responses_results)
