@@ -30,7 +30,7 @@ VALUES
 	(1,'Tunnel-Type','VLAN','2021-09-01 15:46:58.354468','2021-09-01 15:48:23.253863',NULL,1),
 	(2,'Tunnel-Medium-Type','IEEE-802','2021-09-01 15:47:58.786005','2021-09-01 15:47:58.786005',NULL,1),
 	(3,'Tunnel-Private-Group-Id','777','2021-09-01 15:48:12.971011','2021-09-01 15:48:12.971011',NULL,1),
-	(4,'User-Name','failure','2021-09-01 15:49:26.559492','2021-09-01 15:49:26.559492',NULL,2);
+	(4,'Reply-Message','Fallback Policy','2021-09-01 15:49:26.559492','2021-09-01 15:49:26.559492',NULL,2);
 
 INSERT INTO `rules` (`id`, `operator`, `value`, `policy_id`, `request_attribute`, `created_at`, `updated_at`)
 VALUES
