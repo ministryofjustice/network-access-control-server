@@ -4,7 +4,7 @@ set -e
 
 wait_for_certs() {
     printf "Waiting for cert $1 to be generated"
-    until docker exec ${certgenerator_id} ls /etc/raddb/certs/$1
+    until docker exec ${certgenerator_id} ls /etc/raddb/certs/$1 &> /dev/null
     do
         printf "."
         sleep 1
