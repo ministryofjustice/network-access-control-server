@@ -3,7 +3,7 @@
 set -ex
 
 setup_test_matching_policy() {
-  mysql -u${DB_USER} -p${DB_PASS} -h${DB_HOST} ${DB_NAME} < ./policy_engine_data/test_matching_policy.sql
+  mysql -u${DB_USER} -p${DB_PASS} -h${DB_HOST} ${DB_NAME} < /test/policy_engine_data/test_matching_policy.sql
 }
 
 test_matching_policy() {
