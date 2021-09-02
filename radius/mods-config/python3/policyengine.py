@@ -22,9 +22,9 @@ def post_auth(p):
                 break
 
             for index, rule in enumerate(rules):
-                if rule['operator'] == "equals" and rule['value'] == payload_dict[rule['request_attribute']]:
+                if rule['operator'] == "equals" and rule['value'] == payload_dict.get(rule['request_attribute']):
                     rules_value_match += 1
-                elif rule['operator'] == "contains" and rule['value'] in payload_dict[rule['request_attribute']]:
+                elif rule['operator'] == "contains" and rule['value'] in payload_dict.get(rule['request_attribute']):
                     rules_value_match += 1 
                 
                 if rules_value_match == rule['amount_of_rules']:
