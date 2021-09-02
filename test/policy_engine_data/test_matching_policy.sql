@@ -1,11 +1,11 @@
--- SET FOREIGN_KEY_CHECKS = 0; 
--- truncate table responses;
--- truncate table rules;
--- truncate table policies;
--- truncate table clients;
--- truncate table sites;
--- truncate table policies_sites;
--- SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS = 0; 
+truncate table rules;
+truncate table responses;
+truncate table policies_sites;
+truncate table policies;
+truncate table sites;
+truncate table clients;
+SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `sites` (`id`, `name`, `created_at`, `updated_at`)
 VALUES
