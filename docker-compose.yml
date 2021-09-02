@@ -17,7 +17,7 @@ services:
       DB_USER: root
       DB_PASS: root
       DB_NAME: network_access_control_development_admin
-      ENABLE_OCSP: "yes"
+      ENABLE_OCSP: "no"
       OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
@@ -44,7 +44,7 @@ services:
       DB_USER: root
       DB_PASS: root
       DB_NAME: network_access_control_development_admin
-      ENABLE_OCSP: "yes"
+      ENABLE_OCSP: "no"
       OCSP_OVERRIDE_CERT_URL: "yes"
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"

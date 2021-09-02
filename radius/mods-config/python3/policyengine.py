@@ -22,9 +22,9 @@ def post_auth(p):
                 break
 
             for index, rule in enumerate(rules):
-                if rule['operator'] == "==" and rule['value'] == payload_dict[rule['request_attribute']]:
+                if rule['operator'] == "equals" and rule['value'] == payload_dict[rule['request_attribute']]:
                     rules_value_match += 1
-                elif rule['operator'] == "CONTAINS" and rule['value'] in payload_dict[rule['request_attribute']]:
+                elif rule['operator'] == "contains" and rule['value'] in payload_dict[rule['request_attribute']]:
                     rules_value_match += 1 
                 
                 if rules_value_match == rule['amount_of_rules']:
@@ -44,6 +44,7 @@ def post_auth(p):
             
         connection.close()
         return radiusd.RLM_MODULE_OK, update_dict
+
 def grouped_rules_by_policy(cursor, _site):
     rules_sql = "SELECT `policies`.`id` policy_id, `request_attribute`, `operator`, `value`, `rules_count`.`amount_of_rules` " \
             "FROM `rules` " \
@@ -62,14 +63,14 @@ def main_policy_responses(cursor, policy_id):
     responses_results = cursor.fetchall()
     return group_responses(responses_results)
 
-def fallback_policy_responses(cursor, policy_id):
+def fallback_policy_responses(cursor, _site):
     fallback_sql = "SELECT `response_attribute`, `value` FROM `responses` " \
             "INNER JOIN `policies` ON `policies`.`id` = `responses`.`policy_id` "  \
             "INNER JOIN policies_sites ps ON ps.policy_id = policies.id " \
             "INNER JOIN sites s ON s.id = ps.site_id " \
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s AND `policies`.`fallback`=1"
-    cursor.execute(fallback_sql, (policy_id,))
+    cursor.execute(fallback_sql, (_site,))
     responses_results = cursor.fetchall()              
     return group_responses(responses_results)
 
