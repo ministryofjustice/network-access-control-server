@@ -34,6 +34,6 @@ VALUES
 
 INSERT INTO `rules` (`id`, `operator`, `value`, `policy_id`, `request_attribute`, `created_at`, `updated_at`)
 VALUES
-	(1,'equals','user@example.com',1,'User-Name','2021-09-01 15:44:24.523461','2021-09-01 15:44:24.523461'),
+	(1,'equals','user@example.org',1,'User-Name','2021-09-01 15:44:24.523461','2021-09-01 15:44:24.523461'),
 	(2,'equals','127.0.0.1',1,'NAS-IP-Address','2021-09-01 15:44:42.275498','2021-09-01 15:44:42.275498'),
 	(5,'equals','Wireless-802.11',1,'NAS-Port-Type','2021-09-01 15:45:41.656111','2021-09-01 15:45:41.656111');
