@@ -54,10 +54,12 @@ def grouped_rules_by_policy(cursor, _site):
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s " \
             "ORDER BY `rules_count`.`amount_of_rules` DESC, `policies`.`id`;"
+    print(rules_sql)
     cursor.execute(rules_sql, (_site,))
 
 def main_policy_responses(cursor, policy_id):
     reponses_sql = "SELECT `response_attribute`, `value` FROM `responses` WHERE `policy_id`=%s"
+    print(responses_sql)
     cursor.execute(reponses_sql, (policy_id,))
     responses_results = cursor.fetchall()
     return group_responses(responses_results)
@@ -69,6 +71,7 @@ def fallback_policy_responses(cursor, policy_id):
             "INNER JOIN sites s ON s.id = ps.site_id " \
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s AND `policies`.`fallback`=1"
+    print(fallback_sql)
     cursor.execute(fallback_sql, (policy_id,))
     responses_results = cursor.fetchall()              
     return group_responses(responses_results)
