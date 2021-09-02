@@ -48,4 +48,7 @@ test:
 	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
 	$(DOCKER_COMPOSE) exec -T client cat /results
 
-.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs
+integration-test:
+	${DOCKER_COMPOSE} exec -T client /test/test_policy_engine.sh
+
+.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs integration-test
