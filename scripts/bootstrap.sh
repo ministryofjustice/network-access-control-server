@@ -68,4 +68,4 @@ main() {
 
 main
 
-/usr/sbin/radiusd -f -l stdout
+/usr/sbin/radiusd -fxx -l stdout
