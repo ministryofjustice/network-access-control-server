@@ -12,6 +12,11 @@ inject_db_credentials() {
   sed -i "s/{{DB_NAME}}/${DB_NAME}/g" /etc/raddb/mods-config/python3/policyengine.py
 }
 
+inject_certificate_parameters() {
+  sed -i "s/{{EAP_PRIVATE_KEY_PASSWORD}}/${EAP_PRIVATE_KEY_PASSWORD}/g" /etc/raddb/mods-enabled/eap
+  sed -i "s/{{RADSEC_PRIVATE_KEY_PASSWORD}}/${RADSEC_PRIVATE_KEY_PASSWORD}/g" /etc/raddb/sites-enabled/radsec
+}
+ 
 fetch_certificates() {
     if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
       cp -pr ./test/certs/* /etc/raddb/certs/
@@ -56,6 +61,7 @@ echo "Starting FreeRadius"
 main() {
   configure_ocsp
   inject_db_credentials
+  inject_certificate_parameters
   configure_crl
   fetch_certificates
   fetch_authorised_macs

@@ -23,6 +23,8 @@ services:
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "server"
       ENABLE_CRL: "yes"
+      EAP_PRIVATE_KEY_PASSWORD: "whatever"
+      RADSEC_PRIVATE_KEY_PASSWORD: "whatever"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.5
@@ -50,6 +52,8 @@ services:
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "test-client"
       ENABLE_CRL: "yes"
+      EAP_PRIVATE_KEY_PASSWORD: "whatever"
+      RADSEC_PRIVATE_KEY_PASSWORD: "whatever"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.6
@@ -84,6 +88,8 @@ services:
       OCSP_URL: "127.0.0.1:9999"
       LOCAL_DEVELOPMENT: "true"
       CONTAINER_NAME: "radsecproxy"
+      EAP_PRIVATE_KEY_PASSWORD: "whatever"
+      RADSEC_PRIVATE_KEY_PASSWORD: "whatever"
     networks:
       vpcbr:
         ipv4_address: 10.5.0.8
