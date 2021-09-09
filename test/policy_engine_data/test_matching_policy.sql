@@ -22,8 +22,8 @@ VALUES
 
 INSERT INTO `site_policies` (`policy_id`, `site_id`, `created_at`, `updated_at`)
 VALUES
-	(1,1,'2021-09-01 15:44:07.702484','2021-09-01 15:44:07.702484'),
-	(2,1,'2021-09-01 15:49:12.352961','2021-09-01 15:49:12.352961');
+	(1,1, now(), now()),
+	(2,1, now(), now());
 
 INSERT INTO `responses` (`id`, `response_attribute`, `value`, `created_at`, `updated_at`, `mac_authentication_bypass_id`, `policy_id`)
 VALUES
