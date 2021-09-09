@@ -1,7 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0; 
 truncate table rules;
 truncate table responses;
-truncate table policies_sites;
+truncate table site_policies;
 truncate table policies;
 truncate table sites;
 truncate table clients;
@@ -20,7 +20,7 @@ VALUES
 	(1,'Test Matching Policy','Test Matching Policy','2021-09-01 15:44:07.702484','2021-09-01 15:44:07.702484',0),
 	(2,'Fallback','Some fallback policy','2021-09-01 15:49:12.352961','2021-09-01 15:49:12.352961',1);
 
-INSERT INTO `policies_sites` (`policy_id`, `site_id`)
+INSERT INTO `site_policies` (`policy_id`, `site_id`)
 VALUES
 	(1,1),
 	(2,1);
