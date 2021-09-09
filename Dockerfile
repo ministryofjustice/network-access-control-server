@@ -18,7 +18,7 @@ RUN apk update && apk upgrade && apk --no-cache --update add --virtual \
     && rm awscli-bundle.zip \
     && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws \
     && rm -r ./awscli-bundle \
-    && mkdir -p /tmp/radiusd /etc/raddb && openssl dhparam -out /etc/raddb/dh 1024 \
+    && mkdir -p /tmp/radiusd /etc/raddb \
     && mkdir -p /etc/raddb/certs \
     && rm -fr /etc/raddb/sites-enabled/* 
 
