@@ -12,7 +12,7 @@ server radsec {
       certificate_file = ${radsec_certdir}/server.pem
       fragment_size = 8192
       ca_path = ${radsec_certdir}
-      dh_file = ${raddbdir}/dh
+      dh_file = ${raddbdir}/certs/dh
       random_file = /dev/random
       check_crl = no
       cipher_list = "DEFAULT"
