@@ -50,8 +50,8 @@ def grouped_rules_by_policy(cursor, _site):
             "FROM `rules` " \
             "INNER JOIN `policies` ON `policies`.`id` = `rules`.`policy_id` " \
             "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policies`.`id`" \
-            "INNER JOIN policies_sites ps ON ps.policy_id = policies.id " \
-            "INNER JOIN sites s ON s.id = ps.site_id " \
+            "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
+            "INNER JOIN sites s ON s.id = sp.site_id " \
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s " \
             "ORDER BY `rules_count`.`amount_of_rules` DESC, `policies`.`id`;"
@@ -66,8 +66,8 @@ def main_policy_responses(cursor, policy_id):
 def fallback_policy_responses(cursor, _site):
     fallback_sql = "SELECT `response_attribute`, `value` FROM `responses` " \
             "INNER JOIN `policies` ON `policies`.`id` = `responses`.`policy_id` "  \
-            "INNER JOIN policies_sites ps ON ps.policy_id = policies.id " \
-            "INNER JOIN sites s ON s.id = ps.site_id " \
+            "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
+            "INNER JOIN sites s ON s.id = sp.site_id " \
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s AND `policies`.`fallback`=1"
     cursor.execute(fallback_sql, (_site,))
