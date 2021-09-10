@@ -5,6 +5,7 @@ server radsec {
     ipaddr = *
     port = 2083
     proto = tcp
+    clients = radsec
 
     tls {
       private_key_password = {{RADSEC_PRIVATE_KEY_PASSWORD}}
