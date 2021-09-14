@@ -33,7 +33,7 @@ shell-client:
 	${DOCKER_COMPOSE} exec client bash
 
 shell-radsecproxy: 
-	${DOCKER_COMPOSE} exec radsecproxy bash
+	${DOCKER_COMPOSE} exec radsecproxy sh
 
 serve: stop build-dev run
 
