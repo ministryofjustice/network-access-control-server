@@ -22,11 +22,18 @@ Replace ```SHARED_SERVICES_VAULT_PROFILE_NAME``` and ```SHARED_SERVICES_ACCOUNT_
 1. Create a `.env` file in the root directory
    1. Add `SHARED_SERVICES_ACCOUNT_ID=` to the `.env` file, entering the relevant account ID
 
+1. Generate certificates 
+
+```sh
+$ make generate-certs
+```
+
 1. Start the application
 
 ```sh
 $ make serve
 ```
+
 1. Running tests
 
 ```sh
