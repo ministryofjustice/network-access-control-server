@@ -76,4 +76,5 @@ def fallback_policy_responses(cursor, _site):
 
 def group_responses(responses_results):
     reply_list = [(response['response_attribute'], response['value']) for response in responses_results]
+    print(tuple(reply_list))
     return tuple(reply_list)
