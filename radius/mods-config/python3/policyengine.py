@@ -34,7 +34,7 @@ def post_auth(p):
         if policy_id != 0:
             reply_list = main_policy_responses(cursor, policy_id)
         else:
-            reply_list = fallback_policy_responses(cursor, policy_id)
+            reply_list = fallback_policy_responses(cursor, payload_dict['Client-Shortname'])
 
         update_dict = {
             "reply" : (
