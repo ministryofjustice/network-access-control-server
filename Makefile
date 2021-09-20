@@ -8,7 +8,7 @@ build: check-container-registry-account-id
 	docker build -t radius ./ --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 build-nginx:
-	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
+	docker build -t nginx ./nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
 
 deploy: 
 	./scripts/deploy.sh
