@@ -1,5 +1,3 @@
-DOCKER_COMPOSE = docker-compose -f docker-compose.yml
-
 authenticate-docker: check-container-registry-account-id
 	./scripts/authenticate_docker.sh
 
@@ -9,33 +7,8 @@ check-container-registry-account-id:
 build: check-container-registry-account-id
 	docker build -t radius ./ --build-arg SHARED_SERVICES_ACCOUNT_ID
 
-build-dev: 
-	${DOCKER_COMPOSE} build
-
-generate-certs:
-	./test/scripts/generate_certs.sh
-
 build-nginx:
 	docker build -t nginx ./test/nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
-
-run:
-	${DOCKER_COMPOSE} up -d server
-	${DOCKER_COMPOSE} up -d client
-	${DOCKER_COMPOSE} up -d radsecproxy
-
-stop: 
-	${DOCKER_COMPOSE} down
-
-shell-server: 
-	${DOCKER_COMPOSE} exec server bash
-
-shell-client: 
-	${DOCKER_COMPOSE} exec client bash
-
-shell-radsecproxy: 
-	${DOCKER_COMPOSE} exec radsecproxy sh
-
-serve: stop build-dev run
 
 deploy: 
 	./scripts/deploy.sh
@@ -43,12 +16,4 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-test:
-	$(DOCKER_COMPOSE) exec -T server /test/scripts/ocsp_responder.sh
-	$(DOCKER_COMPOSE) exec -T client /test/test_eap.sh
-	$(DOCKER_COMPOSE) exec -T client cat /results
-
-integration-test:
-	${DOCKER_COMPOSE} exec -T client /test/test_policy_engine.sh
-
-.PHONY: build run build-dev publish serve deploy test check-container-registry-account-id generate-certs integration-test
+.PHONY: build run publish deploy check-container-registry-account-id 
