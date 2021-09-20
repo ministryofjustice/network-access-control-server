@@ -53,11 +53,6 @@ rehash_certificates() {
   openssl rehash $prefix/certs/radsec/ 
 }
 
-setup_tests() {
-  /test/scripts/setup_test_mac_address.sh
-  /test/scripts/setup_test_crl.sh
-}
-
 echo "Starting FreeRadius"
 
 main() {
@@ -68,9 +63,6 @@ main() {
   fetch_certificates
   fetch_authorised_macs
   fetch_authorised_clients
-  if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
-    setup_tests
-  fi
   rehash_certificates
 }
 
