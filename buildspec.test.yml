@@ -10,4 +10,5 @@ env:
 phases:
   install:
     commands:
-      - echo "Temporarily disabled"
+      - git clone https://github.com/ministryofjustice/network-access-control-integration-tests.git
+      - cd network-access-control-integration-tests && make clone-admin clone-server test
