@@ -54,7 +54,7 @@ def grouped_rules_by_policy(cursor, _site):
             "INNER JOIN sites s ON s.id = sp.site_id " \
             "INNER JOIN clients c ON c.site_id = s.id " \
             "WHERE `c`.`tag`=%s " \
-            "ORDER BY `rules_count`.`amount_of_rules` DESC, `policies`.`id`;"
+            "ORDER BY sp.priority;"
     cursor.execute(rules_sql, (_site,))
 
 def main_policy_responses(cursor, policy_id):
