@@ -43,6 +43,14 @@ post-auth {
   }
 
   python3
+
+  Post-Auth-Type REJECT {
+    update request {
+      Client-Shortname := "%{Client-Shortname}"
+    }
+
+    python3
+  }
 }
 
 }
