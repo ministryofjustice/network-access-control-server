@@ -43,6 +43,10 @@ post-auth {
   }
 
   python3
+
+  Post-Auth-Type REJECT {
+    python3
+  }
 }
 
 }
