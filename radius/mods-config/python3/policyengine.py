@@ -24,11 +24,11 @@ def post_auth(p):
             rules_value_match = 0
             if policy_id != 0:
                 break
-            
-            if payload_dict.get(rule['request_attribute']) == None:
-                continue
 
             for index, rule in enumerate(rules):
+                if payload_dict.get(rule['request_attribute']) == None:
+                    continue
+
                 if rule['operator'] == "equals" and rule['value'] == payload_dict.get(rule['request_attribute']):
                     rules_value_match += 1
                 elif rule['operator'] == "contains" and rule['value'] in payload_dict.get(rule['request_attribute']):
