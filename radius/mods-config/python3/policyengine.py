@@ -13,7 +13,7 @@ def post_auth(p):
 
     with connection.cursor() as cursor:
         payload_dict = dict(p)
-        if payload_dict['EAP-Type'] != "TLS":
+        if payload_dict.get('EAP-Type') != "TLS":
             return
         
         print(payload_dict)
