@@ -13,6 +13,7 @@ def post_auth(p):
 
     with connection.cursor() as cursor:
         payload_dict = dict(p)
+        print(payload_dict)
         policy_id = 0
         grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
 
