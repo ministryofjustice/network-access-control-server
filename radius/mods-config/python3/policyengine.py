@@ -13,6 +13,9 @@ def post_auth(p):
 
     with connection.cursor() as cursor:
         payload_dict = dict(p)
+        if payload_dict['EAP-Type'] == "TTLS":
+            return
+        
         print(payload_dict)
         policy_id = 0
         grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
@@ -21,6 +24,9 @@ def post_auth(p):
             rules_value_match = 0
             if policy_id != 0:
                 break
+            
+            if payload_dict.get(rule['request_attribute']) == None:
+                continue
 
             for index, rule in enumerate(rules):
                 if rule['operator'] == "equals" and rule['value'] == payload_dict.get(rule['request_attribute']):
