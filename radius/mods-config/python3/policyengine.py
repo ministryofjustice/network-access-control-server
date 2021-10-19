@@ -34,7 +34,7 @@ def post_auth(p):
                 elif rule['operator'] == "contains" and rule['value'] in payload_dict.get(rule['request_attribute']):
                     rules_value_match += 1 
                 
-                if rules_value_match == rule['amount_of_rules']:
+                if rules_value_match == rule['rule_count']:
                     policy_id = rule['policy_id']
 
         reply_list = ()
@@ -53,14 +53,12 @@ def post_auth(p):
         return radiusd.RLM_MODULE_OK, update_dict
 
 def grouped_rules_by_policy(cursor, _site):
-    rules_sql = "SELECT `policies`.`id` policy_id, `request_attribute`, `operator`, `value`, `rules_count`.`amount_of_rules` " \
+    rules_sql = "SELECT `policies`.`id` policy_id, `request_attribute`, `operator`, `value`, `policies`.`rule_count` " \
             "FROM `rules` " \
             "INNER JOIN `policies` ON `policies`.`id` = `rules`.`policy_id` " \
-            "INNER JOIN (SELECT count(*) amount_of_rules, `policy_id` FROM `rules` GROUP BY `policy_id`) `rules_count` ON `rules_count`.`policy_id` = `policies`.`id`" \
             "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
             "INNER JOIN sites s ON s.id = sp.site_id " \
-            "INNER JOIN clients c ON c.site_id = s.id " \
-            "WHERE `c`.`tag`=%s " \
+            "WHERE `s`.`tag`=%s " \
             "ORDER BY sp.priority;"
     cursor.execute(rules_sql, (_site,))
 
@@ -75,8 +73,7 @@ def fallback_policy_responses(cursor, _site):
             "INNER JOIN `policies` ON `policies`.`id` = `responses`.`policy_id` "  \
             "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
             "INNER JOIN sites s ON s.id = sp.site_id " \
-            "INNER JOIN clients c ON c.site_id = s.id " \
-            "WHERE `c`.`tag`=%s AND `policies`.`fallback`=1"
+            "WHERE `s`.`tag`=%s AND `policies`.`fallback`=1"
     cursor.execute(fallback_sql, (_site,))
     responses_results = cursor.fetchall()              
     return group_responses(responses_results)
