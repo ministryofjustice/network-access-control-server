@@ -68,4 +68,4 @@ main() {
 
 main
 
-freeradius -f -l stdout
+freeradius -fxx -l stdout
