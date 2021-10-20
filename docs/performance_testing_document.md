@@ -79,7 +79,8 @@ A zero downtime deployment was done during peak load. This did not cause any ser
 
 The performance tests are stored in version control as infrastructure as code, and can be run by enabling the performance testing module.
 
-- Generate self signed CA and client certificates and upload to performance testing S3 bucket.
+- Generate self signed CA and client certificates and upload to performance testing S3
+bucket using the following [guide](https://github.com/ministryofjustice/network-access-control-infrastructure/blob/main/documentation/performance_testing.md#generating-and-signing-the-performance-test-certificates).
 - Ensure these are installed on the Freeradius servers.  This can be done through the admin interface.
 - Generate required seed data for the policy engine. This can be found in the [admin github repo](https://github.com/ministryofjustice/network-access-control-admin/blob/main/db/seeds.rb).
 
