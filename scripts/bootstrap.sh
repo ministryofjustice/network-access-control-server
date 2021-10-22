@@ -53,6 +53,14 @@ rehash_certificates() {
   openssl rehash $prefix/certs/radsec/ 
 }
 
+start_freeradius_server() {
+  if [ "$VERBOSE_LOGGING" == "true" ]; then
+    freeradius -fxx -l stdout
+  else
+    freeradius -f -l stdout
+  fi
+}
+
 echo "Starting FreeRadius"
 
 main() {
@@ -64,8 +72,7 @@ main() {
   fetch_authorised_macs
   fetch_authorised_clients
   rehash_certificates
+  start_freeradius_server
 }
 
 main
-
-freeradius -fxx -l stdout
