@@ -16,7 +16,7 @@ deploy:
 publish: build build-nginx
 	./scripts/publish.sh
 
-publish_dictionaires: build
+publish-dictionaries: build
 	./scripts/publish_dictionaries.sh
 
 .PHONY: build run publish deploy check-container-registry-account-id publish_dictionaires
