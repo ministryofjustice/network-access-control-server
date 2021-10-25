@@ -3,13 +3,13 @@ version: 0.2
 env:
   variables:
     DB_PORT: 3306
-    RADIUS_CONFIG_BUCKET_NAME: "mojo-$ENV-nac-config-bucket"
   parameter-store:
     REGISTRY_URL: "/moj-network-access-control/$ENV/ecr/endpoint"
     TARGET_AWS_ACCOUNT_ID: "/codebuild/$ENV/account_id"
     TERRAFORM_OUTPUTS: "/moj-network-access-control/terraform/$ENV/outputs"
     ROLE_ARN: "/codebuild/pttp-ci-infrastructure-core-pipeline/$ENV/assume_role"
     SHARED_SERVICES_ACCOUNT_ID: /codebuild/staff_device_shared_services_account_id
+    RADIUS_CONFIG_BUCKET_NAME: /moj-network-access-control/$ENV/radius-config-bucket-name
 
 phases:
   build:
