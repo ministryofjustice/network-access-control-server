@@ -53,6 +53,18 @@ rehash_certificates() {
   openssl rehash $prefix/certs/radsec/ 
 }
 
+start_packet_capture() {
+  if [ "$ENABLE_PACKET_CAPTURE" == "true" ]; then
+    echo "Starting packet capture for $PACKET_CAPTURE_DURATION seconds"
+
+    mkdir ./captures
+    container_id=$(curl "${ECS_CONTAINER_METADATA_URI_V4}"/task |jq -r '.TaskARN' |cut -d '/' -f 3)
+    capture_file="${container_id}.pcap"
+    tshark -i any -w ./captures/$capture_file -a duration:${PACKET_CAPTURE_DURATION} \
+    && aws s3 sync ./captures/ s3://${RADIUS_CONFIG_BUCKET_NAME}/captures/
+  fi
+}
+
 start_freeradius_server() {
   if [ "$VERBOSE_LOGGING" == "true" ]; then
     freeradius -fxx -l stdout
@@ -60,8 +72,6 @@ start_freeradius_server() {
     freeradius -f -l stdout
   fi
 }
-
-echo "Starting FreeRadius"
 
 main() {
   configure_ocsp
@@ -72,6 +82,7 @@ main() {
   fetch_authorised_macs
   fetch_authorised_clients
   rehash_certificates
+  start_packet_capture &
   start_freeradius_server
 }
 

@@ -10,7 +10,7 @@ ENV LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libpython3.8.so"
 
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
     gnupg tzdata openssl libssl-dev nettle-dev curl freeradius freeradius-python3 python-six python3-debian python3-dev libpython3.8-dev python3-pymysql \
-    python3 python3-pip wget unzip python3.8-venv tshark jq libcap2-bin \
+    python3 python3-pip wget unzip python3.8-venv tshark jq \
     && python3 && ln -sf python3 /usr/bin/python \
     && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
     && mkdir -p /tmp/radiusd \
@@ -22,9 +22,6 @@ COPY --chown=freerad:freerad ./radius /etc/freeradius/3.0/
 COPY --chown=freerad:freerad ./scripts /scripts
 
 RUN /scripts/install_aws_sdk.sh
-RUN /scripts/setup_wireshark.sh
-
-USER freerad
 
 EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
