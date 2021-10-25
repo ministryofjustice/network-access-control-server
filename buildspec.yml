@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     DB_PORT: 3306
+    RADIUS_CONFIG_BUCKET_NAME: "mojo-$ENV-nac-config-bucket"
   parameter-store:
     REGISTRY_URL: "/moj-network-access-control/$ENV/ecr/endpoint"
     TARGET_AWS_ACCOUNT_ID: "/codebuild/$ENV/account_id"
