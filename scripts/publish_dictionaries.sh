@@ -6,7 +6,7 @@ source ./scripts/aws_helpers.sh
 
 publish_dictionaries() {
   local publish_dictionaries_command="aws s3 sync /usr/share/freeradius/ s3://${RADIUS_CONFIG_BUCKET_NAME}/radius_dictionaries/ --exclude "*" --include "dictionary.*""
-  local docker_service_name="radius"
+  local docker_service_name="radius-server"
   local cluster_name service_name task_definition docker_service_name
 
   cluster_name=$( jq -r '.radius.ecs.cluster_name' <<< "${TERRAFORM_OUTPUTS}" )
