@@ -1,5 +1,5 @@
 	eap eap {
-		default_eap_type = tls
+		default_eap_type = ttls
 		timer_expire     = 60
 		ignore_unknown_eap_types = no
 		cisco_accounting_username_bug = no
@@ -40,13 +40,6 @@
 		}
 
 		ttls {
-			default_eap_type = tls
-			copy_request_to_tunnel = yes
-			use_tunneled_reply = yes
-			virtual_server = "default"
-		}
-
-		peap {
 			default_eap_type = tls
 			copy_request_to_tunnel = yes
 			use_tunneled_reply = yes
