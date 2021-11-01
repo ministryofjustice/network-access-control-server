@@ -9,6 +9,7 @@ This is the RADIUS Server for managing Network Access Control.
   - [Starting the App](#starting-the-app)
 - [Policy Engine](#policy-engine)
 - [RADIUS Attribute Validation](#radius-attribute-validation)
+- [Performance Testing](#performance-testing)
 
 ## Getting Started
 
@@ -55,11 +56,14 @@ $ make shell-server
 ```
 
 ## Policy Engine
-[Policy Engine User Flow Diagram](/docs/policy_engine_document.md)
+- [Policy Engine User Flow Diagram](/docs/policy_engine_document.md)
 
 ## RADIUS Attribute Validation
 
-In order to understand how request/response attributes are validated from the
+- In order to understand how request/response attributes are validated from the
 [Network Access Control Admin](https://github.com/ministryofjustice/network-access-control-admin)
 application to the FreeRADIUS server, refer to the
 [attribute validation](/docs/attribute_validation.md) documentation.
+
+## Performance Testing
+- [Performance test results and guidance](/docs/performance_testing_document.md)
