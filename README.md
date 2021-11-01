@@ -1,6 +1,13 @@
 # Network Access Control Server
 
-This is the RADIUS Server for managing Network Access Control
+This is the RADIUS Server for managing Network Access Control.
+
+## Table of Contents
+
+- [Getting Started](#getting-started)
+  - [Authenticating Docker with AWS ECR](#authenticating-docker-with-aws-ecr)
+  - [Starting the App](#starting-the-app)
+- [RADIUS Attribute Validation](#radius-attribute-validation)
 
 ## Getting Started
 
@@ -45,3 +52,10 @@ $ make test
 ```sh
 $ make shell-server
 ```
+
+## RADIUS Attribute Validation
+
+In order to understand how request/response attributes are validated from the
+[Network Access Control Admin](https://github.com/ministryofjustice/network-access-control-admin)
+application to the FreeRADIUS server, refer to the
+[attribute validation](/docs/attribute_validation.md) documentation.
