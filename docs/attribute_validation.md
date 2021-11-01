@@ -17,6 +17,8 @@ script.
 In the case where the FreeRADIUS server is upgraded to a newer version, the above-mentioned script
 ensures the latest dictionaries are always present in the AWS S3 bucket.
 
+![publish radius dictionaries diagram](./NAC-RADIUS-Attribute-Validation.drawio.svg)
+
 ## Attributes
 
 The attributes have been split into default and custom (vendor specific) attributes.
