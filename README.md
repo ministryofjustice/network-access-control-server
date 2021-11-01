@@ -7,6 +7,7 @@ This is the RADIUS Server for managing Network Access Control.
 - [Getting Started](#getting-started)
   - [Authenticating Docker with AWS ECR](#authenticating-docker-with-aws-ecr)
   - [Starting the App](#starting-the-app)
+- [Policy Engine](#policy-engine)
 - [RADIUS Attribute Validation](#radius-attribute-validation)
 
 ## Getting Started
@@ -52,6 +53,9 @@ $ make test
 ```sh
 $ make shell-server
 ```
+
+## Policy Engine
+[Policy Engine User Flow Diagram](/docs/policy_engine_document.md)
 
 ## RADIUS Attribute Validation
 
