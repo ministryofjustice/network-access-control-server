@@ -31,23 +31,22 @@ The default request attributes can be found in
 Additional default attributes for `EAP-TLS` are as follows:
 
 ```
-TLS-Cert-Serial 
-TLS-Cert-Expiration 
-TLS-Cert-Issuer 
-TLS-Cert-Subject 
-TLS-Cert-Common-Name 
-TLS-Cert-Subject-Alt-Name-Email 
-TLS-Cert-Subject-Alt-Name-Dns 
-TLS-Cert-Subject-Alt-Name-Upn 
-TLS-Client-Cert-Serial 
-TLS-Client-Cert-Expiration 
-TLS-Client-Cert-Issuer 
-TLS-Client-Cert-Subject 
-TLS-Client-Cert-Common-Name 
-TLS-Client-Cert-Filename 
-TLS-Client-Cert-Subject-Alt-Name-Email 
-TLS-Client-Cert-X509v3-Extended-Key-Usage 
-TLS-Client-Cert-X509v
+TLS-Cert-Serial
+TLS-Cert-Expiration
+TLS-Cert-Issuer
+TLS-Cert-Subject
+TLS-Cert-Common-Name
+TLS-Cert-Subject-Alt-Name-Email
+TLS-Cert-Subject-Alt-Name-Dns
+TLS-Cert-Subject-Alt-Name-Upn
+TLS-Client-Cert-Serial
+TLS-Client-Cert-Expiration
+TLS-Client-Cert-Issuer
+TLS-Client-Cert-Subject
+TLS-Client-Cert-Common-Name
+TLS-Client-Cert-Filename
+TLS-Client-Cert-Subject-Alt-Name-Email
+TLS-Client-Cert-X509v3-Extended-Key-Usage
 ```
 
 ### Response attributes
@@ -56,7 +55,9 @@ The default list of response attributes can be found here:
 https://freeradius.org/rfc/attributes.html
 
 FreeRADIUS maintains a dynamic retrieval of response attributes in the link above, ensuring they
-are always up-to-date with the latest FreeRADIUS version.
+are always up-to-date with the latest FreeRADIUS version. However, the entire list is not required
+for the server because some modules are not enabled, such as the accounting module. This means the
+admin portal will only display the supported response attributes.
 
 ### Custom attributes
 
