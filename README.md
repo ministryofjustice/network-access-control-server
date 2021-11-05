@@ -67,3 +67,15 @@ application to the FreeRADIUS server, refer to the
 
 ## Performance Testing
 - [Performance test results and guidance](/docs/performance_testing_document.md)
+
+## What triggers a deployment of the Radius server from the Admin Portal?
+
+1. Certificates
+    - Uploading and deleting an EAP or RADSEC certificate from the Admin Portal
+1. Mac Authentication Bypass
+    - Adding, deleting, or updating a Mac address to the MAB list
+    - Adding, deleting, or updating a MAB response in the MAB lis
+1. Sites and Clients
+    - Adding a Client to a Site
+1. Policies
+    - Policies are read using the read-replica RDS, creating a Policy does not trigger a deployment
