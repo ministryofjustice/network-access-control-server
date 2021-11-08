@@ -55,7 +55,9 @@ $ make test
 $ make shell-server
 ```
 
-## Policy Engine
+## User Flow and Policy Engine diagrams
+- [EAP User Flow Diagram](/docs/EAP.drawio.svg)
+- [RadSec User Flow Diagram](/docs/radsec.drawio.svg)
 - [Policy Engine User Flow Diagram](/docs/policy_engine_document.md)
 
 ## RADIUS Attribute Validation
