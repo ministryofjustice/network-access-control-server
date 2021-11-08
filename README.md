@@ -55,7 +55,11 @@ $ make test
 $ make shell-server
 ```
 
-## User Flow and Policy Engine diagrams
+## User Flow and Diagrams
+
+### Internal Authentication
+![internal_authentication](./docs/diagrams/internal_authentication.drawio.svg)
+### Other Diagrams
 - [EAP User Flow Diagram](/docs/eap_user_flow_diagram.md)
 - [RadSec User Flow Diagram](/docs/radsec_user_flow_diagram.md)
 - [Policy Engine User Flow Diagram](/docs/policy_engine_document.md)
