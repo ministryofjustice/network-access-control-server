@@ -72,6 +72,6 @@ application runs a Rake task
 before running the Rails server as can be seen in the
 [Dockerfile](https://github.com/ministryofjustice/network-access-control-admin/blob/main/Dockerfile).
 
-This Rake task fetches the FreeRADIUS dictionary files from the AWS S3 bucket, and produces a separate file (`radius_dictionary_attributes.txt`) with the list of attributes inside the application container.
+This Rake task fetches the FreeRADIUS dictionary files from the AWS S3 bucket and outputs them into the `/usr/share/freeradius/` folder.
 
-The request and response attributes are validated against this file to ensure the FreeRADIUS server does support the custom attributes that are input by the administrator using the Network Access Control Service Admin application.
+The request and response attributes and values are validated against the dictionaries by booting FreeRADIUS, checking the configuration and exiting immediately. The attribute validator uses the [FreeRADIUS parse errors to generate descriptive error messages](https://github.com/ministryofjustice/network-access-control-admin/blob/main/spec/use_cases/validate_radius_attribute_spec.rb) when an administrator enters invalid values using the Network Access Control Service Admin application.
