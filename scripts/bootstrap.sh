@@ -3,28 +3,6 @@ set -eo pipefail
 
 prefix=/etc/freeradius/3.0
 
-configure_crl() {
-  sed -i "s/{{ENABLE_CRL}}/${ENABLE_CRL}/g" $prefix/mods-enabled/eap
-}
-
-configure_ocsp() {
-  sed -i "s/{{OCSP_URL}}/${OCSP_URL}/g" $prefix/mods-enabled/eap
-  sed -i "s/{{OCSP_OVERRIDE_CERT_URL}}/${OCSP_OVERRIDE_CERT_URL}/g" $prefix/mods-enabled/eap
-  sed -i "s/{{ENABLE_OCSP}}/${ENABLE_OCSP}/g" $prefix/mods-enabled/eap
-}
-
-inject_db_credentials() {
-  sed -i "s/{{DB_HOST}}/${DB_HOST}/g" $prefix/mods-config/python3/policyengine.py
-  sed -i "s/{{DB_USER}}/${DB_USER}/g" $prefix/mods-config/python3/policyengine.py
-  sed -i "s/{{DB_PASS}}/${DB_PASS}/g" $prefix/mods-config/python3/policyengine.py
-  sed -i "s/{{DB_NAME}}/${DB_NAME}/g" $prefix/mods-config/python3/policyengine.py
-}
-
-inject_certificate_parameters() {
-  sed -i "s/{{EAP_PRIVATE_KEY_PASSWORD}}/${EAP_PRIVATE_KEY_PASSWORD}/g" $prefix/mods-enabled/eap
-  sed -i "s/{{RADSEC_PRIVATE_KEY_PASSWORD}}/${RADSEC_PRIVATE_KEY_PASSWORD}/g" $prefix/sites-enabled/radsec
-}
- 
 fetch_certificates() {
     if [ "$LOCAL_DEVELOPMENT" == "true" ]; then
       cp -pr ./test/certs/* $prefix/certs
@@ -74,10 +52,6 @@ start_freeradius_server() {
 }
 
 main() {
-  configure_ocsp
-  inject_db_credentials
-  inject_certificate_parameters
-  configure_crl
   fetch_certificates
   fetch_authorised_macs
   fetch_authorised_clients
