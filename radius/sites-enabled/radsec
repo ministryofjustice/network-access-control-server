@@ -30,19 +30,21 @@ server radsec {
       }
     }
   }
+
   authorize {
     rewrite_calling_station_id
     eap
   }
+
   authenticate {
     eap
   }
-post-auth {
-  update request {
-    Client-Shortname := "%{Client-Shortname}"
+
+  post-auth {
+    update request {
+      Client-Shortname := "%{Client-Shortname}"
+    }
+
+    python3
   }
-
-  python3
-}
-
 }
