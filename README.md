@@ -10,7 +10,7 @@ This is the RADIUS Server for managing Network Access Control.
   - [Deployment](#deployment)
     - [Targetting the ECS Cluster and Service to Deploy](#targetting-the-ecs-cluster-and-service-to-deploy)
     - [Publishing Image from Local Machine](#publishing-image-from-local-machine)
-- [Policy Engine](#policy-engine)
+- [User Flow and Diagrams](#user-flow-and-diagrams)
 - [RADIUS Attribute Validation](#radius-attribute-validation)
 - [Performance Testing](#performance-testing)
 - [What triggers a deployment of the Radius server from the Admin Portal?](#what-triggers-a-deployment-of-the-radius-server-from-the-admin-portal)
