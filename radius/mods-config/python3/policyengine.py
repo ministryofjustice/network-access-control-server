@@ -1,21 +1,22 @@
 #! /usr/bin/env python3
 
+import os
 import radiusd
 from pymysql import connect, cursors
 from itertools import groupby
 
 def post_auth(p):
-    connection = connect(host='{{DB_HOST}}',
-                             user='{{DB_USER}}',
-                             password='{{DB_PASS}}',
-                             database='{{DB_NAME}}',
+    connection = connect(host=os.environ.get('DB_HOST'),
+                             user=os.environ.get('DB_USER'),
+                             password=os.environ.get('DB_PASS'),
+                             database=os.environ.get('DB_NAME'),
                              cursorclass=cursors.DictCursor)
 
     with connection.cursor() as cursor:
         payload_dict = dict(p)
         if payload_dict.get('EAP-Type') != "TLS":
             return
-        
+
         print(payload_dict)
         policy_id = 0
         grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
