@@ -10,6 +10,7 @@ This is the RADIUS Server for managing Network Access Control.
 - [Policy Engine](#policy-engine)
 - [RADIUS Attribute Validation](#radius-attribute-validation)
 - [Performance Testing](#performance-testing)
+- [What triggers a deployment of the Radius server from the Admin Portal?](#what-triggers-a-deployment-of-the-radius-server-from-the-admin-portal)
 
 ## Getting Started
 
@@ -27,33 +28,7 @@ Replace ```SHARED_SERVICES_VAULT_PROFILE_NAME``` and ```SHARED_SERVICES_ACCOUNT_
 
 ### Starting the App
 
-1. Clone the repository
-1. Create a `.env` file in the root directory
-   1. Add `SHARED_SERVICES_ACCOUNT_ID=` to the `.env` file, entering the relevant account ID
-
-1. Generate certificates 
-
-```sh
-$ make generate-certs
-```
-
-1. Start the application
-
-```sh
-$ make serve
-```
-
-1. Running tests
-
-```sh
-$ make test
-```
-
-1. Connect to the server shell
-
-```sh
-$ make shell-server
-```
+1. To run the application locally, refer to the [Integration-Test](https://github.com/ministryofjustice/network-access-control-integration-test) repository
 
 ## User Flow and Diagrams
 
