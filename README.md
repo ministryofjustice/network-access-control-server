@@ -7,6 +7,9 @@ This is the RADIUS Server for managing Network Access Control.
 - [Getting Started](#getting-started)
   - [Authenticating Docker with AWS ECR](#authenticating-docker-with-aws-ecr)
   - [Starting the App](#starting-the-app)
+  - [Deployment](#deployment)
+    - [Targetting the ECS Cluster and Service to Deploy](#targetting-the-ecs-cluster-and-service-to-deploy)
+    - [Publishing Image from Local Machine](#publishing-image-from-local-machine)
 - [Policy Engine](#policy-engine)
 - [RADIUS Attribute Validation](#radius-attribute-validation)
 - [Performance Testing](#performance-testing)
@@ -29,6 +32,48 @@ Replace ```SHARED_SERVICES_VAULT_PROFILE_NAME``` and ```SHARED_SERVICES_ACCOUNT_
 ### Starting the App
 
 1. To run the application locally, refer to the [Integration-Test](https://github.com/ministryofjustice/network-access-control-integration-test) repository
+
+### Deployment
+
+The `deploy` command is wrapped in a Makefile. It calls `./scripts/deploy` which schedules a zero downtime phased [deployment](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html) in ECS.
+
+It doubles the currently running tasks and briefly serves traffic from the new and existing tasks in the service.
+The older tasks are eventually decommissioned, and production traffic is gradually shifted over to only the new running tasks.
+
+On CI this command is executed from the [buildspec.yml](./buildspec.yml) file after migrations and publishing the new image to ECR has been completed.
+
+### Targetting the ECS Cluster and Service to Deploy
+
+The ECS infrastructure is managed by Terraform. The name of the cluster and service are [outputs](https://www.terraform.io/docs/configuration/outputs.html) from the Terraform apply. These values are published to SSM Parameter Store, when this container is deployed it pulls those values from Parameter Store and sets them as environment variables.
+
+The deploy script references these environment variables to target the ECS RADIUS service and cluster. This is to avoid depending on the hardcoded strings.
+
+The build pipeline assumes a role to access the target AWS account.
+
+#### Publishing Image from Local Machine
+
+1. Export the following configurations as an environment variable.
+
+```bash
+  export NAC_TERRAFORM_OUTPUTS='{
+    "radius": {
+      "ecs": {
+        "cluster_name": "[TARGET_CLUSTER_NAME]",
+        "service_name": "[TARGET_SERVICE_NAME]"
+      }
+    }
+  }'
+```
+
+This mimics what happens on CI where this environment variable is already set.
+
+When run locally, you need to target the AWS account directly with AWS Vault.
+
+2. Schedule the deployment
+
+```bash
+  aws-vault exec [target_aws_account_profile] -- make deploy
+```
 
 ## User Flow and Diagrams
 
