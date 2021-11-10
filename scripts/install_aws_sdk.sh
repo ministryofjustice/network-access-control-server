@@ -2,7 +2,7 @@
 
 set -e
 
-if ! [ "$LOCAL_DEVELOPMENT" == "true" ]; then
+if ! [ $1 == "true" ]; then
   wget "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" \
   && unzip awscli-bundle.zip \
   && rm awscli-bundle.zip \
