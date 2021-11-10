@@ -1,10 +1,10 @@
 ARG SHARED_SERVICES_ACCOUNT_ID
-ARG LOCAL_DEVELOPMENT=false
 FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/network-access-control-server:ubuntu-20-04
+ARG LOCAL_DEVELOPMENT=false
 ENV TZ=UTC
 ENV PYTHONUNBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
-
+ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 ENV LD_LIBRARY_PATH="/usr/lib/python3.8:/usr/lib/python3/dist-packages/"
 
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
@@ -20,7 +20,7 @@ RUN apt-get update -y && apt-get install --no-install-recommends -y \
 COPY --chown=freerad:freerad ./radius /etc/freeradius/3.0/
 COPY --chown=freerad:freerad ./scripts /scripts
 
-RUN /scripts/install_aws_sdk.sh
+RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
 
 EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
