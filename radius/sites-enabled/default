@@ -3,6 +3,7 @@ server default {
     type = auth
     ipaddr = *
     port = 1812
+
     limit {
       max_connections = 64
       lifetime = 10
@@ -10,47 +11,35 @@ server default {
     }
   }
 
-authorize {
-  preprocess
-  rewrite_calling_station_id
+  authorize {
+    preprocess
+    rewrite_calling_station_id
 
-  if (!EAP-Message) {
-    authorized_macs
+    if (!EAP-Message) {
+      authorized_macs
 
-    if (!ok) {
-      reject
-    }
-    else {
-      update control {
-        Auth-Type := Accept
+      if (!ok) {
+        reject
       }
+      else {
+        update control {
+          Auth-Type := Accept
+        }
+      }
+    } else {
+      eap
     }
-  } else {
+  }
+
+  authenticate {
     eap
   }
-}
 
-authenticate {
-  eap
-}
+  post-auth {
+    update request {
+      Client-Shortname := "%{Client-Shortname}"
+    }
 
-post-auth {
-  update request {
-    Client-Shortname := "%{Client-Shortname}"
+    python3
   }
-
-  python3
-}
-
-preacct {
-}
-accounting {
-}
-session {
-}
-pre-proxy {
-}
-post-proxy {
-	eap
-}
 }
