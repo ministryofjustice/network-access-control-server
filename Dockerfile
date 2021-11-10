@@ -24,4 +24,4 @@ RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
 
 EXPOSE 1812/udp 1813/udp 18120/udp 2083/tcp
 
-CMD /scripts/bootstrap.sh 
+CMD /scripts/bootstrap.sh
