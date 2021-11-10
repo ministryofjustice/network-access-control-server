@@ -1,12 +1,11 @@
 ARG SHARED_SERVICES_ACCOUNT_ID
 ARG LOCAL_DEVELOPMENT=false
 FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/network-access-control-server:ubuntu-20-04
-
 ENV TZ=UTC
 ENV PYTHONUNBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
+
 ENV LD_LIBRARY_PATH="/usr/lib/python3.8:/usr/lib/python3/dist-packages/"
-ENV LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libpython3.8.so"
 
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
     gnupg tzdata openssl libssl-dev nettle-dev curl freeradius freeradius-python3 python-six python3-debian python3-dev libpython3.8-dev python3-pymysql \
