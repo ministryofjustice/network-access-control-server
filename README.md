@@ -31,7 +31,7 @@ Replace ```SHARED_SERVICES_VAULT_PROFILE_NAME``` and ```SHARED_SERVICES_ACCOUNT_
 
 ### Starting the App
 
-1. To run the application locally, refer to the [Integration-Test](https://github.com/ministryofjustice/network-access-control-integration-test) repository
+1. To run the application locally, refer to the [Integration-Test](https://github.com/ministryofjustice/network-access-control-integration-tests) repository
 
 ### Deployment
 
@@ -96,12 +96,10 @@ application to the FreeRADIUS server, refer to the
 
 ## What triggers a deployment of the Radius server from the Admin Portal?
 
-1. Certificates
-    - Uploading and deleting an EAP or RADSEC certificate from the Admin Portal
-1. Mac Authentication Bypass
-    - Adding, deleting, or updating a Mac address to the MAB list
-    - Adding, deleting, or updating a MAB response in the MAB lis
-1. Sites and Clients
-    - Adding a Client to a Site
-1. Policies
-    - Policies are read using the read-replica RDS, creating a Policy does not trigger a deployment
+1.  Uploading and deleting a certificate
+
+2.  Modifying a MAC address or response attribute associated with that MAC address
+
+3.  Modifying a site, client or policy association of the site
+
+*Note: Policy updates do not trigger a deployment, any rule / response updates will be available to FreeRadius at runtime*
