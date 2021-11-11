@@ -32,14 +32,28 @@ server radsec {
   }
 
   authorize {
+    preprocess
     rewrite_calling_station_id
-    eap
+
+    if (!EAP-Message) {
+      authorized_macs
+
+      if (!ok) {
+        reject
+      }
+      else {
+        update control {
+          Auth-Type := Accept
+        }
+      }
+    } else {
+      eap
+    }
   }
 
   authenticate {
     eap
   }
-
   post-auth {
     update request {
       Client-Shortname := "%{Client-Shortname}"
