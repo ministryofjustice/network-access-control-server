@@ -14,21 +14,9 @@ server default {
   authorize {
     preprocess
     rewrite_calling_station_id
+    authorized_macs
+    eap
 
-    if (!EAP-Message) {
-      authorized_macs
-
-      if (!ok) {
-        reject
-      }
-      else {
-        update control {
-          Auth-Type := Accept
-        }
-      }
-    } else {
-      eap
-    }
   }
 
   authenticate {
