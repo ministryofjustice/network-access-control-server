@@ -37,4 +37,6 @@ eap eap {
     use_tunneled_reply = yes
     virtual_server = "default"
   }
+
+  md5 {}
 }
