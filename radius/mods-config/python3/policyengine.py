@@ -70,11 +70,10 @@ def main_policy_responses(cursor, policy_id):
     return group_responses(responses_results)
 
 def fallback_policy_responses(cursor, _site):
-    fallback_sql = "SELECT DISTINCT(`response_attribute`), `value` FROM `responses` " \
-            "INNER JOIN `policies` ON `policies`.`id` = `responses`.`policy_id` "  \
-            "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
-            "INNER JOIN sites s ON s.id = sp.site_id " \
-            "WHERE `s`.`tag`=%s AND `policies`.`fallback`=1"
+    fallback_sql = "SELECT DISTINCT(`response_attribute`), `value` FROM `responses` r " \
+            "INNER JOIN `policies` p ON `p`.`id` = `r`.`policy_id` "  \
+            "INNER JOIN sites s ON `s`.`fallback_policy_id` = `p`.`id` " \
+            "WHERE `s`.`tag`=%s"
     cursor.execute(fallback_sql, (_site,))
     responses_results = cursor.fetchall()              
     return group_responses(responses_results)
