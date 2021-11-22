@@ -7,6 +7,10 @@ server radsec {
     proto = tcp
     clients = radsec
 
+    limit {
+      idle_timeout = 50
+    }
+
     tls {
       private_key_password = `$ENV{RADSEC_PRIVATE_KEY_PASSWORD}`
       private_key_file = ${radsec_certdir}/server.pem
