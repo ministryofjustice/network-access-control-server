@@ -27,7 +27,7 @@ eap eap {
     ocsp {
       enable = `$ENV{ENABLE_OCSP}`
       override_cert_url = `$ENV{OCSP_OVERRIDE_CERT_URL}`
-      url = "http://`$ENV{OCSP_URL}`"
+      url = `$ENV{OCSP_URL}`
     }
   }
 
