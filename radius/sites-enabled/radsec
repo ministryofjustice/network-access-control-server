@@ -8,7 +8,7 @@ server radsec {
     clients = radsec
 
     limit {
-      idle_timeout = 60
+      idle_timeout = 180
       lifetime = 0
     }
 
