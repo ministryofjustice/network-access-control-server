@@ -16,18 +16,14 @@ server default {
     rewrite_calling_station_id
     authorized_macs
 
-    if (!EAP-Message) {
-
-      if (!ok) {
-        reject
-      }
-      else {
-        update control {
-          Auth-Type := Accept
-        }
+    if (EAP-Message) {
+      eap
+    } elsif (!EAP-Message && ok) {
+      update control {
+        Auth-Type := Accept
       }
     } else {
-      eap
+      reject
     }
   }
 
