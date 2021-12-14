@@ -1,16 +1,13 @@
-authenticate-docker: check-container-registry-account-id
+authenticate-docker:
 	./scripts/authenticate_docker.sh
 
-check-container-registry-account-id:
-	./scripts/check_container_registry_account_id.sh
-
-build: check-container-registry-account-id
-	docker build -t radius ./ --build-arg SHARED_SERVICES_ACCOUNT_ID
+build:
+	docker build -t radius ./
 
 build-nginx:
-	docker build -t nginx ./nginx --build-arg SHARED_SERVICES_ACCOUNT_ID
+	docker build -t nginx ./nginx
 
-deploy: 
+deploy:
 	./scripts/deploy.sh
 
 publish: build build-nginx
@@ -19,4 +16,4 @@ publish: build build-nginx
 publish-dictionaries:
 	./scripts/publish_dictionaries.sh
 
-.PHONY: build run publish deploy check-container-registry-account-id publish_dictionaires
+.PHONY: build run publish deploy publish_dictionaires
