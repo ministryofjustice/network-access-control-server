@@ -1,5 +1,4 @@
-ARG SHARED_SERVICES_ACCOUNT_ID
-FROM ${SHARED_SERVICES_ACCOUNT_ID}.dkr.ecr.eu-west-2.amazonaws.com/network-access-control-server:ubuntu-20-04
+FROM ubuntu:20.04
 ARG LOCAL_DEVELOPMENT=false
 ENV TZ=UTC
 ENV PYTHONUNBUFFERED=1
