@@ -11,46 +11,48 @@ This documentation contains the results of the load test conducted on the 20th o
 ## Configuration
 
 - The Radius servers run in an auto-scaling cluster
-- Up to 16 servers were run behind a load balancer at the time of testing
+- The Radius servers autoscaled up to 20 at peak load
 - The server connects to a single RDS read replica [db.t3.2xlarge](https://aws.amazon.com/rds/instance-types/)
 - Each server has 2048 Memory and 1024 CPU available
-- 12 [t4g.medium](https://aws.amazon.com/ec2/instance-types/) EC2 instances were created as test clients with eapol_test running in a loop in multiple threads
+- 20 [t4g.medium](https://aws.amazon.com/ec2/instance-types/) EC2 instances were created as test clients with eapol_test running in a loop
 
 ## Data set
 
 The data set that was imported at the time of testing contained:
 
-  - 2k sites
-  - 3k policies, shared between sites
+  - 1750 sites
+  - 2750 policies, shared between sites
   - Each site has 5 policies configured
-  - Each site has 20 authorised clients (allowed sites) configured (40k in total)
-  - Each fallback policy has one response (2k total)
-  - Each policy has 5 rules configured (15k in total)
-  - Each policy has 5 responses configured (15k in total)
+  - Each site has 10 authorised clients (allowed sites) configured (40k in total)
+  - Each fallback policy has one response (1750 total)
+  - Each policy has 5 rules configured (13750 in total)
+  - Each policy has 5 responses configured (13750 in total)
 
 ## Considerations
 
-- The tests were run with verbose logging enabled and disabled [see below](#verbose-logging-enabled)
-- Each EC2 instance ran 10 concurrent eapol tests
+- The tests were run with verbose logging enabled. This had no negative performance impact on the service
 - Tests were run for roughly 2 hours, traffic was gradually ramped up over this period
 - The timeout for a test was set to 3 seconds
 - Retries were not implemented
-- EAP-TLS was used as the authentication method
+- EAP-TLS was used as the first authentication method
+- MAC Authentication Bypass with MD5 was used as the MAB authentication method
 - Each authentication would execute the policy engine, and return a custom response from the database
-- Connecting to OCSP was not a part of this test. The service was tested in isolation.
-- The service runs in 3 availability zones in AWS, each with a dedicated IP address as the entry point. These IP addresses were randomised and passed to the tests.
+- Connecting to OCSP was not a part of this test. The service was tested in isolation
+- The service runs in 3 availability zones in AWS, each with a dedicated IP address as the entry point. These IP addresses were randomised and passed to the tests
 
 ## Updates to service during testing to reach desired numbers
 
 - Updates to database schema to ensure optimal performance
-- Auto scaling fine tuned to scale on CPU > 15%
+- Auto scaling fine tuned to scale on amount of packet count per container processed (10k packets over a sustained period of time)
 - Database was set to t3.2xlarge, reset back to t3.large after test was completed to save on AWS costs
 
-## Load test results
+## Load test results for EAP-TLS
 
-The test results indicate that the current NACS service can handle **approximately 278 authentications per second**. This test was performed multiple times and the results were observed to be consistent. It was noted that the database CPU was the main bottleneck during testing.
+The EAP-TLS test results indicate that the current NACS service can handle **approximately 315 authentications per second**. This test was performed multiple times and the results were observed to be consistent. It was noted that the database CPU was the main bottleneck during testing.
 
-![ECS](images/performance_testing/authentications_per_second.png)
+![ECS](images/performance_testing/AcceptsPerSecond_EAP.png)
+
+![ECS](images/performance_testing/AcceptsPerSecondLine_EAP.png)
 
 ### ECS - Elastic Container Service
 
@@ -64,12 +66,17 @@ The test results indicate that the current NACS service can handle **approximate
 
 ![NLB](images/performance_testing/nlb.png)
 
-### Verbose logging enabled
+## Load test results for MAB
 
-During the test, a deployment was done to enable verbose logging on the Freeradius servers.
-The impact was observed to be minimal, reducing the number of authentications per second from 278 to 258.
+The MAB test results indicate that the current NACS service can handle **approximately 340 authentications per second**. This test was performaned multiple times and the results were observed to be consistent. 
 
-![Verbose Logging](images/performance_testing/verbose_logging.png)
+![ECS](images/performance_testing/AcceptsPerSecond_MAB.png)
+
+![ECS](images/performance_testing/AcceptsPerSecondLine_MAB.png)
+
+### NLB - Network Load Balancer
+
+![NLB](images/performance_testing/NLB_MAB.png)
 
 ### Deployments during peak load
 
