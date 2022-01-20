@@ -4,12 +4,11 @@ ENV TZ=UTC
 ENV PYTHONUNBUFFERED=1
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
-ENV LD_LIBRARY_PATH="/usr/lib/python3.8:/usr/lib/python3/dist-packages/"
+ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/:/usr/lib/python3.8/config-3.8-x86_64-linux-gnu/"
 
 RUN apt-get update -y && apt-get install --no-install-recommends -y \
-    gnupg tzdata openssl libssl-dev nettle-dev curl freeradius freeradius-python3 python-six python3-debian python3-dev libpython3.8-dev python3-pymysql \
-    python3 python3-pip wget unzip python3.8-venv tshark jq \
-    && python3 && ln -sf python3 /usr/bin/python \
+    gnupg tzdata openssl libssl-dev nettle-dev curl freeradius freeradius-python3 python3-debian python3-dev python3-pymysql \
+    python3 python3-pip wget unzip tshark jq \
     && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
     && mkdir -p /tmp/radiusd \
     && mkdir -p /etc/freeradius/3.0/certs \

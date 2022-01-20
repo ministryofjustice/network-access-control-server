@@ -27,8 +27,8 @@ fetch_authorised_macs() {
 
 rehash_certificates() {
   echo "Rehashing certs"
-  openssl rehash $prefix/certs/ 
-  openssl rehash $prefix/certs/radsec/ 
+  openssl rehash $prefix/certs/
+  openssl rehash $prefix/certs/radsec/
 }
 
 start_packet_capture() {
@@ -44,7 +44,7 @@ start_packet_capture() {
 }
 
 start_freeradius_server() {
-  export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libpython3.8.so"
+  export LD_PRELOAD="usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8.so"
 
   if [ "$VERBOSE_LOGGING" == "true" ]; then
     freeradius -fxx -l stdout
