@@ -26,7 +26,6 @@ fetch_authorised_macs() {
 }
 
 rehash_certificates() {
-  echo "Rehashing certs"
   openssl rehash $prefix/certs/
   openssl rehash $prefix/certs/radsec/
 }
