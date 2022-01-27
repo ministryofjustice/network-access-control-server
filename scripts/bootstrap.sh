@@ -35,11 +35,7 @@ start_packet_capture() {
 start_freeradius_server() {
   export LD_PRELOAD="/usr/lib/x86_64-linux-gnu/libpython3.8.so"
 
-  if [ "$VERBOSE_LOGGING" == "true" ]; then
-    freeradius -fxx -l stdout
-  else
-    freeradius -f -l stdout
-  fi
+  freeradius -fxx -l stdout
 }
 
 main() {
