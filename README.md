@@ -5,7 +5,7 @@ This is the RADIUS Server for managing Network Access Control.
 ## Table of Contents
 
 - [Getting Started](#getting-started)
-  - [Authenticating Docker with AWS ECR](#authenticating-docker-with-aws-ecr)
+  - [Authenticating with DockerHub](#authenticating-with-dockerhub)
   - [Starting the App](#starting-the-app)
   - [Deployment](#deployment)
     - [Targetting the ECS Cluster and Service to Deploy](#targetting-the-ecs-cluster-and-service-to-deploy)
