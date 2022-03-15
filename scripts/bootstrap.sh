@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-prefix=/etc/freeradius/3.0
+prefix=/etc/raddb
 
 fetch_certificates() {
   aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} $prefix/certs/
@@ -13,11 +13,6 @@ fetch_authorised_clients() {
 
 fetch_authorised_macs() {
   aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs $prefix
-}
-
-rehash_certificates() {
-  openssl rehash $prefix/certs/
-  openssl rehash $prefix/certs/radsec/
 }
 
 start_packet_capture() {
@@ -35,7 +30,7 @@ start_packet_capture() {
 start_freeradius_server() {
   export LD_PRELOAD="usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8.so"
 
-  freeradius -fxx -l stdout
+  /usr/sbin/radiusd -fxx -l stdout
 }
 
 main() {
@@ -45,7 +40,6 @@ main() {
     fetch_authorised_clients
   fi
 
-  rehash_certificates
   start_packet_capture &
   start_freeradius_server
 }
