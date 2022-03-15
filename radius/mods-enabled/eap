@@ -17,7 +17,6 @@ eap eap {
     tls_max_version = "1.2"
     require_client_cert = yes
     auto_chain = no
-    reject_unknown_intermediate_ca = yes
 
     verify {
       tmpdir = /tmp/radiusd
