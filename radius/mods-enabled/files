@@ -2,7 +2,7 @@ files authorized_macs {
   # The default key attribute to use for matches.  The content
   # of this attribute is used to match the "name" of the
   # entry.
-  key = "%{Calling-Station-ID}"
+  key = "%{Calling-Station-ID}.%{Client-Shortname}"
 
   usersfile = ${confdir}/authorised_macs
 
