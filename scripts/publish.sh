@@ -9,7 +9,7 @@ push_image() {
 }
 
 radius_repository_url=$( jq -r '.radius.ecr.repository_url' <<< "${TERRAFORM_OUTPUTS}" )
-nginx_repository_url=$( jq -r '.radius.ecr.nginx_repository_url' <<< "${TERRAFORM_OUTPUTS}" )
+# nginx_repository_url=$( jq -r '.radius.ecr.nginx_repository_url' <<< "${TERRAFORM_OUTPUTS}" )
 
 push_image $radius_repository_url "radius"
-push_image $nginx_repository_url "nginx"
+# push_image $nginx_repository_url "nginx"

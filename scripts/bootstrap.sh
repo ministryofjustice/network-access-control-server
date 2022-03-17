@@ -27,6 +27,12 @@ start_packet_capture() {
   fi
 }
 
+rehash_certificates() {
+  openssl rehash $prefix/certs/
+  openssl rehash $prefix/certs/radsec/
+}
+
+
 start_freeradius_server() {
   export LD_PRELOAD="usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8.so"
 
@@ -40,6 +46,7 @@ main() {
     fetch_authorised_clients
   fi
 
+  rehash_certificates
   start_packet_capture &
   start_freeradius_server
 }

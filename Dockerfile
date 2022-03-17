@@ -10,6 +10,7 @@ RUN apk --update --no-cache add \
   && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
   && rm -fr /etc/raddb/sites-enabled/* && chown -R radius:radius /tmp/radiusd /usr/bin/dumpcap
 
+RUN ls -al
 COPY --chown=radius:radius ./scripts /scripts
 COPY --chown=radius:radius ./radius /etc/raddb
 RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
