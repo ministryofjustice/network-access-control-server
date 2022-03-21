@@ -4,15 +4,22 @@ ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 
 RUN apk --update --no-cache add \
-  freeradius~=3.0.25 freeradius-python3 freeradius-eap openssl jq tshark python3-dev py3-pip bash make curl \
-  && mkdir -p /tmp/radiusd /etc/raddb /etc/raddb/certs \
-  && openssl dhparam -out /etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
-  && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
-  && rm -fr /etc/raddb/sites-enabled/* && chown -R radius:radius /tmp/radiusd /usr/bin/dumpcap
+  git openssl~=1.1.1n jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
+
+RUN git clone https://github.com/FreeRADIUS/freeradius-server.git \
+    && cd freeradius-server \
+    && git checkout v3.0.x \
+    && ./configure \
+    && make \
+    && make install \
+    && mkdir -p /tmp/radiusd /usr/local/etc/raddb /usr/local/etc/raddb/certs \
+    && rm -fr /usr/local/etc/raddb/sites-enabled/* \
+    && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
+    && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL
 
 RUN ls -al
-COPY --chown=radius:radius ./scripts /scripts
-COPY --chown=radius:radius ./radius /etc/raddb
+COPY ./scripts /scripts
+COPY ./radius /usr/local/etc/raddb
 RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
 EXPOSE 1812/udp 2083/tcp
 

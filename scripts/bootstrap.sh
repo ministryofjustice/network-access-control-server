@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-prefix=/etc/raddb
+prefix=/usr/local/etc/raddb
 
 fetch_certificates() {
   aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} $prefix/certs/
@@ -36,7 +36,7 @@ rehash_certificates() {
 start_freeradius_server() {
   export LD_PRELOAD="usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8.so"
 
-  /usr/sbin/radiusd -fxx -l stdout
+  /usr/local/sbin/radiusd -fxx -l stdout
 }
 
 main() {
