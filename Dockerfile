@@ -9,7 +9,7 @@ RUN apk --update --no-cache add \
 RUN git clone https://github.com/FreeRADIUS/freeradius-server.git \
     && cd freeradius-server \
     && git checkout dc11c2baae78a0f292ba377cfe25ea0d67d60e6a \
-    && ./configure \
+    && ./configure --build=x86_64-unknown-linux-gnu \
     && make \
     && make install \
     && mkdir -p /tmp/radiusd /usr/local/etc/raddb /usr/local/etc/raddb/certs \
