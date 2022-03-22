@@ -8,16 +8,17 @@ RUN apk --update --no-cache add \
 
 RUN git clone https://github.com/FreeRADIUS/freeradius-server.git \
     && cd freeradius-server \
-    && git checkout v3.0.x \
+    && git checkout dc11c2baae78a0f292ba377cfe25ea0d67d60e6a \
     && ./configure \
     && make \
     && make install \
     && mkdir -p /tmp/radiusd /usr/local/etc/raddb /usr/local/etc/raddb/certs \
     && rm -fr /usr/local/etc/raddb/sites-enabled/* \
     && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
-    && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL
+    && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
+    && cd - \
+    && rm -fr ./freeradius-server
 
-RUN ls -al
 COPY ./scripts /scripts
 COPY ./radius /usr/local/etc/raddb
 RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
