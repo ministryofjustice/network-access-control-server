@@ -17,7 +17,7 @@ def post_auth(p):
         if payload_dict.get('EAP-Type') != "TLS":
             return
 
-        print(payload_dict)
+        print("POLICY ENGINE: Request Attributes -", payload_dict)
         policy_id = 0
         grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
 
@@ -37,6 +37,7 @@ def post_auth(p):
                 
                 if rules_value_match == rule['rule_count']:
                     policy_id = rule['policy_id']
+                    print("POLICY ENGINE: Policy Matched -", rule['policy_name'])
 
         reply_list = ()
         if policy_id != 0:
@@ -54,7 +55,7 @@ def post_auth(p):
         return radiusd.RLM_MODULE_OK, update_dict
 
 def grouped_rules_by_policy(cursor, _site):
-    rules_sql = "SELECT `policies`.`id` policy_id, `request_attribute`, `operator`, `value`, `policies`.`rule_count` " \
+    rules_sql = "SELECT `policies`.`id` policy_id, `policies`.`name` policy_name, `request_attribute`, `operator`, `value`, `policies`.`rule_count` " \
             "FROM `rules` " \
             "INNER JOIN `policies` ON `policies`.`id` = `rules`.`policy_id` " \
             "INNER JOIN site_policies sp ON sp.policy_id = policies.id " \
@@ -81,5 +82,5 @@ def fallback_policy_responses(cursor, _site):
 
 def group_responses(responses_results):
     reply_list = [(response['response_attribute'], response['value']) for response in responses_results]
-    print("--POLICY ENGINE RESPONSE--", tuple(reply_list))
+    print("POLICY ENGINE: Policy Response -", tuple(reply_list))
     return tuple(reply_list)
