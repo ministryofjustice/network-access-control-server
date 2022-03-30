@@ -15,6 +15,13 @@ fetch_authorised_macs() {
   aws s3 cp s3://${RADIUS_CONFIG_BUCKET_NAME}/authorised_macs $prefix
 }
 
+report_container_health() {
+  while true; do
+    echo "Health Check: OK"
+    sleep 60
+  done
+}
+
 rehash_certificates() {
   openssl rehash $prefix/certs/
   openssl rehash $prefix/certs/radsec/
@@ -46,6 +53,7 @@ main() {
   fi
 
   rehash_certificates
+  report_container_health &
   start_packet_capture &
   start_freeradius_server
 }
