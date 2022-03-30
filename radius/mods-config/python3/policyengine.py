@@ -17,7 +17,7 @@ def post_auth(p):
         if payload_dict.get('EAP-Type') != "TLS":
             return
 
-        print("POLICY ENGINE: Request Attributes -", payload_dict)
+        print(payload_dict.get('Client-Shortname'), "POLICY ENGINE: Request Attributes -", payload_dict)
         policy_id = 0
         grouped_rules_by_policy(cursor, payload_dict['Client-Shortname'])
 
@@ -37,7 +37,7 @@ def post_auth(p):
                 
                 if rules_value_match == rule['rule_count']:
                     policy_id = rule['policy_id']
-                    print("POLICY ENGINE: Policy Matched -", rule['policy_name'])
+                    print(payload_dict.get('Client-Shortname'), "POLICY ENGINE: Policy Matched -", rule['policy_name'])
 
         reply_list = ()
         if policy_id != 0:
@@ -45,6 +45,7 @@ def post_auth(p):
         else:
             reply_list = fallback_policy_responses(cursor, payload_dict['Client-Shortname'])
 
+        print(payload_dict.get('Client-Shortname'), "POLICY ENGINE: Policy Response -", tuple(reply_list))
         update_dict = {
             "reply" : (
                 reply_list
@@ -82,5 +83,4 @@ def fallback_policy_responses(cursor, _site):
 
 def group_responses(responses_results):
     reply_list = [(response['response_attribute'], response['value']) for response in responses_results]
-    print("POLICY ENGINE: Policy Response -", tuple(reply_list))
     return tuple(reply_list)
