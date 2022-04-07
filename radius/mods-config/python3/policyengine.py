@@ -46,14 +46,16 @@ def post_auth(p):
             reply_list = fallback_policy_responses(cursor, payload_dict['Client-Shortname'])
 
         print(payload_dict.get('Client-Shortname'), "POLICY ENGINE: Policy Response -", tuple(reply_list))
-        update_dict = {
-            "reply" : (
-                reply_list
-            )
-        }
-            
+
+        reply_payload = { "reply" : (reply_list) }
+        result = radiusd.RLM_MODULE_OK
+
+        for key, value in reply_list:
+            if key == "Post-Auth-Type" and value == "Reject":
+                result = radiusd.RLM_MODULE_FAIL
+
         connection.close()
-        return radiusd.RLM_MODULE_OK, update_dict
+        return result, reply_payload
 
 def grouped_rules_by_policy(cursor, _site):
     rules_sql = "SELECT `policies`.`id` policy_id, `policies`.`name` policy_name, `request_attribute`, `operator`, `value`, `policies`.`rule_count` " \
