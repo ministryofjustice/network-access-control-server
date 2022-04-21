@@ -10,6 +10,7 @@ server radsec {
     limit {
       idle_timeout = 180
       lifetime = 0
+      max_connections = 0
     }
 
     tls {
@@ -30,8 +31,6 @@ server radsec {
 
       cache {
             enable = no
-            lifetime = 24
-            max_entries = 255
       }
     }
   }
