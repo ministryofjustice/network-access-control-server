@@ -17,7 +17,8 @@ RUN git clone https://github.com/FreeRADIUS/freeradius-server.git \
     && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
     && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
     && cd - \
-    && rm -fr ./freeradius-server
+    && rm -fr ./freeradius-server \
+    && chown root:root /usr/bin/dumpcap
 
 COPY ./scripts /scripts
 COPY ./radius /usr/local/etc/raddb
