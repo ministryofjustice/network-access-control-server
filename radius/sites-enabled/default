@@ -5,7 +5,7 @@ server default {
     port = 1812
 
     limit {
-      max_connections = 64
+      max_connections = 0
       lifetime = 10
       idle_timeout = 30
     }
