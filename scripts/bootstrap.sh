@@ -40,8 +40,6 @@ start_packet_capture() {
 }
 
 start_freeradius_server() {
-  export LD_PRELOAD="usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8.so"
-
   /usr/local/sbin/radiusd -fxx -l stdout
 }
 
