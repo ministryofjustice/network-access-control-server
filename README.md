@@ -36,6 +36,10 @@ make authenticate-docker
 
 1. To run the application locally, refer to the [Integration-Test](https://github.com/ministryofjustice/network-access-control-integration-tests) repository
 
+### Public Key Infrastructure (PKI) Configuration
+
+NACS does not support PKIs that require nonce to be configured. The CA certificates need to be installed on NACS and the OCSP endpoints need to be reachable. 
+`use_nonce` has been disabled in NACS, and can not be conditionally set for new PKIs.
 ### Deployment
 
 The `deploy` command is wrapped in a Makefile. It calls `./scripts/deploy` which schedules a zero downtime phased [deployment](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service.html) in ECS.
