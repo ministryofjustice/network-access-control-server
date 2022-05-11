@@ -1,245 +1,119 @@
 # NACS Package Information
 
-## OS Versions
-Server: `ubuntu-20-04`
+Package versions collected with: `apk list`
 
+## OS Versions
+Server: `alpine-3.15.0`
 
 ## Packages Versions
 
-• adduser 3.118ubuntu2  
-• apt 2.0.6  
-• base-files 11ubuntu5.4  
-• base-passwd 3.5.47  
-• bash 5.0-6ubuntu1.1  
-• bsdutils 1:2.34-0.1ubuntu9.1  
-• bzip2 1.0.8-2  
-• ca-certificates 20210119-20.04.1  
-• coreutils 8.30-3ubuntu2  
-• curl 7.68.0-1ubuntu2.7  
-• dash 0.5.10.2-6  
-• debconf 1.5.73  
-• debianutils 4.9.1  
-• diffutils 1:3.7-3  
-• dirmngr 2.2.19-3ubuntu2.1  
-• dpkg 1.19.7ubuntu3  
-• e2fsprogs 1.45.5-2ubuntu1  
-• fdisk 2.34-0.1ubuntu9.1  
-• findutils 4.7.0-1ubuntu1  
-• fontconfig-config 2.13.1-2ubuntu3  
-• fonts-dejavu-core 2.37-1  
-• freeradius-common 3.0.20+dfsg-3build1  
-• freeradius-config 3.0.20+dfsg-3build1  
-• freeradius-python3 3.0.20+dfsg-3build1  
-• freeradius 3.0.20+dfsg-3build1  
-• freetds-common 1.1.6-1.1  
-• gcc-10-base 10.3.0-1ubuntu1-20.04  
-• gnupg-l10n 2.2.19-3ubuntu2.1  
-• gnupg-utils 2.2.19-3ubuntu2.1  
-• gnupg 2.2.19-3ubuntu2.1  
-• gpg-agent 2.2.19-3ubuntu2.1  
-• gpg-wks-client 2.2.19-3ubuntu2.1  
-• gpg-wks-server 2.2.19-3ubuntu2.1  
-• gpg 2.2.19-3ubuntu2.1  
-• gpgconf 2.2.19-3ubuntu2.1  
-• gpgsm 2.2.19-3ubuntu2.1  
-• gpgv 2.2.19-3ubuntu2.1  
-• grep 3.4-1  
-• gzip 1.10-0ubuntu4  
-• hostname 3.23  
-• init-system-helpers 1.57  
-• iproute2 5.5.0-1ubuntu1  
-• libacl1 2.2.53-6  
-• libapt-pkg6.0 2.0.6  
-• libasn1-8-heimdal 7.7.0+dfsg-1ubuntu1  
-• libassuan0 2.5.3-7ubuntu2  
-• libattr1 1:2.4.48-5  
-• libaudit-common 1:2.8.5-2ubuntu6  
-• libaudit1 1:2.8.5-2ubuntu6  
-• libblkid1 2.34-0.1ubuntu9.1  
-• libbrotli1 1.0.7-6ubuntu0.1  
-• libbsd0 0.10.0-1  
-• libbz2-1.0 1.0.8-2  
-• libc-bin 2.31-0ubuntu9.2  
-• libc-dev-bin 2.31-0ubuntu9.2  
-• libc6-dev 2.31-0ubuntu9.2  
-• libc6 2.31-0ubuntu9.2  
-• libcap-ng0 0.7.9-2.1build1  
-• libcap2-bin 1:2.32-1  
-• libcap2 1:2.32-1  
-• libcom-err2 1.45.5-2ubuntu1  
-• libcrypt-dev 1:4.4.10-10ubuntu4  
-• libcrypt1 1:4.4.10-10ubuntu4  
-• libct4 1.1.6-1.1  
-• libcurl4 7.68.0-1ubuntu2.7  
-• libdb5.3 5.3.28+dfsg1-0.6ubuntu2  
-• libdebconfclient0 0.251ubuntu1  
-• libelf1 0.176-1.1build1  
-• libexpat1-dev 2.2.9-1build1  
-• libexpat1 2.2.9-1build1  
-• libext2fs2 1.45.5-2ubuntu1  
-• libfdisk1 2.34-0.1ubuntu9.1  
-• libffi7 3.3-4  
-• libfontconfig1 2.13.1-2ubuntu3  
-• libfreeradius3 3.0.20+dfsg-3build1  
-• libfreetype6 2.10.1-2ubuntu0.1  
-• libgcc-s1 10.3.0-1ubuntu1-20.04  
-• libgcrypt20 1.8.5-5ubuntu1  
-• libgd3 2.2.5-5.2ubuntu2.1  
-• libgdbm-compat4 1.18.1-5  
-• libgdbm6 1.18.1-5  
-• libgmp-dev 2:6.2.0+dfsg-4  
-• libgmp10 2:6.2.0+dfsg-4  
-• libgmpxx4ldbl 2:6.2.0+dfsg-4  
-• libgnutls30 3.6.13-2ubuntu1.6  
-• libgpg-error0 1.37-1  
-• libgssapi-krb5-2 1.17-6ubuntu4.1  
-• libgssapi3-heimdal 7.7.0+dfsg-1ubuntu1  
-• libhcrypto4-heimdal 7.7.0+dfsg-1ubuntu1  
-• libheimbase1-heimdal 7.7.0+dfsg-1ubuntu1  
-• libheimntlm0-heimdal 7.7.0+dfsg-1ubuntu1  
-• libhogweed5 3.5.1+really3.5.1-2ubuntu0.2  
-• libhx509-5-heimdal 7.7.0+dfsg-1ubuntu1  
-• libicu66 66.1-2ubuntu2  
-• libidn2-0 2.2.0-2  
-• libjbig0 2.1-3.1build1  
-• libjpeg-turbo8 2.0.3-0ubuntu1.20.04.1  
-• libjpeg8 8c-2ubuntu8  
-• libk5crypto3 1.17-6ubuntu4.1  
-• libkeyutils1 1.6-6ubuntu1  
-• libkrb5-26-heimdal 7.7.0+dfsg-1ubuntu1  
-• libkrb5-3 1.17-6ubuntu4.1  
-• libkrb5support0 1.17-6ubuntu4.1  
-• libksba8 1.3.5-2  
-• libldap-2.4-2 2.4.49+dfsg-2ubuntu1.8  
-• libldap-common 2.4.49+dfsg-2ubuntu1.8  
-• liblz4-1 1.9.2-2ubuntu0.20.04.1  
-• liblzma5 5.2.4-1ubuntu1  
-• libmnl0 1.0.4-2  
-• libmount1 2.34-0.1ubuntu9.1  
-• libmpdec2 2.4.2-3  
-• libncurses6 6.2-0ubuntu2  
-• libncursesw6 6.2-0ubuntu2  
-• libnettle7 3.5.1+really3.5.1-2ubuntu0.2  
-• libnghttp2-14 1.40.0-1build1  
-• libnginx-mod-http-image-filter 1.18.0-0ubuntu1.2  
-• libnginx-mod-http-xslt-filter 1.18.0-0ubuntu1.2  
-• libnginx-mod-mail 1.18.0-0ubuntu1.2  
-• libnginx-mod-stream 1.18.0-0ubuntu1.2  
-• libnpth0 1.6-1  
-• libp11-kit0 0.23.20-1ubuntu0.1  
-• libpam-modules-bin 1.3.1-5ubuntu4.2  
-• libpam-modules 1.3.1-5ubuntu4.2  
-• libpam-runtime 1.3.1-5ubuntu4.2  
-• libpam0g 1.3.1-5ubuntu4.2  
-• libpcap0.8 1.9.1-3  
-• libpcre2-8-0 10.34-7  
-• libpcre3 2:8.39-12build1  
-• libperl5.30 5.30.0-9ubuntu0.2  
-• libpng16-16 1.6.37-2  
-• libprocps8 2:3.3.16-1ubuntu2.2  
-• libpsl5 0.21.0-1ubuntu1  
-• libpython2-stdlib 2.7.17-2ubuntu4  
-• libpython2.7-minimal 2.7.18-1-20.04.1  
-• libpython2.7-stdlib 2.7.18-1-20.04.1  
-• libpython3-dev 3.8.2-0ubuntu2  
-• libpython3-stdlib 3.8.2-0ubuntu2  
-• libpython3.8-dev 3.8.10-0ubuntu1-20.04  
-• libpython3.8-minimal 3.8.10-0ubuntu1-20.04  
-• libpython3.8-stdlib 3.8.10-0ubuntu1-20.04  
-• libpython3.8 3.8.10-0ubuntu1-20.04  
-• libreadline8 8.0-4  
-• libroken18-heimdal 7.7.0+dfsg-1ubuntu1  
-• librtmp1 2.4+20151223.gitfa8646d.1-2build1  
-• libsasl2-2 2.1.27+dfsg-2  
-• libsasl2-modules-db 2.1.27+dfsg-2  
-• libseccomp2 2.5.1-1ubuntu1-20.04.1  
-• libselinux1 3.0-1build2  
-• libsemanage-common 3.0-1build2  
-• libsemanage1 3.0-1build2  
-• libsepol1 3.0-1  
-• libsmartcols1 2.34-0.1ubuntu9.1  
-• libsqlite3-0 3.31.1-4ubuntu0.2  
-• libss2 1.45.5-2ubuntu1  
-• libssh-4 0.9.3-2ubuntu2.2  
-• libssl-dev 1.1.1f-1ubuntu2.8  
-• libssl1.1 1.1.1f-1ubuntu2.8  
-• libstdc++6 10.3.0-1ubuntu1-20.04  
-• libsystemd0/ 245.4-4ubuntu3.11  
-• libtalloc2 2.3.0-3ubuntu1  
-• libtasn1-6 4.16.0-2  
-• libtevent0 0.10.1-4  
-• libtiff5 4.1.0+git191117-2ubuntu0.20.04.1  
-• libtinfo6 6.2-0ubuntu2  
-• libudev1/ 245.4-4ubuntu3.11  
-• libunistring2 0.9.10-2  
-• libuuid1 2.34-0.1ubuntu9.1  
-• libwbclient0 2:4.11.6+dfsg-0ubuntu1.10  
-• libwebp6 0.6.1-2ubuntu0.20.04.1  
-• libwind0-heimdal 7.7.0+dfsg-1ubuntu1  
-• libx11-6 2:1.6.9-2ubuntu1.2  
-• libx11-data 2:1.6.9-2ubuntu1.2  
-• libxau6 1:1.0.9-0ubuntu1  
-• libxcb1 1.14-2  
-• libxdmcp6 1:1.1.3-0ubuntu1  
-• libxml2 2.9.10+dfsg-5ubuntu0.20.04.1  
-• libxpm4 1:3.5.12-1  
-• libxslt1.1 1.1.34-4  
-• libxtables12 1.8.4-3ubuntu2  
-• libzstd1 1.4.4+dfsg-3ubuntu0.1  
-• linux-libc-dev 5.4.0-84.94  
-• login 1:4.8.1-1ubuntu5.20.04.1  
-• logsave 1.45.5-2ubuntu1  
-• lsb-base 11.1.0ubuntu2  
-• make 4.2.1-1.2  
-• mawk 1.3.4.20200120-2  
-• mime-support 3.64ubuntu1  
-• mount 2.34-0.1ubuntu9.1  
-• ncurses-base 6.2-0ubuntu2  
-• ncurses-bin 6.2-0ubuntu2  
-• nettle-dev 3.5.1+really3.5.1-2ubuntu0.2  
-• nginx-common 1.18.0-0ubuntu1.2  
-• nginx-core 1.18.0-0ubuntu1.2  
-• nginx 1.18.0-0ubuntu1.2  
-• openssl 1.1.1f-1ubuntu2.8  
-• passwd 1:4.8.1-1ubuntu5.20.04.1  
-• perl-base 5.30.0-9ubuntu0.2  
-• perl-modules-5.30 5.30.0-9ubuntu0.2  
-• pinentry-curses 1.1.0-3build1  
-• procps 2:3.3.16-1ubuntu2.2  
-• python-pip-whl 20.0.2-5ubuntu1.6  
-• python-six 1.14.0-2  
-• python2-minimal 2.7.17-2ubuntu4  
-• python2.7-minimal 2.7.18-1-20.04.1  
-• python2.7 2.7.18-1-20.04.1  
-• python2 2.7.17-2ubuntu4  
-• python3-chardet 3.0.4-4build1  
-• python3-debian 0.1.36ubuntu1  
-• python3-dev 3.8.2-0ubuntu2  
-• python3-distutils 3.8.10-0ubuntu1-20.04  
-• python3-lib2to3 3.8.10-0ubuntu1-20.04  
-• python3-minimal 3.8.2-0ubuntu2  
-• python3-pip 20.0.2-5ubuntu1.6  
-• python3-pkg-resources 45.2.0-1  
-• python3-pymysql 0.9.3-2ubuntu3  
-• python3-setuptools 45.2.0-1  
-• python3-six 1.14.0-2  
-• python3-wheel 0.34.2-1  
-• python3.8-dev 3.8.10-0ubuntu1-20.04  
-• python3.8-minimal 3.8.10-0ubuntu1-20.04  
-• python3.8-venv 3.8.10-0ubuntu1-20.04  
-• python3.8 3.8.10-0ubuntu1-20.04  
-• python3 3.8.2-0ubuntu2  
-• readline-common 8.0-4  
-• sed 4.7-1  
-• sensible-utils 0.0.12+nmu1  
-• ssl-cert 1.0.39  
-• sysvinit-utils 2.96-2.1ubuntu1  
-• tar 1.30+dfsg-7ubuntu0.20.04.1  
-• tzdata 2021a-0ubuntu0.20.04  
-• ubuntu-keyring 2020.02.11.4  
-• ucf 3.0038+nmu1  
-• unzip 6.0-25ubuntu1  
-• util-linux 2.34-0.1ubuntu9.1  
-• wget 1.20.3-1ubuntu1  
-• zlib1g-dev 1:1.2.11.dfsg-2ubuntu1.2  
-• zlib1g 1:1.2.11.dfsg-2ubuntu1.2  
+```
+pkgconf-1.8.0-r0
+py3-urllib3-1.26.7-r0
+py3-cachecontrol-0.12.10-r0
+g++-10.3.1_git20211027-r0
+talloc-dev-2.3.3-r0
+libnl3-3.5.0-r0
+py3-webencodings-0.5.1-r4
+sqlite-libs-3.36.0-r0
+libc-dev-0.7.2-r3
+py3-toml-0.10.2-r2
+libretls-3.3.4-r2
+nghttp2-libs-1.46.0-r0
+py3-pip-20.3.4-r1
+musl-1.2.2-r7
+libbz2-1.0.8-r1
+bash-5.1.16-r0
+py3-pep517-0.12.0-r0
+libcurl-7.80.0-r1
+py3-contextlib2-21.6.0-r1
+py3-setuptools-52.0.0-r4
+py3-html5lib-1.1-r1
+git-2.34.2-r0
+gdbm-1.22-r0
+pcre-8.45-r1
+gcc-10.3.1_git20211027-r0
+oniguruma-6.9.7.1-r0
+zlib-dev-1.2.12-r1
+libstdc++-10.3.1_git20211027-r0
+ncurses-libs-6.3_p20211120-r0
+zlib-1.2.12-r1
+linux-headers-5.10.41-r0
+py3-parsing-2.4.7-r2
+mpdecimal-2.5.1-r1
+openssl-dev-1.1.1n-r0
+gnutls-3.7.1-r0
+py3-colorama-0.4.4-r1
+py3-requests-2.26.0-r1
+libpcap-1.10.1-r0
+apk-tools-2.12.7-r3
+libintl-0.21-r0
+py3-ordered-set-4.0.2-r2
+py3-idna-3.3-r0
+libgomp-10.3.1_git20211027-r0
+py3-talloc-2.3.3-r0
+readline-8.1.1-r0
+make-4.3-r0
+musl-utils-1.2.2-r7
+libssl1.1-1.1.1n-r0
+curl-7.80.0-r1
+ncurses-terminfo-base-6.3_p20211120-r0
+libmount-2.37.4-r0
+alpine-baselayout-3.2.0-r18
+talloc-2.3.3-r0
+musl-dev-1.2.2-r7
+xz-libs-5.2.5-r1
+py3-charset-normalizer-2.0.7-r0
+ca-certificates-20211220-r0
+libgphobos-10.3.1_git20211027-r0
+libressl3.4-libtls-3.4.3-r0
+libgcc-10.3.1_git20211027-r0
+c-ares-1.18.1-r0
+py3-appdirs-1.4.4-r2
+gmp-6.2.1-r1
+tshark-3.4.13-r0
+alpine-keys-2.4-r1
+jq-1.6-r1
+p11-kit-0.24.0-r1
+busybox-1.34.1-r3
+brotli-libs-1.0.9-r5
+libgpg-error-1.42-r1
+scanelf-1.3.3-r0
+libtasn1-4.18.0-r0
+lua5.2-libs-5.2.4-r7
+python3-dev-3.9.7-r4
+ca-certificates-bundle-20191127-r7
+libressl3.4-libssl-3.4.3-r0
+libc-utils-0.7.2-r3
+libblkid-2.37.4-r0
+libffi-3.4.2-r1
+libressl-3.4.3-r0
+py3-lockfile-0.12.2-r4
+isl22-0.22-r0
+glib-2.70.1-r0
+py3-distro-1.6.0-r0
+libgcrypt-1.9.4-r0
+py3-retrying-1.3.3-r2
+libatomic-10.3.1_git20211027-r0
+py3-distlib-0.3.3-r0
+ssl_client-1.34.1-r3
+libunistring-0.9.10-r1
+python3-3.9.7-r4
+binutils-2.37-r3
+nettle-3.7.3-r0
+py3-six-1.16.0-r0
+py3-msgpack-1.0.2-r1
+mpc1-1.2.1-r0
+expat-2.4.7-r0
+py3-progress-1.6-r0
+py3-packaging-20.9-r1
+py3-tomli-1.2.2-r0
+wireshark-common-3.4.13-r0
+openssl-1.1.1n-r0
+py3-certifi-2020.12.5-r1
+libcrypto1.1-1.1.1n-r0
+libressl3.4-libcrypto-3.4.3-r0
+libcap-2.61-r0
+pcre2-10.39-r0
+mpfr4-4.1.0-r0
+```
