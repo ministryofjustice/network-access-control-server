@@ -100,6 +100,7 @@ application to the FreeRADIUS server, refer to the
 
 ## Performance Testing
 - [Performance test results and guidance](/docs/performance_testing_document.md)
+- [RADSEC Performance test results](/docs/radsec_performance_testing_document.md)
 
 ## What triggers a deployment of the Radius server from the Admin Portal?
 
