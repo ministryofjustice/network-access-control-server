@@ -1,7 +1,11 @@
 #!/bin/bash
-set -eo pipefail
 
 prefix=/usr/local/etc/raddb
+
+error_report() {
+  echo "Failed to start task, error on line: $1"
+  exit 1
+}
 
 fetch_certificates() {
   aws s3 sync s3://${RADIUS_CERTIFICATE_BUCKET_NAME} $prefix/certs/
@@ -55,5 +59,7 @@ main() {
   start_packet_capture &
   start_freeradius_server
 }
+
+trap "error_report" ERR SIGTERM EXIT
 
 main
