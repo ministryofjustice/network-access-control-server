@@ -21,8 +21,8 @@ fetch_authorised_macs() {
 
 report_container_health() {
   while true; do
-    echo "Health Check: OK"
     sleep 60
+    echo "Health Check: OK"
   done
 }
 
