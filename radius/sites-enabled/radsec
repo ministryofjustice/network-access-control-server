@@ -61,7 +61,7 @@ server radsec {
 
   post-auth {
     update request {
-      Tmp-String-0 := "%{request:TLS-Client-Cert-Subject-Alt-Name-Dns[*]}"
+      TLS-Client-Cert-Subject-Alt-Name-Dns += "%{request:TLS-Client-Cert-Subject-Alt-Name-Dns[*]}"
       Client-Shortname := "%{Client-Shortname}"
     }
 
