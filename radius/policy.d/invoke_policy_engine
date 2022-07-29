@@ -1,0 +1,8 @@
+invoke_policy_engine {
+  update request {
+    TLS-Client-Cert-Subject-Alt-Name-Dns += "%{request:TLS-Client-Cert-Subject-Alt-Name-Dns[*]}"
+    Client-Shortname := "%{Client-Shortname}"
+  }
+
+  python3
+}
