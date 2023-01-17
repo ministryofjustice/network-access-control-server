@@ -15,7 +15,7 @@ RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_3_2_1.t
   && make install \
   && mkdir -p /tmp/radiusd /usr/local/etc/raddb /usr/local/etc/raddb/certs \
   && rm -fr /usr/local/etc/raddb/sites-enabled/* \
-  && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python /usr/bin/python \
+  && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
   && pip3 install --ignore-installed --no-cache --upgrade pip six setuptools py-radius PyMySQL \
   && cd - \
   && rm -fr ./freeradius-server \
