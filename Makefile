@@ -16,4 +16,7 @@ publish: build build-nginx
 publish-dictionaries:
 	./scripts/publish_dictionaries.sh
 
+insert-custom-attribute:
+	./scripts/insert_custom_attribute.sh
+
 .PHONY: build run publish deploy publish_dictionaires
