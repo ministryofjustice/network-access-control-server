@@ -11,7 +11,7 @@
 set -euo pipefail
 FILE="/usr/local/share/freeradius/dictionary.freeradius.internal"
 ATTRIBUTE_NUMBER_TO_MATCH="2000"
-CUSTOM_ATTRIBUTE_TO_INSERT="ATTRIBUTE	TLS-Client-Cert-Template-Name		2000	string"
+CUSTOM_ATTRIBUTE_TO_INSERT="ATTRIBUTE	TLS-Client-Cert-Template-Information		2000	string"
 
 check_if_attribute_number_exists() {
     echo "Checking if custom attribute number '$ATTRIBUTE_NUMBER_TO_MATCH' exists";
