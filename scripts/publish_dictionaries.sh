@@ -7,6 +7,7 @@ source ./scripts/aws_helpers.sh
 publish_dictionaries() {
   radius_config_bucket_name=$( jq -r '.radius.s3.radius_config_bucket_name' <<< "${TERRAFORM_OUTPUTS}" )
 
+  local insert_custom_attribute_command="./scripts/insert_custom_attribute.sh"
   local publish_dictionaries_command="aws s3 sync /usr/local/share/freeradius/ s3://${radius_config_bucket_name}/radius_dictionaries/"
   local docker_service_name="radius-server"
   local cluster_name service_name task_definition docker_service_name
@@ -16,6 +17,14 @@ publish_dictionaries() {
   task_definition=$( jq -r '.radius.ecs.task_definition_name' <<< "${TERRAFORM_OUTPUTS}" )
 
   aws sts get-caller-identity
+  
+  # Insert Custom Attribute
+  run_task_with_command \
+    "${cluster_name}" \
+    "${service_name}" \
+    "${task_definition}" \
+    "${docker_service_name}" \
+    "${insert_custom_attribute_command}"
 
   run_task_with_command \
     "${cluster_name}" \

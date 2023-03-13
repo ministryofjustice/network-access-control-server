@@ -16,6 +16,5 @@ phases:
     commands:
       - make authenticate-docker
       - make publish
-      - make insert-custom-attribute
       - make publish-dictionaries
       - make deploy
