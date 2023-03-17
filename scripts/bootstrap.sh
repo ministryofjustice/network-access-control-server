@@ -1,6 +1,7 @@
 #!/bin/bash
 
 prefix=/usr/local/etc/raddb
+certs_expiring_count=0
 
 error_report() {
   echo "Failed to start task, error on line: $1"
@@ -43,6 +44,43 @@ start_packet_capture() {
   fi
 }
 
+report_certificate_expiry() {
+  while true; do
+    sleep 60
+    $certs_expiring_count=0
+    echo "Certificate Expiry Check Running..."
+    check_cert_expiry $prefix/certs
+    check_cert_expiry $prefix/certs/radsec
+    echo "Certificate Expiry Check Completed. Number of Certificates Expiring = $certs_expiring_count"
+  done
+}
+
+check_cert_expiry() {
+    # Loop through all the certificates in the directory
+    for cert in $1/*.pem; do
+        echo $cert
+        # Extract the expiry date of the certificate
+        expiry_date=$(openssl x509 -enddate -noout -in $cert | awk -F "=" '{print $2}')
+
+        # Convert the expiry date to a Unix timestamp
+        expiry_timestamp=$(date -d "${expiry_date}" +%s)
+
+        # Calculate the number of seconds in four months
+        four_months=$((4 * 30 * 24 * 60 * 60))
+
+        # Calculate the timestamp for four months from now
+        four_months_from_now=$(($(date +%s) + $four_months))
+
+        # Check if the certificate is expiring in the next four months
+        if [ $expiry_timestamp -lt $four_months_from_now ]; then
+            # If the certificate is expiring soon, print a warning message
+            echo "Certifcate Expiry Warning: $cert is expiring on $expiry_date!"
+            ((certs_expiring_count++))
+        fi
+    done
+}
+
+
 start_freeradius_server() {
   /usr/local/sbin/radiusd -fxx -l stdout
 }
@@ -57,6 +95,7 @@ main() {
   rehash_certificates
   report_container_health &
   start_packet_capture &
+  report_certificate_expiry &
   start_freeradius_server
 }
 
