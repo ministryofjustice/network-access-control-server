@@ -23,7 +23,6 @@ RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_3_2_0.t
 COPY ./scripts /scripts
 COPY ./radius /usr/local/etc/raddb
 RUN /scripts/install_aws_sdk.sh ${LOCAL_DEVELOPMENT}
-RUN /scripts/insert_custom_attribute.sh
 
 EXPOSE 1812/udp 2083/tcp
 
