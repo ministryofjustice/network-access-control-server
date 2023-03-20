@@ -5,11 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "bundler"
+  - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "daily"
   - package-ecosystem: "docker"
-    directory: "/"
+    directory: "/nginx/"
     schedule:
       interval: "daily"
