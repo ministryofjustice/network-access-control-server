@@ -6,9 +6,9 @@ ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 RUN apk --update --no-cache add \
   git openssl jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
 
-RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_3_2_0.tar.gz \
-  && tar xzvf release_3_2_0.tar.gz \
-  && cd freeradius-server-release_3_2_0 \
+RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_3_2_2.tar.gz \
+  && tar xzvf release_3_2_2.tar.gz \
+  && cd freeradius-server-release_3_2_2 \
   && ./configure --with-experimental-modules --with-rlm-python3-bin=/usr/bin/python --build=x86_64-unknown-linux-gnu \
   && make \
   && make install \
