@@ -74,7 +74,7 @@ check_cert_expiry() {
         # Check if the certificate is expiring in the next four months
         if [ $expiry_timestamp -lt $four_months_from_now ]; then
             # If the certificate is expiring soon, print a warning message
-            echo "Certifcate Expiry Warning: $cert is expiring on $expiry_date!"
+            echo "Certificate Expiry Warning: $cert is expiring on $expiry_date!"
             ((certs_expiring_count++))
         fi
     done
