@@ -47,7 +47,7 @@ start_packet_capture() {
 report_certificate_expiry() {
   while true; do
     sleep 60
-    $certs_expiring_count=0
+    certs_expiring_count=0
     echo "Certificate Expiry Check Running..."
     check_cert_expiry $prefix/certs
     check_cert_expiry $prefix/certs/radsec
@@ -63,7 +63,7 @@ check_cert_expiry() {
         expiry_date=$(openssl x509 -enddate -noout -in $cert | awk -F "=" '{print $2}')
         echo $expiry_date
         # Convert the expiry date to a Unix timestamp
-        expiry_timestamp=$(date -d "${expiry_date}" +%s)
+        expiry_timestamp=$(date -d "${expiry_date}" -D "%B %d %H:%M:%S %Y" +%s)
         echo $expiry_timestamp
 
         # Calculate the number of seconds in four months
