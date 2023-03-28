@@ -61,16 +61,17 @@ check_cert_expiry() {
         echo $cert
         # Extract the expiry date of the certificate
         expiry_date=$(openssl x509 -enddate -noout -in $cert | awk -F "=" '{print $2}')
-
+        echo $expiry_date
         # Convert the expiry date to a Unix timestamp
         expiry_timestamp=$(date -d "${expiry_date}" +%s)
+        echo $expiry_timestamp
 
         # Calculate the number of seconds in four months
         four_months=$((4 * 30 * 24 * 60 * 60))
 
         # Calculate the timestamp for four months from now
         four_months_from_now=$(($(date +%s) + $four_months))
-
+        echo $four_months_from_now
         # Check if the certificate is expiring in the next four months
         if [ $expiry_timestamp -lt $four_months_from_now ]; then
             # If the certificate is expiring soon, print a warning message
