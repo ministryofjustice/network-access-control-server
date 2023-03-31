@@ -22,7 +22,7 @@ fetch_authorised_macs() {
 
 report_container_health() {
   while true; do
-    sleep 60
+    sleep 3600
     echo "Health Check: OK"
   done
 }
