@@ -22,7 +22,7 @@ fetch_authorised_macs() {
 
 report_container_health() {
   while true; do
-    sleep 3600
+    sleep 60
     echo "Health Check: OK"
   done
 }
@@ -46,7 +46,7 @@ start_packet_capture() {
 
 report_certificate_expiry() {
   while true; do
-    sleep 60
+    sleep 3600
     certs_expiring_count=0
     echo "Certificate Expiry Check Running..."
     check_cert_expiry $prefix/certs
