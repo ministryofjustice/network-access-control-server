@@ -57,7 +57,7 @@ report_certificate_expiry() {
 
 check_cert_expiry() {
     # Loop through all the certificates in the directory
-    for cert in $(find $1 -maxdepth 1 -type f -name "*.pem" ! -regex '.*[0-9]+\.pem' ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem"); do
+    for cert in $(find $1 -maxdepth 1 -type f -name "*.pem" ! -name "01.pem" ! -name "02.pem" ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem"); do
         echo $cert
         # Extract the expiry date of the certificate
         expiry_date=$(openssl x509 -enddate -noout -in $cert | awk -F "=" '{print $2}')
