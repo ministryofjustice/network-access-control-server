@@ -57,28 +57,28 @@ report_certificate_expiry() {
 
 check_cert_expiry() {
     # Loop through all the certificates in the directory
-    for cert in $(find $1 -maxdepth 1 -type f -name "*.pem" ! -name "01.pem" ! -name "02.pem" ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem"); do
-        echo $cert
+    while IFS= read -r -d '' cert; do
+        echo "$cert"
         # Extract the expiry date of the certificate
-        expiry_date=$(openssl x509 -enddate -noout -in $cert | awk -F "=" '{print $2}')
-        echo $expiry_date
+        expiry_date=$(openssl x509 -enddate -noout -in "$cert" | awk -F "=" '{print $2}')
+        echo "$expiry_date"
         # Convert the expiry date to a Unix timestamp
         expiry_timestamp=$(date -d "${expiry_date}" -D "%B %d %H:%M:%S %Y" +%s)
-        echo $expiry_timestamp
+        echo "$expiry_timestamp"
 
         # Calculate the number of seconds in four months
         four_months=$((4 * 30 * 24 * 60 * 60))
 
         # Calculate the timestamp for four months from now
         four_months_from_now=$(($(date +%s) + $four_months))
-        echo $four_months_from_now
+        echo "$four_months_from_now"
         # Check if the certificate is expiring in the next four months
         if [ $expiry_timestamp -lt $four_months_from_now ]; then
             # If the certificate is expiring soon, print a warning message
             echo "Certificate Expiry Warning: $cert is expiring on $expiry_date!"
             ((certs_expiring_count++))
         fi
-    done
+    done < <(find "$1" -maxdepth 1 -type f -name "*.pem" ! -name "01.pem" ! -name "02.pem" ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem" -print0)
 }
 
 
