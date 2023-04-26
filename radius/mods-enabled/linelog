@@ -1,0 +1,9 @@
+linelog {
+    filename = stdout
+    reference = "messages.%{session-state:Tmp-String-1}"
+    messages {
+        request = "%T request TEST REQUEST %{User-Name} %{Calling-Station-Id} ..."
+        accept = "%T accept TEST ACCEPT %{User-Name} %{session-state:User-Name} %{Calling-Station-Id} ..."
+        reject = "%T reject %{Nas-Port-Type} %{User-Name} %{session-state:User-Name} %{Calling-Station-Id} ..."
+    }
+}
