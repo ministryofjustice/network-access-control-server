@@ -60,5 +60,17 @@ server radsec {
 
   post-auth {
     invoke_policy_engine
+
+    update session-state {
+            &Tmp-String-1 := "accept"
+    }
+    linelog
+
+    Post-Auth-Type REJECT {
+      update session-state {
+        &Tmp-String-1 := "reject"
+      }
+      linelog
+    }
   }
 }
