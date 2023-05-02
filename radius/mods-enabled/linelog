@@ -4,6 +4,6 @@ linelog {
     messages {
         request = "%T request %{User-Name} %{Calling-Station-Id} ..."
         accept = "%T accept %{User-Name} %{session-state:User-Name} %{Calling-Station-Id} ..."
-        reject = "%T reject %{Nas-Port-Type} %{User-Name} %{session-state:User-Name} %{Calling-Station-Id} ..."
+        reject = "%T reject %{Nas-Port-Type} %{User-Name} %{session-state:User-Name} %{Calling-Station-Id} %{Packet-Src-IP-Address} ..."
     }
 }
