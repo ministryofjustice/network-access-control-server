@@ -84,6 +84,10 @@ def return_responses_with_policy(cursor, payload_dict, policy_id):
     if policy_id != 0:
         reply_list = main_policy_responses(cursor, policy_id)
     else:
+        print(
+            payload_dict.get("Client-Shortname"),
+            "POLICY ENGINE: Policy Matched - Fallback policy."
+        )
         reply_list = fallback_policy_responses(cursor, payload_dict["Client-Shortname"])
 
     print(
