@@ -113,3 +113,10 @@ application to the FreeRADIUS server, refer to the
 3.  Modifying a site, client or policy association of the site
 
 *Note: Policy updates do not trigger a deployment, any rule / response updates will be available to FreeRadius at runtime*
+
+## CI/CD
+
+- [CI Terraform code - network-access-control-server](https://github.com/ministryofjustice/network-access-control-server)
+- Terraform module - module "network-access-control-server"
+- AWS Account - MOJ Official (Shared Services)
+- [Pipeline "network-access-control-server"](https://eu-west-2.console.aws.amazon.com/codesuite/codepipeline/pipelines/network-access-control-server/view?region=eu-west-2)
