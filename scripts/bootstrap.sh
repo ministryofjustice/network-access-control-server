@@ -56,31 +56,48 @@ report_certificate_expiry() {
 }
 
 check_cert_expiry() {
-    # Loop through all the certificates in the directory
-    while IFS= read -r -d '' cert; do
-        echo "$cert"
-        # Extract the expiry date of the certificate
-        expiry_date=$(openssl x509 -enddate -noout -in "$cert" | awk -F "=" '{print $2}')
-        echo "$expiry_date"
-        # Convert the expiry date to a Unix timestamp
-        expiry_timestamp=$(date -d "${expiry_date}" -D "%B %d %H:%M:%S %Y" +%s)
-        echo "$expiry_timestamp"
+  bad_certificates=()
 
-        # Calculate the number of seconds in four months
-        four_months=$((4 * 30 * 24 * 60 * 60))
+  # Loop through all the certificates in the directory
+  while IFS= read -r -d '' cert; do
+    echo "$cert"
+    # Extract the expiry date of the certificate
+    expiry_date=$(openssl x509 -enddate -noout -in "$cert" | awk -F "=" '{print $2}')
+    openssl_exit_code=$?
+    if [ $openssl_exit_code -eq 0 ]; then
+      echo "$expiry_date"
+      # Convert the expiry date to a Unix timestamp
+      expiry_timestamp=$(date -d "${expiry_date}" -D "%B %d %H:%M:%S %Y" +%s)
+      echo "$expiry_timestamp"
 
-        # Calculate the timestamp for four months from now
-        four_months_from_now=$(($(date +%s) + $four_months))
-        echo "$four_months_from_now"
-        # Check if the certificate is expiring in the next four months
-        if [ $expiry_timestamp -lt $four_months_from_now ]; then
-            # If the certificate is expiring soon, print a warning message
-            echo "Certificate Expiry Warning: $cert is expiring on $expiry_date!"
-            ((certs_expiring_count++))
-        fi
-    done < <(find "$1" -maxdepth 1 -type f -name "*.pem" ! -name "01.pem" ! -name "02.pem" ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem" -print0)
+      # Calculate the number of seconds in four months
+      four_months=$((4 * 30 * 24 * 60 * 60))
+
+      # Calculate the timestamp for four months from now
+      four_months_from_now=$(($(date +%s) + $four_months))
+      echo "$four_months_from_now"
+
+      # Check if the certificate is expiring in the next four months
+      if [ $expiry_timestamp -lt $four_months_from_now ]; then
+        # If the certificate is expiring soon, add it to the expiring_certificates array
+        expiring_certificates+=("$cert")
+        ((certs_expiring_count++))
+        echo "Expiring Certificate: $cert is expiring on $expiry_date"
+      fi
+    else
+      # If the certificate is invalid or cannot be read, add it to the bad_certificates array
+      bad_certificates+=("$cert")
+    fi
+  done < <(find "$1" -maxdepth 1 -type f -name "*.pem" ! -name "01.pem" ! -name "02.pem" ! -name "ca.pem" ! -name "client.pem" ! -name "user@example.org.pem" -print0)
+
+  # Report on bad certificates
+  if [ ${#bad_certificates[@]} -gt 0 ]; then
+    echo "Warning: The following certificates are considered bad or cannot be read:"
+    for cert in "${bad_certificates[@]}"; do
+      echo "$cert"
+    done
+  fi
 }
-
 
 start_freeradius_server() {
   /usr/local/sbin/radiusd -fxx -l stdout
