@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push: [github-workflow]
+  #   branches:
+  #     - '!main'
+  # pull_request:
+  #   branches:
+  #     - '*'
+
+# env:
+#   DB_PORT: 3306
+#   REGISTRY_URL: ${{ secrets.REGISTRY_URL }}
+#   TARGET_AWS_ACCOUNT_ID: ${{ secrets.TARGET_AWS_ACCOUNT_ID }}
+#   TERRAFORM_OUTPUTS: ${{ secrets.TERRAFORM_OUTPUTS }}
+#   ROLE_ARN: ${{ secrets.ROLE_ARN }}
+#   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ variables.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: List Docker Images
+        run: docker image ls
+
+      # - name: Set up Docker
+      #   run: make authenticate-docker
+
+      # - name: Publish
+      #   run: make publish
+
+      # - name: Publish Dictionaries
+      #   run: make publish-dictionaries
+
+      # - name: Deploy
+      #   run: make deploy
