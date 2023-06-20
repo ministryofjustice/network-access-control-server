@@ -1,9 +1,9 @@
 name: CI
 
 on:
-  push: [github-workflow]
-  #   branches:
-  #     - '!main'
+  push: 
+    branches:
+      - github-workflow
   # pull_request:
   #   branches:
   #     - '*'
