@@ -1,10 +1,10 @@
-FROM alpine:3.16.4
+FROM alpine:3.17
 ARG LOCAL_DEVELOPMENT=false
 ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 
 RUN apk --update --no-cache add \
-  git openssl~=1.1.1u-r2 jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
+  git openssl~=3.0.10-r0 jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
 RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_3_2_2.tar.gz \
   && tar xzvf release_3_2_2.tar.gz \
   && cd freeradius-server-release_3_2_2 \

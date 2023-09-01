@@ -41,7 +41,7 @@ zlib-1.2.12-r1
 linux-headers-5.10.41-r0
 py3-parsing-2.4.7-r2
 mpdecimal-2.5.1-r1
-openssl-dev-1.1.1n-r0
+openssl-dev-3.0.10-r0
 gnutls-3.7.1-r0
 py3-colorama-0.4.4-r1
 py3-requests-2.26.0-r1
@@ -109,7 +109,7 @@ py3-progress-1.6-r0
 py3-packaging-20.9-r1
 py3-tomli-1.2.2-r0
 wireshark-common-3.4.13-r0
-openssl-1.1.1n-r0
+openssl-3.0.10-r0
 py3-certifi-2020.12.5-r1
 libcrypto1.1-1.1.1n-r0
 libressl3.4-libcrypto-3.4.3-r0
