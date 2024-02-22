@@ -117,6 +117,6 @@ main() {
   start_freeradius_server
 }
 
-trap "error_report" ERR SIGTERM EXIT
+trap 'error_report $LINENO' ERR
 
 main
