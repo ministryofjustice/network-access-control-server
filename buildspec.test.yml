@@ -10,5 +10,5 @@ env:
 phases:
   install:
     commands:
-      - git clone https://github.com/ministryofjustice/network-access-control-integration-tests.git -b feature/ND-65-testing-feature-branch-on-network-access-control-server
+      - git clone https://github.com/ministryofjustice/network-access-control-integration-tests.git
       - cd network-access-control-integration-tests && make clone-admin clone-server test
