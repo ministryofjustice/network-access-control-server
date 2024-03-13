@@ -1,19 +1,31 @@
-authenticate-docker:
+#!make
+.DEFAULT_GOAL := help
+
+.PHONY: authenticate-docker
+authenticate-docker: ## ## Authenticate docker script
 	./scripts/authenticate_docker.sh
 
-build:
+.PHONY: build
+build: ## Docker build Radius server
 	docker build --platform=linux/amd64 -t radius ./
 
-build-nginx:
+.PHONY: build-nginx
+build-nginx: ## Docker build nginx
 	docker build --platform=linux/amd64 -t nginx ./nginx
 
-deploy:
+.PHONY: deploy
+deploy: ## Deploy RADIUS server
 	./scripts/deploy.sh
 
-publish: build build-nginx
+.PHONY: publish
+publish: ## Push Docker images to ECR
+	$(MAKE) build
+	$(MAKE) build-nginx
 	./scripts/publish.sh
 
-publish-dictionaries:
+.PHONY: publish-dictionaries
+publish-dictionaries: ## Publish dictionaries
 	./scripts/publish_dictionaries.sh
 
-.PHONY: build run publish deploy publish_dictionaires
+help:
+	@grep -h -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
