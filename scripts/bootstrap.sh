@@ -4,7 +4,7 @@ prefix=/usr/local/etc/raddb
 certs_expiring_count=0
 
 error_report() {
-  echo "Failed to start task, error on line: $1"
+  echo "Failed to start task, error on line: $1, Failed to execute command: $BASH_COMMAND"
   exit 1
 }
 
