@@ -8,9 +8,9 @@ ENV OPENSSL_VERSION="3.1.6"
 RUN apk --update --no-cache add \
   git openssl~=${OPENSSL_VERSION} jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
 
-RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_$FREE_RADIUS_VERSION.tar.gz \
-  && tar xzvf release_$FREE_RADIUS_VERSION.tar.gz \
-  && cd freeradius-server-release_$FREE_RADIUS_VERSION \
+RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_${FREE_RADIUS_VERSION}.tar.gz \
+  && tar xzvf release_${FREE_RADIUS_VERSION}.tar.gz \
+  && cd freeradius-server-release_${FREE_RADIUS_VERSION} \
   && ./configure --with-experimental-modules --with-rlm-python3-bin=/usr/bin/python --build=x86_64-unknown-linux-gnu \
   && make \
   && make install \
