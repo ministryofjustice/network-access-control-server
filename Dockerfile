@@ -1,4 +1,4 @@
-FROM alpine:3.18.8
+FROM alpine:3.19.3
 ARG LOCAL_DEVELOPMENT=false
 ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
@@ -19,6 +19,7 @@ RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_${FREE_
   && rm -fr /usr/local/etc/raddb/sites-enabled/* \
   && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
   && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
+  && rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED \
   && pip3 install --ignore-installed --no-cache --upgrade wheel setuptools pip --upgrade \
   && pip3 install --ignore-installed --no-cache --upgrade  six \
   && pip3 install --ignore-installed --no-cache --upgrade py-radius PyMySQL \
