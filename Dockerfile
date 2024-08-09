@@ -1,9 +1,9 @@
-FROM alpine:3.19.3
+FROM alpine:3.20.2
 ARG LOCAL_DEVELOPMENT=false
 ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 ENV FREE_RADIUS_VERSION="3_2_5"
-ENV OPENSSL_VERSION="3.1.6"
+ENV OPENSSL_VERSION="3.3.1"
 
 RUN apk --update --no-cache upgrade \
   && apk add git openssl~=${OPENSSL_VERSION} jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
@@ -19,7 +19,7 @@ RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_${FREE_
   && rm -fr /usr/local/etc/raddb/sites-enabled/* \
   && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
   && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
-  && rm -f /usr/lib/python3.11/EXTERNALLY-MANAGED \
+  && rm -f /usr/lib/python3.12/EXTERNALLY-MANAGED \
   && pip3 install --ignore-installed --no-cache --upgrade wheel setuptools pip --upgrade \
   && pip3 install --ignore-installed --no-cache --upgrade  six \
   && pip3 install --ignore-installed --no-cache --upgrade py-radius PyMySQL \
