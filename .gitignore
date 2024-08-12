@@ -3,3 +3,5 @@
 /test/certs/*
 
 .idea*
+
+*_docker_scout_*
