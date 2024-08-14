@@ -4,8 +4,10 @@ ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 ENV FREE_RADIUS_VERSION="3_2_2"
 
+ENV OPENSSL_VERSION="3.1.6"
+
 RUN apk --update --no-cache add \
-  git openssl~=3.1.4-r6 jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
+  git openssl~=${OPENSSL_VERSION} jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
 
 RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_$FREE_RADIUS_VERSION.tar.gz \
   && tar xzvf release_$FREE_RADIUS_VERSION.tar.gz \
