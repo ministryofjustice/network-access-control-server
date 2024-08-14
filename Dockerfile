@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 ENV FREE_RADIUS_VERSION="3_2_2"
 
-ENV OPENSSL_VERSION="3.1.6-r0"
+ENV OPENSSL_VERSION="3.1.6"
 
 RUN apk --update --no-cache add \
   git openssl~=${OPENSSL_VERSION} jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
