@@ -9,38 +9,9 @@ authenticate-docker: ## ## Authenticate docker script
 build: ## Docker build Radius server
 	docker build --platform=linux/amd64 -t radius ./
 
-.PHONY: scout
-scout: ## Docker scout quickview Radius server
-	docker scout quickview local://radius:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_quickview_radius.txt
-
-.PHONY: scout-cves
-scout-cves: ## Docker scout cves Radius server
-	docker scout cves local://radius:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_cves_radius.txt
-
-.PHONY: scout-rec
-scout-rec: ## Docker scout cves Radius server
-	docker scout recommendations local://radius:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_recommendations_radius.txt
-
 .PHONY: build-nginx
 build-nginx: ## Docker build nginx
 	docker build --platform=linux/amd64 -t nginx ./nginx
-
-.PHONY: scout-nginx
-scout-nginx: ## Docker scout quickview nginx server
-	docker scout quickview local://nginx:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_quickview_nginx.txt
-
-.PHONY: scout-nginx-cves
-scout-nginx-cves: ## Docker scout cves nginx server
-	docker scout cves local://nginx:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_cves_nginx.txt
-
-.PHONY: scout-nginx-rec
-scout-nginx-rec: ## Docker scout cves nginx server
-	docker scout recommendations local://nginx:latest | tee `date "+%Y_%m_%d-%H_%M_%S"`_docker_scout_recommendations_nginx.txt
-
-.PHONY: clean-scout
-clean-scout: ## Delete the scout text files
-	@find . -maxdepth 1 -mindepth 1 -type f -name '*_docker_scout_*' -print -delete
-	@printf "Above docker scout files deleted."
 
 .PHONY: deploy
 deploy: ## Deploy RADIUS server
