@@ -7,7 +7,7 @@ authenticate-docker: ## ## Authenticate docker script
 
 .PHONY: build
 build: ## Docker build Radius server
-	docker build --platform=linux/amd64 -t radius ./
+	docker build --platform=linux/amd64 --provenance=false -t radius ./
 
 .PHONY: build-nginx
 build-nginx: ## Docker build nginx
