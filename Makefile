@@ -1,15 +1,13 @@
 #!make
 .DEFAULT_GOAL := help
 
-FREE_RADIUS_VERSION="3_2_3"
-
 .PHONY: authenticate-docker
 authenticate-docker: ## ## Authenticate docker script
 	./scripts/authenticate_docker.sh
 
 .PHONY: build
 build: ## Docker build Radius server
-	docker build --platform=linux/amd64 --provenance=false -t radius:CI-FRV-${FREE_RADIUS_VERSION} ./
+	docker build --platform=linux/amd64 --provenance=false -t radius ./
 
 .PHONY: build-nginx
 build-nginx: ## Docker build nginx
