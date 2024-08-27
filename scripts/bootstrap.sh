@@ -100,7 +100,7 @@ check_cert_expiry() {
 }
 
 start_freeradius_server() {
-  /usr/local/sbin/radiusd -fxx -l stdout
+  /usr/local/sbin/radiusd -fxxx -l stdout
 }
 
 main() {
