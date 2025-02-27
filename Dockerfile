@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED=1
 ENV LOCAL_DEVELOPMENT=$LOCAL_DEVELOPMENT
 ENV FREE_RADIUS_VERSION="3_2_3"
 
-ENV OPENSSL_VERSION="3.1.7"
+ENV OPENSSL_VERSION="3.1.8"
 
 RUN apk --update --no-cache add \
   git openssl~=${OPENSSL_VERSION} jq tshark python3-dev py3-pip bash make curl gcc make g++ zlib-dev talloc-dev libressl openssl-dev linux-headers
@@ -18,9 +18,8 @@ RUN wget https://github.com/FreeRADIUS/freeradius-server/archive/release_$FREE_R
   && mkdir -p /tmp/radiusd /usr/local/etc/raddb /usr/local/etc/raddb/certs \
   && rm -fr /usr/local/etc/raddb/sites-enabled/* \
   && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
-  && openssl dhparam -out /usr/local/etc/raddb/dh 1024 && ln -sf python3 /usr/bin/python \
   && pip3 install --ignore-installed --no-cache --upgrade wheel setuptools pip --upgrade \
-  && pip3 install --ignore-installed --no-cache --upgrade  six \
+  && pip3 install --ignore-installed --no-cache --upgrade six \
   && pip3 install --ignore-installed --no-cache --upgrade py-radius PyMySQL \
   && cd - \
   && rm -fr ./freeradius-server \
